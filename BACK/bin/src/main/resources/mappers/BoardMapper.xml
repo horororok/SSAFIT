@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.ssafy.ssafit.model.dao.BoardDao">
+  
+  	<select id="selectOne" parameterType="int" resultType="Board">
+  		SELECT title, content, created_at, view_cnt
+  		FROM sports_board
+  		WHERE sportsboard_id = #{id};
+  	</select>
+  
+  	<select id="selectAll" resultType="Board">
+  		SELECT * FROM sports_board;
+  	</select>
+  
+  	<insert id="insert" parameterType="Board">
+  		INSERT INTO sports_board (title, content, user_id)
+  		VALUES (#{title}, #{content}, #{user_id})
+  	</insert>
+  
+  
+  	<update id="update" parameterType="Board">
+  		UPDATE sports_board
+  		SET title= #{title}, content = #{content}
+  		WHERE sportsboard_id = #{sportsboard_id};
+  	</update>
+  
+  
+	<delete id="delete" parameterType="int">
+		DELETE FROM sports_board
+		WHERE sportsboard_id = #{id};
+	</delete>  
+
+	<select id="search" resultType="Board" parameterType="SearchCondition">
+		SELECT title, content, created_at, view_cnt
+		FROM sports_board
+		<if test="key != 'none'">
+			WHERE ${key} LIKE concat('%', #{word}, '%')
+		</if>
+		<if test="orderBy != 'none'">
+			ORDER BY ${orderBy} ${orderByDir}
+		</if>
+	</select>
+
+  </mapper>
