@@ -2,16 +2,29 @@
     <div id="container">
         <header>
             <nav>
-                <RouterLink to="/">Home</RouterLink> |
-                <RouterLink to="/youtube">Youtube</RouterLink> |
-                <RouterLink :to="{ name: 'boardList' }">BoardList</RouterLink> |
-                <RouterLink :to="{ name: 'boardCreate' }">BoardCreate</RouterLink>
+                <!-- <RouterLink to="/">Home</RouterLink> | -->
+                <RouterLink to="/youtube">유튜브 API (나중에 삭제)</RouterLink> |
+                <RouterLink to="/boardList">운동 영상</RouterLink> |
+                <RouterLink to="/create">BoardCreate</RouterLink> -----------------
+                <a href="#" v-if="getUser" @click="logout">로그아웃</a>
+                <RouterLink to="/login" v-else>로그인</RouterLink> |
+                <RouterLink :to="{ name: 'regist' }">회원가입</RouterLink>
             </nav>
         </header>
     </div>
 </template>
 
 <script setup>
+import {computed} from "vue";
+
+const props = defineProps(["user"]);
+const emits = defineEmits(["logout"]);
+
+const getUser = computed(() => !!props.user);
+
+const logout = () => {
+  emits("logout");
+};
 
 </script>
 

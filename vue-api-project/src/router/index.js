@@ -8,6 +8,10 @@ import BoardCreate from '@/components/board/BoardCreate.vue'
 import BoardDetail from '@/components/board/BoardDetail.vue'
 import BoardUpdate from '@/components/board/BoardUpdate.vue'
 
+import UserLogin from '@/components/user/UserLogin.vue'
+import UserRegist from '@/components/user/UserRegist.vue'
+import UserList from '@/components/user/UserList.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -22,12 +26,27 @@ const router = createRouter({
       component: YoutubeView
     },
     {
+      path:'/login',
+      name: 'login',
+      component: UserLogin
+    },
+    {
+      path:'/regist',
+      name: 'regist',
+      component: UserRegist
+    },
+    {
+      path:'/userList',
+      name: 'userList',
+      component: UserList
+    },
+    {
       path: '/board',
       name: 'board',
       component: BoardView,
       children: [
         {
-          path: "",
+          path: "/boardlist",
           name: "boardList",
           component: BoardList
         },
