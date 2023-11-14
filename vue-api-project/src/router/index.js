@@ -1,8 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
-import YoutubeView from '@/views/YoutubeView.vue'
-import VideoView from '@/views/VideoView.vue'
 
+import UserLogin from '@/components/user/UserLogin.vue'
+import UserRegist from '@/components/user/UserRegist.vue'
+import UserList from '@/components/user/UserList.vue'
+
+import VideoView from '@/views/VideoView.vue'
 import VideoList from '@/components/video/VideoList.vue'
 import VideoCreate from '@/components/video/VideoCreate.vue'
 import VideoDetail from '@/components/video/VideoDetail.vue'
@@ -17,9 +20,19 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/youtube',
-      name: 'youtube',
-      component: YoutubeView
+      path:'/login',
+      name: 'login',
+      component: UserLogin
+    },
+    {
+      path:'/regist',
+      name: 'regist',
+      component: UserRegist
+    },
+    {
+      path:'/userList',
+      name: 'userList',
+      component: UserList
     },
     {
       path: '/video',
