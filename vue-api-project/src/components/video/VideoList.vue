@@ -23,10 +23,13 @@
 
       <!-- 선택된 파트에 따라 필터링된 비디오를 표시 -->
       <tr v-for="video in filteredVideos" :key="video.id">
-        <td>{{ video.title }}</td>
+        <td >
+          <!-- 비디오 제목을 클릭하면 비디오 상세 페이지로 이동 -->
+          <div @click="showVideoDetail(video.video_id)">{{ video.title }}</div>
+          </td>
         <!-- 썸네일 이미지 표시 -->
         <td>
-          <img :src="video.thumbnailUrl" alt="Thumbnail" @click="showVideoDetail(video.id)">
+          <img :src="video.thumbnail" alt="Thumbnail" >
         </td>
         <td>{{ video.channel_name }}</td>
         <td>{{ video.part }}</td>

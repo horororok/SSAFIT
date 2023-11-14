@@ -3,7 +3,6 @@
       <h4>비디오 상세</h4>
       <hr>
       <div>{{ store.video.title }}</div>
-      <div>{{ store.video.url }}</div>
       <div>{{ store.video.channel_name }}</div>
       <div>{{ store.video.view_cnt }}</div>
       <div>{{ store.video.part }}</div>
@@ -16,7 +15,7 @@
         v-if="store.video.url"
         width="560"
         height="315"
-        :src="videoURL"
+         :src="`https://www.youtube.com/embed/${videoId}`"
         title="YouTube video player"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -58,8 +57,26 @@ const goToVideoList = function () {
   }
 
   const videoURL = computed(() => {
-    return store.video.url ? `https://www.youtube.com/embed/${store.video.url}` : '';
+    return store.video.url ? `${store.video.url}` : '';
   });
+
+  function getYouTubeVideoId(url) {
+  // YouTube 동영상 URL에서 'v=' 뒤의 문자열을 추출
+  const regExp = /^.*(?:youtu.be\/|v\/|e\/|u\/\w+\/|embed\/|v=)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  
+  // 추출된 문자열이 있다면 Video ID 반환, 없다면 null 반환
+  return (match && match[1]) ? match[1] : null;
+}
+
+// 예시
+const youtubeUrl = function () {
+    return store.video.url ? `${store.video.url}` : '';
+  }
+const videoId = computed(() => {
+    return store.video.url ? getYouTubeVideoId(store.video.url) : null;
+  });
+
   </script>
   
 
