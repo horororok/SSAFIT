@@ -4,6 +4,9 @@
             <nav>
                 <RouterLink to="/">Home</RouterLink> |
                 <RouterLink to="/youtube">Youtube</RouterLink> |
+                <a href="#" v-if="getUser" @click="logout">로그아웃</a>
+                <RouterLink to="/login" v-else>로그인</RouterLink> |
+                <RouterLink :to="{ name: 'regist' }">회원가입</RouterLink>
                 
                 <RouterLink :to="{ name: 'videoList' }">VideoList</RouterLink> |
                 <RouterLink :to="{ name: 'videoCreate' }">VideoCreate</RouterLink>
@@ -13,6 +16,16 @@
 </template>
 
 <script setup>
+import {computed} from "vue";
+
+const props = defineProps(["user"]);
+const emits = defineEmits(["logout"]);
+
+const getUser = computed(() => !!props.user);
+
+const logout = () => {
+  emits("logout");
+};
 
 </script>
 
