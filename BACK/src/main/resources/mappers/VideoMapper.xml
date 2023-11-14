@@ -27,14 +27,14 @@
 	</select>
 	
 	<insert id="insert" parameterType="Video">
-  		INSERT INTO video (title, url, channel_name, part)
-  		VALUES (#{title}, #{url}, #{channel_name}, #{part})
+  		INSERT INTO video (title, url, thumbnail, channel_name, part)
+  		VALUES (#{title}, #{url}, #{thumbnail}, #{channel_name}, #{part})
   	</insert>
   
   
   	<update id="update" parameterType="Video">
   		UPDATE video
-  		SET title= #{title}, url = #{url}, channel_name = #{channel_name}, part = #{part}
+  		SET title= #{title}, url = #{url}, thumbnail = #{thumbnail}, channel_name = #{channel_name}, part = #{part}
   		WHERE video_id = #{video_id};
   	</update>
   
