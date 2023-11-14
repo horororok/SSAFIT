@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import THeHeaderNav from "./components/common/THeHeaderNav.vue";
+import THeHeaderNav from "@/components/common/THeHeaderNav.vue";
 </script>
 
 <style  scoped></style>

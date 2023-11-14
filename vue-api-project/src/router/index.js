@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import YoutubeView from '@/views/YoutubeView.vue'
-import BoardView from '@/views/BoardView.vue'
+import VideoView from '@/views/VideoView.vue'
 
-import BoardList from '@/components/board/BoardList.vue'
-import BoardCreate from '@/components/board/BoardCreate.vue'
-import BoardDetail from '@/components/board/BoardDetail.vue'
-import BoardUpdate from '@/components/board/BoardUpdate.vue'
+import VideoList from '@/components/video/VideoList.vue'
+import VideoCreate from '@/components/video/VideoCreate.vue'
+import VideoDetail from '@/components/video/VideoDetail.vue'
+import VideoUpdate from '@/components/video/VideoUpdate.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,29 +22,29 @@ const router = createRouter({
       component: YoutubeView
     },
     {
-      path: '/board',
-      name: 'board',
-      component: BoardView,
+      path: '/video',
+      name: 'video',
+      component: VideoView,
       children: [
         {
           path: "",
-          name: "boardList",
-          component: BoardList
+          name: "videoList",
+          component: VideoList
         },
         {
           path: "create",
-          name: "boardCreate",
-          component: BoardCreate
+          name: "videoCreate",
+          component: VideoCreate
         },
         {
           path: ":id",
-          name: "boardDetail",
-          component: BoardDetail
+          name: "videoDetail",
+          component: VideoDetail
         },
         {
           path: "update",
-          name: "boardUpdate",
-          component: BoardUpdate
+          name: "videoUpdate",
+          component: VideoUpdate
         },
       ]
     },
