@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>운동 영상 게시판</h2>
+    <h2>YoutubeView</h2>
     <YoutubeVideoSearch />
     <hr>
     <YoutubeVideoDetail/>
