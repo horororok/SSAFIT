@@ -2,10 +2,8 @@
     <div id="container">
         <header>
             <nav>
-                <!-- <RouterLink to="/">Home</RouterLink> | -->
-                <RouterLink to="/youtube">유튜브 API (나중에 삭제)</RouterLink> |
-                <RouterLink to="/boardList">운동 영상</RouterLink> |
-                <RouterLink to="/create">BoardCreate</RouterLink> -----------------
+                <RouterLink to="/">Home</RouterLink> |
+                <RouterLink to="/youtube">Youtube</RouterLink> |
                 <a href="#" v-if="getUser" @click="logout">로그아웃</a>
                 <RouterLink to="/login" v-else>로그인</RouterLink> |
                 <RouterLink :to="{ name: 'regist' }">회원가입</RouterLink>
