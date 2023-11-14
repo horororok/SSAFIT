@@ -25,4 +25,7 @@ public interface VideoService {
 	//영상 삭제
 	int deleteVideo(int id);
 	
+	//조회수 증가
+	int updateView(int id);
+	
 }

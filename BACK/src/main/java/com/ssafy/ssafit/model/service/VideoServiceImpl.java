@@ -24,8 +24,10 @@ public class VideoServiceImpl implements VideoService{
 		return videoDao.selectAll();
 	}
 
+	//상세보기 할 경우 조회수 증가
 	@Override
 	public Video getVideo(int id) {
+		videoDao.updateView(id);
 		return videoDao.selectOne(id);
 	}
 
@@ -47,6 +49,11 @@ public class VideoServiceImpl implements VideoService{
 	@Override
 	public int deleteVideo(int id) {
 		return videoDao.delete(id);
+	}
+
+	@Override
+	public int updateView(int id) {
+		return videoDao.updateView(id);
 	}
 
 }

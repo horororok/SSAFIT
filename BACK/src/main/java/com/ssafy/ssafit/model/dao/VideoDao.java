@@ -18,5 +18,7 @@ public interface VideoDao {
 	int update(Video video);
 	
 	int delete(int id);
+
+	int updateView(int id);
 	
 }
