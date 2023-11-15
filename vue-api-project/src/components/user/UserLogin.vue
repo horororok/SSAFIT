@@ -19,18 +19,19 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
+import { useUserStore } from "@/stores/user";
+const store = useUserStore();
 
 const id = ref("");
 const password = ref("");
 
-const emit = defineEmits(["login-user"]);
 
 const login = () => {
   let user = {
     id: id.value,
     password: password.value,
   };
-  emit("login-user", user);
+  store.setlogin(user);
 };
 
 
