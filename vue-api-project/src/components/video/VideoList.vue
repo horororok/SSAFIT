@@ -47,6 +47,7 @@ import { useVideoStore } from "@/stores/video";
 import { onMounted, ref, computed } from "vue";
 import VideoSearchInput from "./VideoSearchInput.vue";
 import router from "@/router"; // Vue Router 인스턴스를 가져옴
+
 const store = useVideoStore();
 
 // 선택된 파트를 저장하는 변수
@@ -73,9 +74,20 @@ const filteredVideos = computed(() => {
 });
 
 // 비디오 상세 페이지로 이동하는 함수
-const showVideoDetail = (videoId) => {
-  router.push({ name: "videoDetail", params: { id: videoId } });
-};
+// showVideoDetail(videoId) {
+//     if (videoId) {
+//         this.$router.push({ name: 'videoDetail', params: { id: videoId } });
+//     } else {
+//         console.error("Invalid videoId:", videoId);
+//     }
+// }
+const showVideoDetail = function (videoId) {
+  if (videoId) {
+        router.push({ name: 'videoDetail', params: { id: videoId } });
+    } else {
+        console.error("Invalid videoId:", videoId);
+    }
+}
 </script>
 
 <style scoped></style>
