@@ -6,16 +6,18 @@ public class Review {
 	private String created_at;
 	private int user_id;
 	private int video_id;
+	private String nickname;
 	
 	public Review() {
 	}
 
-	public Review(int review_id, String content, String created_at, int user_id, int video_id) {
+	public Review(int review_id, String content, String created_at, int user_id, int video_id, String nickname) {
 		this.review_id = review_id;
 		this.content = content;
 		this.created_at = created_at;
 		this.user_id = user_id;
 		this.video_id = video_id;
+		this.nickname = nickname;
 	}
 
 	public int getReview_id() {
@@ -58,11 +60,18 @@ public class Review {
 		this.video_id = video_id;
 	}
 
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
 	@Override
 	public String toString() {
 		return "Review [review_id=" + review_id + ", content=" + content + ", created_at=" + created_at + ", user_id="
-				+ user_id + ", video_id=" + video_id + "]";
+				+ user_id + ", video_id=" + video_id + ", nickname=" + nickname + "]";
 	}
 
-	
 }

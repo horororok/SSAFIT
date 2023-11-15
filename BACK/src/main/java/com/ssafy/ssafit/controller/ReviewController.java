@@ -73,6 +73,17 @@ public class ReviewController {
 	}
 	
 	
+	//리뷰의 작성자 (user_id)
+	@GetMapping("/review/nick/{id}")
+	public ResponseEntity<?> getnick(@PathVariable int id){
+		Review review = rService.getnicknameById(id);
+//		String nick = review.getNickname();
+		
+		if(review == null)
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<Review>(review, HttpStatus.OK);
+	}
+	
 	
 
 }
