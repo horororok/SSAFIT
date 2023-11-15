@@ -14,20 +14,26 @@
 </template>
 
 <script setup>
-import {ref, computed} from "vue";
+import {ref, computed, onMounted} from "vue";
 import { useUserStore } from "@/stores/user";
+
 
 const store = useUserStore();
 
-// const savedUser = localStorage.getItem("loginUser");
-// const getUser = computed(() => (savedUser ? true : false));
+// onMounted(() => {
+//     const savedUser = localStorage.getItem("loginUser");
+//     // const getUser = computed(() => (savedUser ? true : false));
+// })
+
+const savedUser = localStorage.getItem("loginUser");
+const getUser = computed(() => (savedUser ? true : false));
 
 const logout = () => {
     store.setlogout();
 };
 
-const getUser = computed(() => (store.loginUser ? true : false));
-//새로고침해도 로그인 상태 유지되게 해야함 (나중에..)
+// const getUser = computed(() => (store.loginUser ? true : false));
+
 
 </script>
 

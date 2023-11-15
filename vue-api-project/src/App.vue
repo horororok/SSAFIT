@@ -1,8 +1,8 @@
 <template>
-    <div>
-        <THeHeaderNav />
-        <RouterView />
-    </div>
+  <div>
+    <THeHeaderNav />
+    <RouterView />
+  </div>
 </template>
 
 <script setup>
@@ -18,8 +18,6 @@ import THeHeaderNav from "@/components/common/THeHeaderNav.vue";
 //     store.user = JSON.parse(savedUser);
 //   }
 // });
-
-
 </script>
 
-<style  scoped></style>
+<style scoped></style>
