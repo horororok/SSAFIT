@@ -25,9 +25,9 @@ public class ReviewController {
 	@Autowired
 	private ReviewService rService;
 	
-	
-	@ApiOperation(value = "리뷰 목록 보기", notes = "전체 리뷰 반환")
-	@GetMapping("/review/list/{id}")
+	//해당 영상의 전체 리뷰 반환 (id: video_id)
+	@ApiOperation(value = "리뷰 목록 보기", notes = "전체 리뷰 반환") 
+	@GetMapping("/review/list/{id}") 
 	public ResponseEntity<?> list(@PathVariable int id){
 		List<Review> list = rService.getReviewList(id);
 		if(list == null || list.size() == 0)
@@ -35,6 +35,7 @@ public class ReviewController {
 		return new ResponseEntity<List<Review>>(list, HttpStatus.OK);
 	}
 	
+	//리뷰 한 개 상세 보기 (id :review_id)
 	@ApiOperation(value = "리뷰 상세 보기", notes="해당 리뷰 상세 보기")
 	@GetMapping("/review/{id}")
 	public ResponseEntity<?> detail(@PathVariable int id){
@@ -62,6 +63,7 @@ public class ReviewController {
 		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}
 	
+	//리뷰 삭제하기 (id : review_id)
 	@ApiOperation(value = "리뷰 삭제하기", notes = "해당 리뷰 삭제하기")
 	@DeleteMapping("/review/{id}")
 	public ResponseEntity<?> delete(@PathVariable int id){
@@ -72,18 +74,4 @@ public class ReviewController {
 		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}
 	
-	
-	//리뷰의 작성자 (user_id)
-	@GetMapping("/review/nick/{id}")
-	public ResponseEntity<?> getnick(@PathVariable int id){
-		Review review = rService.getnicknameById(id);
-//		String nick = review.getNickname();
-		
-		if(review == null)
-			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-		return new ResponseEntity<Review>(review, HttpStatus.OK);
-	}
-	
-	
-
 }
