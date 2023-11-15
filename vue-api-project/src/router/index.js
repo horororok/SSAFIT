@@ -11,6 +11,11 @@ import VideoCreate from '@/components/video/VideoCreate.vue'
 import VideoDetail from '@/components/video/VideoDetail.vue'
 import VideoUpdate from '@/components/video/VideoUpdate.vue'
 
+import ReviewList from '@/components/review/ReviewList.vue'
+import ReviewDetail from '@/components/review/ReviewDetail.vue'
+import ReviewUpdate from '@/components/review/ReviewUpdate.vue'
+import ReviewCreate from '@/components/review/ReviewCreate.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -59,6 +64,28 @@ const router = createRouter({
           name: "videoUpdate",
           component: VideoUpdate
         },
+        {
+          path: "reviewList",
+          name: "videoReviewList",
+          component: ReviewList,
+          children: [
+            {
+              path: ":id",
+              name: "videoReviewDetail",
+              component: ReviewDetail
+            },
+            {
+              path: "update",
+              name: "videoReviewUpdate",
+              component: ReviewUpdate
+            },
+            {
+              path: "create",
+              name: "videoReviewCreate",
+              component: ReviewCreate
+            }
+          ]
+        }
       ]
     },
   ]
