@@ -15,4 +15,7 @@ public interface UserService {
 	
 		//로그인
 		User login(User user);
+
+		//id로 사용자 정보 반환
+		User searchById(String id);
 }

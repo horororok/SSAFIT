@@ -17,4 +17,10 @@
 		FROM user
 		WHERE id = #{id}
 	</select>
+	
+	<select id="selectById" parameterType="int" resultType="User">
+		SELECT *
+		FROM user
+		WHERE id = #{id}
+	</select>
 </mapper>

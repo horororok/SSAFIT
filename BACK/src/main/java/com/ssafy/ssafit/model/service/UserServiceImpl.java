@@ -37,4 +37,9 @@ public class UserServiceImpl implements UserService {
 		return null; //틀리면 null 반환
 	}
 
+	@Override
+	public User searchById(String id) {
+		return userDao.selectOne(id);
+	}
+
 }
