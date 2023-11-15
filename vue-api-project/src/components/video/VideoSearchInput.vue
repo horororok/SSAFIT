@@ -13,6 +13,18 @@
           <input type="text" v-model="searchInfo.word" />
       </div> -->
       <div>
+          <label>검색 기준 :</label>
+          <select v-model="searchInfo.key">
+              <option value='none'>없음</option>
+              <option value="title">제목</option>
+              <option value="content">내용</option>
+          </select>
+      </div>
+      <div>
+          <label>검색 내용 :</label>
+          <input type="text" v-model="searchInfo.word" />
+      </div>
+      <div>
           <label>정렬 기준 :</label>
           <select v-model="searchInfo.orderBy">
               <option value='none'>없음</option>
