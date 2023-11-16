@@ -3,9 +3,9 @@
         <header>
             <nav>
                 <RouterLink to="/">Home</RouterLink> |
-                <a href="#" v-if="getUser" @click="logout">로그아웃</a> 
+                <a href="#" v-if="store.isLoggedIn" @click="logout">로그아웃</a> 
                 <RouterLink to="/login" v-else>로그인</RouterLink> |
-                <RouterLink :to="{ name: 'regist' }">회원가입</RouterLink> |
+                <RouterLink to="/regist" v-show="!store.isLoggedIn">회원가입</RouterLink> |
                 <RouterLink :to="{ name: 'videoList' }">VideoList</RouterLink> |
                 <RouterLink :to="{ name: 'videoCreate' }">VideoCreate</RouterLink>
             </nav>
@@ -14,26 +14,18 @@
 </template>
 
 <script setup>
-import {ref, computed, onMounted} from "vue";
+import { watchEffect } from "vue";
 import { useUserStore } from "@/stores/user";
 
-
 const store = useUserStore();
-
-// onMounted(() => {
-//     const savedUser = localStorage.getItem("loginUser");
-//     // const getUser = computed(() => (savedUser ? true : false));
-// })
-
-const savedUser = localStorage.getItem("loginUser");
-const getUser = computed(() => (savedUser ? true : false));
 
 const logout = () => {
     store.setlogout();
 };
 
-// const getUser = computed(() => (store.loginUser ? true : false));
-
+watchEffect(() => {
+    store.isLoggedIn = !!sessionStorage.getItem("loginUser");
+})
 
 </script>
 
