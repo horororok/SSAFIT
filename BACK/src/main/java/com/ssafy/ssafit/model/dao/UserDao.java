@@ -14,4 +14,6 @@ public interface UserDao {
 	
 //	User selectById(int id);
 	
+	int updateUser(User user);
+	
 }

@@ -42,4 +42,11 @@ public class UserServiceImpl implements UserService {
 		return userDao.selectOne(id);
 	}
 
+	@Override
+	public int modify(User user) {
+		return userDao.updateUser(user);
+	}
+	
+	
+
 }

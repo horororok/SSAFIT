@@ -23,4 +23,12 @@
 		FROM user
 		WHERE id = #{id}
 	</select>
+	
+	<update id="updateUser" parameterType="User">
+		UPDATE user
+		SET id = #{id}, password = #{password}, name = #{name}, email = #{email}, phone_num = #{phone_num}, nickname = #{nickname}
+		WHERE user_id = #{user_id};
+	</update>
+	
+	
 </mapper>

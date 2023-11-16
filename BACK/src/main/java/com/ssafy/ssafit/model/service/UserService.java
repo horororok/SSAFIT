@@ -18,4 +18,10 @@ public interface UserService {
 
 		//id로 사용자 정보 반환
 		User searchById(String id);
+		
+		//회원정보 수정 (아이디 제외 .. 프론트에서 read only..?)
+		int modify(User user);
+		
+		
+		
 }
