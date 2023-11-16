@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.ssafit.model.dao.VideoDao;
+import com.ssafy.ssafit.model.dto.Review;
 import com.ssafy.ssafit.model.dto.SearchCondition;
 import com.ssafy.ssafit.model.dto.Video;
 
@@ -55,5 +56,22 @@ public class VideoServiceImpl implements VideoService{
 	public int updateView(int id) {
 		return videoDao.updateView(id);
 	}
+
+	@Override
+	public List<Review> getReviewList(int videoId) {
+		return videoDao.selectAllReview(videoId);
+	}
+
+	@Override
+	public Review getReviewOne(int reviewId) {
+		return videoDao.selectReviewOne(reviewId);
+	}
+
+	@Override
+	public int writeReview(Review review) {
+		return videoDao.insertReview(review);
+	}
+	
+	
 
 }

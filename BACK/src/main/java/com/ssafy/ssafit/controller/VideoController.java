@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.ssafit.model.dto.Review;
 import com.ssafy.ssafit.model.dto.SearchCondition;
 import com.ssafy.ssafit.model.dto.Video;
 import com.ssafy.ssafit.model.service.VideoService;
@@ -70,4 +71,41 @@ public class VideoController {
 			return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
 		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}
+	
+	
+	//해당 영상의 리뷰 수정
+	//해당 영상의 리뷰 삭제
+	
+	//해당 영상의 리뷰 리스트
+	@GetMapping("/video/review/{videoId}")
+	public ResponseEntity<?> reviewList(@PathVariable int videoId){
+//		session.setAttribute("videoNum", videoId);
+		List<Review> list = vService.getReviewList(videoId);
+		if(list == null || list.size() == 0)
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<List<Review>>(list, HttpStatus.OK);
+	}
+	
+	
+	
+	//해당 영상의 리뷰 상세 조회
+	@GetMapping("/video/review/{reviewId}")
+	public ResponseEntity<?> reviewDetail(@PathVariable int reviewId){
+		Review review = vService.getReviewOne(reviewId);
+		if(review == null)
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<Review>(review, HttpStatus.OK);
+	}
+	
+	
+	//해당 영상에 리뷰 등록
+	@PostMapping("/video/review")
+	public ResponseEntity<?> write(Review review){
+		int result = vService.writeReview(review);
+		if(result == 0)
+			return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+		return new ResponseEntity<Integer>(result, HttpStatus.CREATED);
+	}
+	
+	
 }

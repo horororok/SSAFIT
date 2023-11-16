@@ -48,10 +48,10 @@ public class ReviewServiceImpl implements ReviewService {
 
 
 
-	@Override
-	public Review getnicknameById(int id) {
-		return reviewDao.getnicknameById(id);
-	}
+//	@Override
+//	public Review getnicknameById(int id) {
+//		return reviewDao.getnicknameById(id);
+//	}
 
 
 
