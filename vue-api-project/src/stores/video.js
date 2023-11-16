@@ -8,9 +8,8 @@ const REST_VIDEO_API = `http://localhost:8080/api-video/video`
 export const useVideoStore = defineStore('video', () => {
   const videoList = ref([])
   
+  //영상 전체 
   const getVideoList = function () {
-    
-    // 잠시 더미 데이터 사용
     axios.get(REST_VIDEO_API)
       .then((response) => {
       videoList.value = response.data
@@ -27,24 +26,15 @@ export const useVideoStore = defineStore('video', () => {
     })
   }
 
-const sortVideoList = function (sortCondition) {
-  
-  axios.get(REST_VIDEO_API, {
-    params: sortCondition
-  })
-    .then((res) => {
-      videoList.value = res.data
-  })
-}
+  //정렬
+  const searchVideoList = function (searchCondition) {
+    axios.get(REST_VIDEO_API, {
+      params: searchCondition
+    })
+      .then((res) => {
+        videoList.value = res.data
+    })
+  }
 
-const searchVideoList = function (searchCondition) {
-  axios.get(REST_BOARD_API, {
-    params: searchCondition
-  })
-    .then((res) => {
-      videoList.value = res.data
-  })
-}
-
-  return { videoList, getVideoList, video, getVideo,  sortVideoList, searchVideoList }
+  return { videoList, getVideoList, video, getVideo,  searchVideoList }
 })
