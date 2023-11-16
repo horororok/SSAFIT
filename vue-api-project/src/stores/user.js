@@ -7,10 +7,9 @@ const REST_USER_API = `http://localhost:8080/api-user`
 
 export const useUserStore = defineStore('user', () => {
 
-  const user = ref(null);
+  const user = ref({});
   const UserList = ref([]);
-
-  // const loginUser = ref(null);
+  const isLoggedIn = ref(false);
 
   //유저 목록  
   const getUserList = function () {
@@ -21,6 +20,17 @@ export const useUserStore = defineStore('user', () => {
       .catch((err) => {
         console.log(err);
       })
+  }
+
+  //유저 한명 반환
+  const getUser = function () {
+    axios.get(`${REST_USER_API}/${id}`)
+    .then((res) => {
+      user.value = res.data
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   }
 
 
@@ -61,10 +71,10 @@ export const useUserStore = defineStore('user', () => {
     .then((res) => {
       console.log(res)
       const responseUser = res.data
-      // console.log(responseUser)
 
       if(responseUser !== ""){
-        localStorage.setItem("loginUser", responseUser);
+        sessionStorage.setItem("loginUser", responseUser.id);
+        isLoggedIn.value = true;
         alert("로그인 성공!");
         router.push("/")
       }else{
@@ -86,7 +96,8 @@ export const useUserStore = defineStore('user', () => {
     .then((res) => {
       console.log(res); 
       alert("로그아웃 되었습니다.")
-      localStorage.removeItem("loginUser");
+      isLoggedIn.value = false;
+      sessionStorage.removeItem("loginUser");
       router.push("/")
     })
     .catch((err)=>{
@@ -95,41 +106,6 @@ export const useUserStore = defineStore('user', () => {
     })
   };
 
-  //localStorage에 로그인 유저 저장해서 새로고침해도 로그인 상태 유지됨
-  //근데 TheHeaderVav.vue에서 로그인 / 로그아웃 바뀌는 거 바로 안바뀌고 새로고침 한 번 해야 적용됨
-  //그리고 백에서 로그인/로그아웃하면 세션에 저장, 삭제 관련 질문
 
-
-  //로그인
-  // const setlogin = ((newUser) => {
-  //   axios.get(`${REST_USER_API}/user/` + newUser.id)
-  //       .then((res) => {
-  //         const responseUser = res.data
-
-  //         if(responseUser !== null && responseUser.password === newUser.password){
-  //           loginUser.value = responseUser
-  //           // localStorage.setItem("loginUser", JSON.stringify(responseUser))
-  //           alert("로그인 성공")
-  //           router.push("/")
-  //         }else{
-  //           alert("아이디 또는 비밀번호가 올바르지 않습니다.")
-  //         }
-  //       })
-  //       .catch(() => {
-  //         alert("로그인 실패 : 서버 에러")
-  //       })
-  // })
-
-  
-
-  //로그아웃
-  // const setlogout = () => {
-  //   loginUser.value = null;
-  //   alert("로그아웃 되었습니다.")
-  //   localStorage.removeItem("loginUser");
-  //   router.push("/")
-  // };
-
-  // return { UserList, user, getUserList, createUser, loginUser, setlogin, setlogout}
-  return { UserList, user, getUserList, createUser, setlogin, setlogout }
+  return { UserList, user, getUser, getUserList, createUser, setlogin, setlogout, isLoggedIn}
 })
