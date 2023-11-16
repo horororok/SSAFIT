@@ -39,24 +39,10 @@ onMounted(() => {
   reviewStore.getReviewList(route.params.id)
 })
 
-// const deleteVideo = function () {
-//   axios.delete(`http://localhost:8080/api-video/video/${route.params.id}`)
-//     .then(() => {
-//       router.push({ name: 'videoList' })
-//     })
-// }
-
-// const updateVideo = function () {
-//   router.push({ name: 'videoUpdate' })
-// }
 
 const goToVideoList = function () {
   router.push({ name: 'videoList' })
 }
-
-// const videoURL = computed(() => {
-//   return store.video.url ? `${store.video.url}` : '';
-// });
 
 function getYouTubeVideoId(url) {
   // YouTube 동영상 URL에서 'v=' 뒤의 문자열을 추출
@@ -67,9 +53,7 @@ function getYouTubeVideoId(url) {
   return (match && match[1]) ? match[1] : null;
 }
 
-// const youtubeUrl = function () {
-//   return store.video.url ? `${store.video.url}` : '';
-// }
+
 const youtubeVideoId = computed(() => {
   return store.video.url ? getYouTubeVideoId(store.video.url) : null;
 });

@@ -3,7 +3,7 @@
     <h4>Review Detail</h4>
     <hr>
     <div>
-      <strong>작성자:</strong> {{ reviewAuthor.nickname }}
+      <strong>작성자:</strong> {{ store.review.nickname }}
     </div>
     <div><strong>내용:</strong> {{ store.review.content }}</div>
     <div><strong>작성일:</strong> {{ store.review.created_at }}</div>
@@ -24,7 +24,6 @@ import router from "@/router";
 
 const store = useReviewStore();
 const route = useRoute();
-const reviewAuthor = ref({});
 
 onMounted(() => {
   store.getReview(route.params.id);
@@ -46,15 +45,7 @@ const goToReviewList = function () {
   router.push({ name: 'reviewList' });
 };
 
-const getReviewAuthorInfo = function () {
-  axios.get(`http://localhost:8080/api-user/user/${store.review.user_id}`)
-    .then((response) => {
-      reviewAuthor.value = response.data;
-    })
-    .catch((error) => {
-      console.error("리뷰 작성자 정보를 가져오는 중 에러 발생:", error);
-    });
-};
+
 
 // async function getReviewAuthorInfo() {
 //   try {

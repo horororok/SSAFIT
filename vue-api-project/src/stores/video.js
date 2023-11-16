@@ -19,6 +19,7 @@ export const useVideoStore = defineStore('video', () => {
 
   //영상 한개
   const video = ref({})
+
   const getVideo = function (id) {
     axios.get(`${REST_VIDEO_API}/${id}`)
       .then((response) => {

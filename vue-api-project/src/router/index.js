@@ -65,26 +65,25 @@ const router = createRouter({
           component: VideoUpdate
         },
         {
-          path: "reviewList",
+          path: "review/:videoId",
           name: "videoReviewList",
           component: ReviewList,
-          children: [
-            {
-              path: ":id",
-              name: "videoReviewDetail",
-              component: ReviewDetail
-            },
-            {
-              path: "update",
-              name: "videoReviewUpdate",
-              component: ReviewUpdate
-            },
-            {
-              path: "create",
-              name: "videoReviewCreate",
-              component: ReviewCreate
-            }
-          ]
+          
+        },
+        {
+          path: "detail/:reviewId",
+          name: "videoReviewDetail",
+          component: ReviewDetail
+        },
+        {
+          path: "update",
+          name: "videoReviewUpdate",
+          component: ReviewUpdate
+        },
+        {
+          path: "",
+          name: "videoReviewCreate",
+          component: ReviewCreate
         }
       ]
     },

@@ -74,16 +74,11 @@ const filteredVideos = computed(() => {
 });
 
 // 비디오 상세 페이지로 이동하는 함수
-// showVideoDetail(videoId) {
-//     if (videoId) {
-//         this.$router.push({ name: 'videoDetail', params: { id: videoId } });
-//     } else {
-//         console.error("Invalid videoId:", videoId);
-//     }
-// }
 const showVideoDetail = function (videoId) {
   if (videoId) {
+    // videoId가 유효하면 비디오 상세 페이지로 이동
         router.push({ name: 'videoDetail', params: { id: videoId } });
+        //name은 라우터에서 지정한 이름, params는 라우터에서 지정한 파라미터
     } else {
         console.error("Invalid videoId:", videoId);
     }

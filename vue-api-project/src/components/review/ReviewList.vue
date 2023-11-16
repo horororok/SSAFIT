@@ -12,9 +12,9 @@
 
             <!-- 리뷰 목록 표시 -->
             <tr v-for="review in store.reviewList" :key="review.id">
-                <td>{{ review.user_id }}</td>
+                <td>{{ review.nickname }}</td>
                 <td>
-                    <div @click="showReviewDetail(review.id)">{{ review.content }}</div>
+                    <div @click="showReviewDetail(review.review_id)">{{ review.content }}</div>
                 </td>
                 <td>{{ review.created_at }}</td>
             </tr>
@@ -25,36 +25,36 @@
 
 <script setup>
 import { useReviewStore } from "@/stores/review";
+import { useVideoStore } from "@/stores/video";
 import { onMounted } from "vue";
-import router from "@/router"; // Vue Router 인스턴스를 가져옴
-import { ref, } from "vue";
-
+import router from "@/router"; 
+import { ref,computed } from "vue";
 
 const store = useReviewStore();
 
-const props = defineProps(['videoId']);
+const videoStore = useVideoStore();
+const videoId2 = computed(()=>videoStore.video.video_id);
 
-const reviewList = ref(null);
+// const reviewList = ref(null);
 
 onMounted(async () => {
-    // 페이지 로드시 리뷰 목록을 가져옴
-    const id = props.videoId || "";
-    await store.getReviewList(id);
-    reviewList.value = store.reviewList;
+    if (videoStore.video) {
+        const videoId = videoStore.video.value.video_id ;
+        console.log("videoId 잘 가져와지나?", videoId)
+        await store.getReviewList(videoId);
+    } else {
+        // videoStore.videoDetail이 정의되지 않았을 때의 처리
+        console.error("video is undefined or null");
+    }
 });
 
-// onMounted(async () => {
-//     try {
-//         const id = props.videoId || "";
-//         const reviews = await store.getReviewList(id);
-//         console.log("Review List:", reviews);
-//     } catch (error) {
-//         console.error("Error fetching review list:", error);
-//     }
-// });
-
+// 리뷰 상세 페이지로 이동하는 함수
 const showReviewDetail = function (reviewId) {
-    router.push({ name: 'reviewDetail', params: { id: reviewId } })
+    console.log("showReviewDetail => ", reviewId)
+    // console.log(videoId2);
+    // console.log(videoId2.value);
+    
+    router.push({ name: 'videoReviewDetail', params: { reviewId: reviewId  } })
 }
 </script>
 
