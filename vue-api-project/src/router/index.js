@@ -55,12 +55,12 @@ const router = createRouter({
           component: VideoCreate
         },
         {
-          path: ":id",
+          path: ":videoId",
           name: "videoDetail",
           component: VideoDetail
         },
         {
-          path: "update",
+          path: "review/update",
           name: "videoUpdate",
           component: VideoUpdate
         },
@@ -68,20 +68,19 @@ const router = createRouter({
           path: "review/:videoId",
           name: "videoReviewList",
           component: ReviewList,
-          
         },
         {
-          path: "detail/:reviewId",
+          path: ":videoId/review/detail/:reviewId",
           name: "videoReviewDetail",
           component: ReviewDetail
         },
         {
-          path: "update",
+          path: "review/update/:reviewId",
           name: "videoReviewUpdate",
           component: ReviewUpdate
         },
         {
-          path: "",
+          path: "review/create/:videoId",
           name: "videoReviewCreate",
           component: ReviewCreate
         }

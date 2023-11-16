@@ -2,9 +2,7 @@
   <div>
     <h4>Review Detail</h4>
     <hr>
-    <div>
-      <strong>작성자:</strong> {{ store.review.nickname }}
-    </div>
+    <div><strong>작성자:</strong> {{ store.review.nickname }}</div>
     <div><strong>내용:</strong> {{ store.review.content }}</div>
     <div><strong>작성일:</strong> {{ store.review.created_at }}</div>
 
@@ -18,43 +16,50 @@
 <script setup>
 import { useRoute, } from 'vue-router';
 import { useReviewStore } from "@/stores/review";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import axios from 'axios';
 import router from "@/router";
+import { useVideoStore } from '../../stores/video';
 
 const store = useReviewStore();
+const videoStore = useVideoStore();
 const route = useRoute();
 
+const videoId = computed(() => videoStore.video.video_id);
+
 onMounted(() => {
-  store.getReview(route.params.id);
-  getReviewAuthorInfo();
+  console.log(route.params.reviewId)
+  console.log(route.params)
+
+  if(store.review){
+    // const reviewId = store.review.review_id;
+    // console.log("reviewId 잘 가져와지나?", reviewId)
+    // await store.getReview(reviewId);
+    store.getReview(route.params.reviewId)
+  }else{
+    console.error("review is undefined or null");
+  }
+
 });
 
 const deleteReview = function () {
-  axios.delete(`http://localhost:8080/api-review/review/${route.params.id}`)
+  axios.delete(`http://localhost:8080/api-video/review/${route.params.reviewId}`)
     .then(() => {
-      router.push({ name: 'reviewList' });
+      router.push({ name: 'videoDeatil', params: { reviewId: reviewId.value } });
     });
 };
 
 const updateReview = function () {
-  router.push({ name: 'reviewUpdate' });
+  router.push({ name: 'videoReviewUpdate', params: {reviewId: route.params.reviewId} });
+
+
 };
 
 const goToReviewList = function () {
-  router.push({ name: 'reviewList' });
+  console.log(route.params.videoId)
+  router.push({ name: 'videoDetail', params: { videoId: route.params.videoId } });
 };
 
-
-
-// async function getReviewAuthorInfo() {
-//   try {
-//     const response = await axios.get(`http://localhost:8080/api-user/user/${store.review.user_id}`);
-//     reviewAuthor.value = response.data;
-//   } catch (error) {
-//     console.error("리뷰 작성자 정보를 가져오는 중 에러 발생:", error);
-//   }
-// }
 </script>
   
 <style scoped></style>

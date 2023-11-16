@@ -33,24 +33,25 @@ import { ref,computed } from "vue";
 const store = useReviewStore();
 
 const videoStore = useVideoStore();
-const videoId2 = computed(()=>videoStore.video.video_id);
+// const videoId2 = computed(()=>videoStore.video.video_id);
 
 // const reviewList = ref(null);
 
+/*
 onMounted(async () => {
     if (videoStore.video) {
-        const videoId = videoStore.video.value.video_id ;
-        console.log("videoId 잘 가져와지나?", videoId)
+        const videoId = videoStore.video.video_id ;
         await store.getReviewList(videoId);
     } else {
         // videoStore.videoDetail이 정의되지 않았을 때의 처리
         console.error("video is undefined or null");
     }
 });
+*/
 
 // 리뷰 상세 페이지로 이동하는 함수
 const showReviewDetail = function (reviewId) {
-    console.log("showReviewDetail => ", reviewId)
+    // console.log("showReviewDetail => ", reviewId)
     // console.log(videoId2);
     // console.log(videoId2.value);
     
