@@ -51,7 +51,7 @@
 	</update>
 	
 	
-	
+	<!-- 리뷰 관련  -->
 	
 	<select id="selectAllReview" parameterType="int" resultType="Review">
 		SELECT rv.review_id, rv.content, rv.created_at, rv.user_id, rv.video_id, us.nickname
@@ -73,6 +73,17 @@
 		INSERT INTO review (content, user_id, video_id)
 		VALUES (#{content}, #{user_id}, #{video_id})
 	</insert>
+	
+	<update id="updateReview" parameterType="Review">
+		UPDATE review
+		SET content = #{content}
+		WHERE review_id = #{review_id}
+	</update>
+	
+	<delete id="deleteReview" parameterType="int">
+		DELETE FROM review
+		WHERE review_id = #{id}
+	</delete>
 	
   	
   </mapper>

@@ -22,11 +22,18 @@ public interface VideoDao {
 
 	int updateView(int id);
 	
-	//리뷰
+	//-----------------리뷰--------------------
 	
 	List<Review> selectAllReview(int id);
 	
 	Review selectReviewOne(int id);
 	
 	int insertReview(Review review);
+	
+	int updateReview(Review review);
+	
+	int deleteReview(int id);
+	
+	
+	
 }

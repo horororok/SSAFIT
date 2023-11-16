@@ -40,6 +40,12 @@ public interface VideoService {
 	//리뷰 등록
 	int writeReview(Review review);
 	
+	//리뷰 수정
+	int modifyReview(Review review);
+		
+	//리뷰 삭제
+	int deleteReview(int id);
+	
 	
 	
 }

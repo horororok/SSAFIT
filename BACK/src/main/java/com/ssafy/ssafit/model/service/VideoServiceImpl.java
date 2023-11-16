@@ -57,6 +57,9 @@ public class VideoServiceImpl implements VideoService{
 		return videoDao.updateView(id);
 	}
 
+	
+	//--------------리뷰
+	
 	@Override
 	public List<Review> getReviewList(int videoId) {
 		return videoDao.selectAllReview(videoId);
@@ -70,6 +73,16 @@ public class VideoServiceImpl implements VideoService{
 	@Override
 	public int writeReview(Review review) {
 		return videoDao.insertReview(review);
+	}
+
+	@Override
+	public int modifyReview(Review review) {
+		return videoDao.updateReview(review);
+	}
+
+	@Override
+	public int deleteReview(int id) {
+		return videoDao.deleteReview(id);
 	}
 	
 	
