@@ -36,8 +36,7 @@ public class VideoController {
 	}
 
 	// 영상 상세보기
-	@GetMapping("/video/{id}")
-	public ResponseEntity<?> detail(@PathVariable int id) {
+	@GetMapping("/video/{id}")	public ResponseEntity<?> detail(@PathVariable int id) {
 		Video video = vService.getVideo(id);
 		if (video == null)
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
@@ -86,7 +85,7 @@ public class VideoController {
 	}
 
 	// 해당 영상의 리뷰 상세 조회
-	@GetMapping("/video/review/{reviewId}")
+	@GetMapping("/video/review/detail/{reviewId}")
 	public ResponseEntity<?> reviewDetail(@PathVariable int reviewId) {
 		Review review = vService.getReviewOne(reviewId);
 		if (review == null)
