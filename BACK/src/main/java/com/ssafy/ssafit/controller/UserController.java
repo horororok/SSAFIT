@@ -36,7 +36,7 @@ public class UserController {
 	}
 
 	// id에 해당하는 사용자 정보 반환
-	// 회원정보 상세 조회 (로그인할 때 사용)
+	// 사용 안하는 중 (나중에 필요없으면 삭제)
 	@GetMapping("user/{id}")
 	public ResponseEntity<?> selectOne(@PathVariable String id) {
 		User user = uService.searchById(id);
@@ -47,7 +47,7 @@ public class UserController {
 	}
 
 	@PostMapping("signup")
-	public ResponseEntity<?> signup(User user) {
+	public ResponseEntity<?> signup(@RequestBody User user) {
 		System.out.println(user);
 		int result = uService.signup(user);
 
@@ -72,8 +72,6 @@ public class UserController {
 	public ResponseEntity<Void> logout(HttpSession session) {
 		session.invalidate();
 
-//		if(session != null)
-//			return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
