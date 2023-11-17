@@ -2,6 +2,7 @@ package com.ssafy.ssafit.model.dao;
 
 import java.util.List;
 
+import com.ssafy.ssafit.model.dto.MyPage;
 import com.ssafy.ssafit.model.dto.User;
 
 public interface UserDao {
@@ -15,5 +16,11 @@ public interface UserDao {
 //	User selectById(int id);
 	
 	int updateUser(User user);
+	
+	int insertMyPage(MyPage mypage);
+	
+	MyPage getMyPageUser(int id);
+	
+	User getMyUser(int id);
 	
 }

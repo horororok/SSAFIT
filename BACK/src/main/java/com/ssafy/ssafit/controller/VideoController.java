@@ -2,6 +2,8 @@ package com.ssafy.ssafit.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,7 +48,7 @@ public class VideoController {
 
 	// 영상 등록하기
 	@PostMapping("/video")
-	public ResponseEntity<?> write(Video video) {
+	public ResponseEntity<?> write(@RequestBody Video video) {
 		int result = vService.writeVideo(video);
 		if (result == 0)
 			return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
@@ -54,7 +57,7 @@ public class VideoController {
 
 	// 영상 수정하기
 	@PutMapping("/video")
-	public ResponseEntity<?> update(Video video) {
+	public ResponseEntity<?> update(@RequestBody Video video) {
 		int result = vService.modifyVideo(video);
 		if (result == 0)
 			return new ResponseEntity<Void>(HttpStatus.NOT_MODIFIED);
@@ -95,16 +98,17 @@ public class VideoController {
 
 	// 해당 영상에 리뷰 등록
 	@PostMapping("/video/review")
-	public ResponseEntity<?> writeReview(Review review) {
+	public ResponseEntity<?> writeReview(@RequestBody Review review, HttpServletRequest request) {
 		int result = vService.writeReview(review);
 		if (result == 0)
 			return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
 		return new ResponseEntity<Integer>(result, HttpStatus.CREATED);
 	}
-
+	
+	
 	// 해당 영상의 리뷰 수정
 	@PutMapping("/video/review")
-	public ResponseEntity<?> updateReview(Review review) {
+	public ResponseEntity<?> updateReview(@RequestBody Review review) {
 		int result = vService.modifyReview(review);
 		if (result == 0)
 			return new ResponseEntity<Void>(HttpStatus.NOT_MODIFIED);

@@ -30,5 +30,35 @@
 		WHERE user_id = #{user_id};
 	</update>
 	
+	<insert id="insertMyPage" parameterType="MyPage">
+		INSERT INTO mypage (age, gender, profile_url, self_intro, dong_address, fav_sport, user_id)
+		VALUES (#{age}, #{gender}, #{profile_url}, #{self_intro}, #{dong_address}, #{fav_sport}, #{user_id})
+	</insert>
+	<!-- 폼 입력받을 때 고르는 걸로 (radio?)  -->
+	
+	<!-- 
+	<select id="getMyPageUser" parameterType="int" resultType="UserMyPage">
+		SELECT m.age, m.gender, m.profile_url, m.self_intro, m.dong_address, m.fav_sport, m.user_id, u.nickname
+		FROM mypage AS m
+		LEFT OUTER JOIN user AS u
+		ON m.user_id = u.user_id
+		WHERE m.user_id = #{id}
+	</select> 
+	-->
+	
+	<select id="getMyPageUser" parameterType="int" resultType="MyPage">
+		SELECT *
+		FROM mypage
+		WHERE user_id = #{id}
+	</select>
+	
+	<select id="getMyUser" parameterType="int" resultType="User">
+		SELECT *
+		FROM user
+		WHERE user_id = #{id}
+	</select>
+	
+	
+	
 	
 </mapper>
