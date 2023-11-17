@@ -5,7 +5,7 @@
             <legend>등록</legend>
             <div>
                 <label for="writer">작성자 : </label>
-                <input type="text" id="writer" readonly v-model="store.review.user_id">
+                <input type="text" id="writer" readonly v-model="store.review.nickname">
             </div>
             <div>
                 <label for="content">내용 : </label>
@@ -13,6 +13,7 @@
             </div>
             <div>
                 <button @click="updateReview">수정</button>
+                <button @click="cancelUpdate">취소</button>
             </div>
         </fieldset>
     </div>
@@ -20,10 +21,14 @@
 
 <script setup>
 import { useReviewStore } from "@/stores/review";
+import router from "../../router";
 const store = useReviewStore();
 
 const updateReview = function () {
     store.updateReview()
+}
+const cancelUpdate = function () {
+    router.push({ name: 'videoDetail', params: { videoId: store.review.video_id } });
 }
 
 </script>

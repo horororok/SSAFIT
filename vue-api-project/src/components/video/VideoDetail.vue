@@ -16,7 +16,7 @@
       allowfullscreen></iframe>
     <ReviewList />
     <button @click="showReviews">리뷰보기</button>
-    <button>리뷰작성</button>
+    <button @click= "createReview">리뷰작성</button>
     <button @click="goToVideoList">목록으로</button>
   </div>
 </template>
@@ -34,11 +34,17 @@ const reviewStore = useReviewStore()
 
 const route = useRoute();
 const router = useRouter();
-onMounted(() => {
-  store.getVideo(route.params.id)
-  reviewStore.getReviewList(route.params.id)
-})
+onMounted( () => {
+  
+     store.getVideo(route.params.videoId);
+     reviewStore.getReviewList(route.params.videoId);
+  
+});
 
+
+const createReview = function () {
+  router.push({ name: 'videoReviewCreate', params: { videoId: route.params.videoId } });
+}
 
 const goToVideoList = function () {
   router.push({ name: 'videoList' })
