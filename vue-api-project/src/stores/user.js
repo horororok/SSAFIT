@@ -2,6 +2,7 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import router from '@/router'
 import axios from 'axios'
+import createPersistedState from 'pinia-plugin-persistedstate'
 
 const REST_USER_API = `http://localhost:8080/api-user`
 
@@ -10,6 +11,7 @@ export const useUserStore = defineStore('user', () => {
   const user = ref({});
   const UserList = ref([]);
   const isLoggedIn = ref(false);
+  const loginUserObj = ref({})
 
   //유저 목록  
   const getUserList = function () {
@@ -23,7 +25,7 @@ export const useUserStore = defineStore('user', () => {
   }
 
   //유저 한명 반환
-  const getUser = function () {
+  const getUser = function (id) {
     axios.get(`${REST_USER_API}/${id}`)
     .then((res) => {
       user.value = res.data
@@ -73,8 +75,19 @@ export const useUserStore = defineStore('user', () => {
       const responseUser = res.data
 
       if(responseUser !== ""){
-        sessionStorage.setItem("loginUser", responseUser.id);
-        isLoggedIn.value = true;
+       // 사용자 정보를 sessionStorage에 저장
+       sessionStorage.setItem("loginUser", JSON.stringify({
+        id: responseUser.id,
+        user_id: responseUser.user_id,
+        nickname: responseUser.nickname,
+      }));
+       // loginUserObj 업데이트
+       loginUserObj.value = {  
+        id: responseUser.id,
+        user_id: responseUser.user_id,
+        nickname: responseUser.nickname,
+        isLoggedIn: true,};
+       isLoggedIn.value = true;
         alert("로그인 성공!");
         router.push("/")
       }else{
@@ -105,7 +118,13 @@ export const useUserStore = defineStore('user', () => {
       alert("로그아웃 실패 : 서버 에러");
     })
   };
+  const persistedUser = JSON.parse(sessionStorage.getItem('loginUser'));
+  if (persistedUser) {
+    loginUserObj.value = persistedUser;
+    isLoggedIn.value = true;
+  }
 
 
-  return { UserList, user, getUser, getUserList, createUser, setlogin, setlogout, isLoggedIn}
+  return { UserList, user, getUser, getUserList, createUser, setlogin, setlogout, isLoggedIn, loginUserObj}
 })
+

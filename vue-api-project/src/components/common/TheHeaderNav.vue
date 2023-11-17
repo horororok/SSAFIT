@@ -23,9 +23,9 @@ const logout = () => {
     store.setlogout();
 };
 
-watchEffect(() => {
-    store.isLoggedIn = !!sessionStorage.getItem("loginUser");
-})
+// watchEffect(() => {
+//     store.isLoggedIn = !!sessionStorage.getItem("loginUser");
+// })
 
 </script>
 

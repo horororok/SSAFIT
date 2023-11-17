@@ -7,12 +7,15 @@
                 <label for="writer">작성자 : </label>
                 <input type="text" id="writer" readonly v-model="store.review.nickname">
             </div>
-            <div>
+            <div v-if="!isEditing">
                 <label for="content">내용 : </label>
-                <textarea id="content" cols="30" rows="10" v-model="store.review.content"></textarea>
+                <div>{{ store.review.content }}</div>
+                <button @click="startEditing">수정</button>
             </div>
-            <div>
-                <button @click="updateReview">수정</button>
+            <div v-else>
+                <label for="content">내용 : </label>
+                <textarea id="content" cols="30" rows="10" v-model="editedContent"></textarea>
+                <button @click="saveChanges">저장</button>
                 <button @click="cancelUpdate">취소</button>
             </div>
         </fieldset>
@@ -20,19 +23,31 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import { useReviewStore } from "@/stores/review";
 import router from "../../router";
-const store = useReviewStore();
 
-const updateReview = function () {
-    store.updateReview()
+const store = useReviewStore();
+const isEditing = ref(false);
+const editedContent = ref(store.review.content);
+
+const startEditing = function () {
+    isEditing.value = true;
 }
+
+const saveChanges = function () {
+    // 서버에 수정된 내용 전송 등의 로직 수행
+    store.updateReview({ content: editedContent.value });
+    // 수정 모드 종료
+    isEditing.value = false;
+}
+
 const cancelUpdate = function () {
+    // 수정 모드 종료
+    isEditing.value = false;
     router.push({ name: 'videoDetail', params: { videoId: store.review.video_id } });
 }
-
 </script>
 
-<style  scoped>
-
+<style scoped>
 </style>
