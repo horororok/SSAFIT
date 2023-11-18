@@ -4,6 +4,7 @@ import HomeView from '@/views/HomeView.vue'
 import UserLogin from '@/components/user/UserLogin.vue'
 import UserRegist from '@/components/user/UserRegist.vue'
 import UserList from '@/components/user/UserList.vue'
+import UserMyPage from '@/components/user/UserMyPage.vue'
 
 import VideoView from '@/views/VideoView.vue'
 import VideoList from '@/components/video/VideoList.vue'
@@ -38,6 +39,11 @@ const router = createRouter({
       path:'/userList',
       name: 'userList',
       component: UserList
+    },
+    {
+      path : "/:userId",
+      name : "mypage",
+      component: UserMyPage,
     },
     {
       path: '/video',

@@ -81,8 +81,10 @@ const password2 = ref("");
 const name = ref("");
 const email = ref("");
 const nickname = ref("");
-
 const users = ref([]);
+
+const idChecked = ref(false);
+const nicknameChecked = ref(false);
 
 const getUserList = () => {
   const API_URL = `http://localhost:8080/api-user/users`;
@@ -104,10 +106,12 @@ const idCheck = () => {
     id: id.value,
   };
 
+
   if (users.value.some((u) => u.id === user.id)) {
     alert("이미 사용 중인 아이디입니다.");
   } else {
     alert("사용 가능한 아이디입니다.");
+    idChecked.value = true;
   }
 };
 
@@ -121,6 +125,7 @@ const nicknameCheck = () => {
     alert("이미 사용 중인 닉네임입니다.");
   }else{
     alert("사용 가능한 닉네임입니다.");
+    nicknameChecked.value = true;
   }
 };
 
@@ -148,6 +153,16 @@ const regist = () => {
 
   if (password.value !== password2.value) {
     alert("비밀번호가 일치하지 않습니다.");
+    return;
+  }
+
+  if(!idChecked.value){
+    alert("아이디 중복 확인을 해주세요.");
+    return;
+  }
+
+  if(!nicknameChecked.value){
+    alert("닉네임 중복 확인을 해주세요.");
     return;
   }
 
