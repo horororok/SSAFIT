@@ -1,23 +1,31 @@
 <template>
-  <div>
-    <h4>비디오 상세</h4>
-    <hr>
-    <div>{{ store.video.title }}</div>
-    <div>{{ store.video.channel_name }}</div>
-    <div>{{ store.video.view_cnt }}</div>
-    <div>{{ store.video.part }}</div>
+  <div class="container mt-4">
+    <b-card class="mt-4">
+      <b-card-body>
+        <h4>비디오 상세</h4>
+        <hr>
+        <div>{{ store.video.title }}</div>
+        <div>{{ store.video.channel_name }}</div>
+        <div>{{ store.video.view_cnt }}</div>
+        <div>{{ store.video.part }}</div>
 
-    <div>삭제 수정 버튼은 리뷰로 갈 예정</div>
-   
+        <div>삭제 수정 버튼은 리뷰로 갈 예정</div>
 
-    <iframe v-if="store.video.url" width="560" height="315" :src="`https://www.youtube.com/embed/${youtubeVideoId}`"
-      title="YouTube video player" frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowfullscreen></iframe>
-    <ReviewList />
-    <button @click="showReviews">리뷰보기</button>
-    <button @click= "createReview">리뷰작성</button>
-    <button @click="goToVideoList">목록으로</button>
+
+        <iframe v-if="store.video.url" width="560" height="315" :src="`https://www.youtube.com/embed/${youtubeVideoId}`"
+          title="YouTube video player" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+
+        <ReviewList />
+        <button @click="showReviews">리뷰보기</button>
+        <button @click="goToVideoList">목록으로</button>
+
+        <!-- 모달 컴포넌트 추가 -->
+        <!-- <ReviewRegModal v-if="showModal" @closeModal="closeModal" /> -->
+      </b-card-body>
+    </b-card>
   </div>
 </template>
   
@@ -28,23 +36,25 @@ import { useReviewStore } from '../../stores/review';
 import { onMounted, computed } from "vue";
 import axios from 'axios'
 import ReviewList from '../review/ReviewList.vue';
+import ReviewRegModal from '../review/ReviewRegModal.vue';
+import { ref } from 'vue';
 
 const store = useVideoStore()
 const reviewStore = useReviewStore()
 
 const route = useRoute();
 const router = useRouter();
-onMounted( () => {
-  
-     store.getVideo(route.params.videoId);
-     reviewStore.getReviewList(route.params.videoId);
-  
+onMounted(() => {
+
+  store.getVideo(route.params.videoId);
+  reviewStore.getReviewList(route.params.videoId);
+
 });
 // router.go(0);
 
 const createReview = function () {
   router.push({ name: 'videoReviewCreate', params: { videoId: route.params.videoId } });
-  
+
 }
 
 const goToVideoList = function () {
@@ -67,6 +77,12 @@ const youtubeVideoId = computed(() => {
 const videoId = computed(() => {
   return store.video.video_id ? `${store.video.video_id}` : null;
 });
+
+// showModal 상태
+const showModal = ref(false);
+
+
+
 </script>
   
 

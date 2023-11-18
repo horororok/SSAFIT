@@ -28,6 +28,8 @@
         <p>로그인이 필요합니다.</p>
       </div>
     </fieldset>
+    <ReviewRegModal v-if="showModal" @closeModal="closeModalHandler" />
+
   </div>
 </template>
 
@@ -37,15 +39,20 @@ import { useReviewStore } from "@/stores/review";
 import { useUserStore } from "@/stores/user";
 import router from "@/router";
 import { useRoute } from "vue-router";
+import ReviewRegModal from "./ReviewRegModal.vue";
+
 
 const store = useReviewStore();
 const userStore = useUserStore();
 const route = useRoute();
 
+const showModal = ref(false);
+
 const review = ref({
   // video_id랑 user_id를 넣어서 보내줘야한다.
   video_id: route.params.videoId,
-  user_id: userStore.loginUserObj.user_id,
+  //로그인 되어 있으면 user_id 보내주고 안되어 있으면 null 보내주기
+  user_id: userStore.isLoggedIn ? userStore.loginUserObj.user_id : null,
   content: "",
   created_at: "",
 });
@@ -66,8 +73,25 @@ const createReview = function () {
   }
 
   review.value.created_at = currentDate.value;
-  store.createReview(review.value);
+
+
+  // 리뷰 등록 후 모달 표시
+store.createReview(review.value)
+  .then(() => {
+    // 작업이 성공적으로 완료된 경우
+    showModal.value = true;
+    // 입력칸 비우기
+    review.value.content = "";
+  })
+  .catch(error => {
+    // 작업이 실패한 경우
+    console.error('Error during review creation:', error);
+  });
 };
+
+const closeModalHandler =()=>{
+  showModal.value = false;
+}
 
 onMounted(() => {
   userStore.loginUserObj.nickname = userStore.loginUserObj.nickname;
