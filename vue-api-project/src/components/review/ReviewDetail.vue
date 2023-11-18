@@ -2,9 +2,10 @@
   <div>
     <h4>Review Detail</h4>
     <hr>
-    <div><strong>작성자:</strong> {{ store.review.nickname }}</div>
-    <div><strong>내용:</strong> {{ store.review.content }}</div>
-    <div><strong>작성일:</strong> {{ store.review.created_at }}</div>
+    <div><strong>작성자:</strong> {{ store.review ? store.review.nickname : '로딩 중' }}</div>
+    <div><strong>내용:</strong> {{ store.review ? store.review.content : '로딩 중' }}</div>
+    <div><strong>작성일:</strong> {{ store.review ? store.review.created_at : '로딩 중' }}</div>
+
 
     <button @click="deleteReview">삭제</button>
     <button @click="updateReview">수정</button>
@@ -14,52 +15,48 @@
 </template>
   
 <script setup>
-import { useRoute, } from 'vue-router';
+import { useRoute } from 'vue-router';
 import { useReviewStore } from "@/stores/review";
 import { ref, onMounted, computed } from "vue";
 import axios from 'axios';
 import router from "@/router";
 import { useVideoStore } from '../../stores/video';
 
+// props를 명시적으로 선언
+const props = defineProps(['reviewId']);
+
 const store = useReviewStore();
 const videoStore = useVideoStore();
 const route = useRoute();
 
+const localReviewId = ref(null);
+
 const videoId = computed(() => videoStore.video.video_id);
-
+const reviewId = computed(() => store.review.review_id);
 onMounted(() => {
-  console.log(route.params.reviewId)
-  console.log(route.params)
+  console.log(props.reviewId);
 
-  if(store.review){
-    // const reviewId = store.review.review_id;
-    // console.log("reviewId 잘 가져와지나?", reviewId)
-    // await store.getReview(reviewId);
-    store.getReview(route.params.reviewId)
-  }else{
+  if (props.reviewId && store.review) {
+    store.getReview(props.reviewId);
+  } else {
     console.error("review is undefined or null");
   }
-
 });
 
 const deleteReview = function () {
-  axios.delete(`http://localhost:8080/api-video/review/${route.params.reviewId}`)
+  axios.delete(`http://localhost:8080/api-video/review/${props.reviewId}`)
     .then(() => {
-      router.push({ name: 'videoDeatil', params: { reviewId: reviewId.value } });
+      router.push({ name: 'videoDeatil', params: { reviewId: props.reviewId } });
     });
 };
 
 const updateReview = function () {
-  router.push({ name: 'videoReviewUpdate', params: {reviewId: route.params.reviewId} });
-
-
+  router.push({ name: 'videoReviewUpdate', params: { reviewId: props.reviewId } });
 };
 
 const goToReviewList = function () {
-  console.log(route.params.videoId)
   router.push({ name: 'videoDetail', params: { videoId: route.params.videoId } });
 };
-
 </script>
   
 <style scoped></style>

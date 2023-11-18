@@ -40,10 +40,11 @@ onMounted( () => {
      reviewStore.getReviewList(route.params.videoId);
   
 });
-
+// router.go(0);
 
 const createReview = function () {
   router.push({ name: 'videoReviewCreate', params: { videoId: route.params.videoId } });
+  
 }
 
 const goToVideoList = function () {

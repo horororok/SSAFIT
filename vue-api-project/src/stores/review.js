@@ -27,12 +27,14 @@ export const useReviewStore = defineStore("review", () => {
         })
     }
 
-    const createReview = function(review){ // review: {videoId, content}
-        axios.post(`${REST_VIDEO_API}/review`, review)
-        .then((response) => {
-            review.value = response.data
-        })
-    }
+    const createReview = function (reviewData) { // reviewData: { video_id, content,user_id }
+        console.log("reviewData: ", reviewData)
+        axios.post(`${REST_VIDEO_API}/review`, reviewData)
+          .then((response) => {
+            // 추가: 리뷰를 생성한 후, 목록에 추가
+            reviewList.value.push(response.data);
+          });
+      };
 
     const updateReview = function(review){
         axios.put(`${REST_VIDEO_API}/review/${videoId}`, review)
@@ -41,6 +43,12 @@ export const useReviewStore = defineStore("review", () => {
         })
     }
 
+    const deleteReview = function(reviewId){
+        axios.delete(`${REST_VIDEO_API}/review/${reviewId}`)
+        .then(() => {
+            reviewList.value = reviewList.value.filter((review) => review.review_id !== reviewId)
+        })
+    }
 
     return {
         reviewList,
@@ -49,5 +57,7 @@ export const useReviewStore = defineStore("review", () => {
         getReview,
         createReview,
         updateReview,
+        deleteReview,
+        
     };
 });
