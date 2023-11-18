@@ -6,14 +6,12 @@ import createPersistedState from 'pinia-plugin-persistedstate';
 import App from './App.vue';
 import router from './router';
 
-import 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
 const app = createApp(App);
 const pinia = createPinia();
 
 app.use(router);
 app.use(pinia);
+app.use(IconsPlugin);
 
 pinia.use(createPersistedState);
 
