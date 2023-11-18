@@ -54,6 +54,7 @@
   const startEditing = function (review) {
     review.isEditing = true;
     review.updatedContent = review.content;
+    // store.updateReview(review);
   };
   
   const cancelEditing = function (review) {
@@ -64,6 +65,7 @@
     // 리뷰 내용을 업데이트하거나 서버에서 업데이트 요청을 보냅니다.
     review.content = review.updatedContent;
     review.isEditing = false;
+    store.updateReview(review);
   };
 
   const deleteReview = function (review) {

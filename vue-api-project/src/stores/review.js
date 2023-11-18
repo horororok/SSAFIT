@@ -37,10 +37,25 @@ export const useReviewStore = defineStore("review", () => {
       };
 
     const updateReview = function(review){
-        axios.put(`${REST_VIDEO_API}/review/${videoId}`, review)
-        .then((response) => {
-            review.value = response.data
-        })
+      axios({
+        url: `${REST_VIDEO_API}/review`,
+        method: "PUT",
+        data: {
+          review_id: review.review_id,
+          content: review.content,
+          user_id: review.user_id,
+          video_id: review.video_id,
+        },
+      })
+      
+
+
+
+
+        // axios.put(`${REST_VIDEO_API}/review/${videoId}`, review)
+        // .then((response) => {
+        //     review.value = response.data
+        // })
     }
 
     const deleteReview = function(reviewId){
