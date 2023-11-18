@@ -11,7 +11,6 @@ const pinia = createPinia();
 
 app.use(router);
 app.use(pinia);
-app.use(IconsPlugin);
 
 pinia.use(createPersistedState);
 
