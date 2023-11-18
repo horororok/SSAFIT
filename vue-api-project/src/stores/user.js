@@ -26,7 +26,7 @@ export const useUserStore = defineStore('user', () => {
 
   //유저 한명 반환
   const getUser = function (id) {
-    axios.get(`${REST_USER_API}/${id}`)
+    axios.get(`${REST_USER_API}/user/${id}`)
     .then((res) => {
       user.value = res.data
     })
@@ -41,18 +41,17 @@ export const useUserStore = defineStore('user', () => {
     axios({
       url : `${REST_USER_API}/signup`,
       method: "POST",
-      params:{
+      data:{
         id: user.id,
         password: user.password,
         name: user.name,
         email: user.email,
-        phone_num : user.phone_num,
         nickname: user.nickname,
       },
     })
     .then(() => {
       alert("등록 완료");
-      router.push("/"); //홈으로 가기 (나중에 수정)
+      router.push("/"); 
     })
     .catch((err)=>{
       console.log(err);
@@ -65,7 +64,7 @@ export const useUserStore = defineStore('user', () => {
     axios({
       url :  `${REST_USER_API}/login`,
       method: "POST",
-      params:{
+      data:{
         id : loginUser.id,
         password: loginUser.password,
       },

@@ -52,15 +52,6 @@
         />
       </div>
       <div class="mb-3">
-        <label for="phone_num" class="form-label">전화번호</label>
-        <input
-          type="text"
-          class="form-control"
-          id="phone_num"
-          v-model="phone_num"
-        />
-      </div>
-      <div class="mb-3">
         <label for="nickname" class="form-label">닉네임</label>
         <div class="input-group">
           <input
@@ -89,7 +80,6 @@ const password = ref("");
 const password2 = ref("");
 const name = ref("");
 const email = ref("");
-const phone_num = ref("");
 const nickname = ref("");
 
 const users = ref([]);
@@ -142,7 +132,6 @@ const regist = () => {
     password: password.value,
     name: name.value,
     email: email.value,
-    phone_num: phone_num.value,
     nickname: nickname.value,
   };
 
@@ -161,12 +150,6 @@ const regist = () => {
     alert("비밀번호가 일치하지 않습니다.");
     return;
   }
-
-  if (phone_num.value.length != 11) {
-    alert("전화번호는 숫자만 입력해 주십시오.");
-    return;
-  }
-  //전화번호 나중에 삭제
 
   store.createUser(user);
 };
