@@ -6,6 +6,7 @@
                 <a href="#" v-if="store.isLoggedIn" @click="logout">로그아웃</a> 
                 <RouterLink to="/login" v-else>로그인</RouterLink> |
                 <RouterLink to="/regist" v-show="!store.isLoggedIn">회원가입</RouterLink> |
+                <RouterLink :to="{ name: 'mypage', params: { userId: store.loginUserObj.user_id} }" v-show="store.isLoggedIn">마이페이지</RouterLink> |
                 <RouterLink :to="{ name: 'videoList' }">VideoList</RouterLink> |
                 <RouterLink :to="{ name: 'videoCreate' }">VideoCreate</RouterLink>
             </nav>
@@ -14,7 +15,6 @@
 </template>
 
 <script setup>
-import { watchEffect } from "vue";
 import { useUserStore } from "@/stores/user";
 
 const store = useUserStore();
@@ -23,9 +23,7 @@ const logout = () => {
     store.setlogout();
 };
 
-// watchEffect(() => {
-//     store.isLoggedIn = !!sessionStorage.getItem("loginUser");
-// })
+// console.log("확인", store.loginUserObj);
 
 </script>
 
