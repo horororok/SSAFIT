@@ -11,7 +11,8 @@ export const useUserStore = defineStore('user', () => {
   const user = ref({});
   const UserList = ref([]);
   const isLoggedIn = ref(false);
-  const loginUserObj = ref({})
+  const loginUserObj = ref({});
+  const mypage = ref({});
 
   //유저 목록  
   const getUserList = function () {
@@ -84,6 +85,8 @@ export const useUserStore = defineStore('user', () => {
        loginUserObj.value = {  
         id: responseUser.id,
         user_id: responseUser.user_id,
+        // email : responseUser.email,
+        // name : responseUser.name,
         nickname: responseUser.nickname,
         isLoggedIn: true,};
        isLoggedIn.value = true;
@@ -123,6 +126,30 @@ export const useUserStore = defineStore('user', () => {
     isLoggedIn.value = true;
   }
 
+  //유저 한명 반환
+  // const getUser = function (id) {
+  //   axios.get(`${REST_USER_API}/user/${id}`)
+  //   .then((res) => {
+  //     user.value = res.data
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   })
+  // }
 
-  return { UserList, user, getUser, getUserList, createUser, setlogin, setlogout, isLoggedIn, loginUserObj}
+  //마이페이지 회원 정보 보기
+  const getmyPage = function(userId) {
+    axios.get(`${REST_USER_API}/mypage/${userId}`)
+    .then((res) => {
+      console.log("응답:", res.data);
+      mypage.value = res.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
+
+
+  return { UserList, user, getUser, getUserList, createUser, setlogin, setlogout, isLoggedIn, loginUserObj, mypage, getmyPage}
 })
