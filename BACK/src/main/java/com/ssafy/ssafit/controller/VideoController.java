@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import com.ssafy.ssafit.model.dto.Video;
 import com.ssafy.ssafit.model.service.VideoService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/api-video")
 public class VideoController {
 
@@ -99,6 +101,7 @@ public class VideoController {
 	// 해당 영상에 리뷰 등록
 	@PostMapping("/video/review")
 	public ResponseEntity<?> writeReview(@RequestBody Review review, HttpServletRequest request) {
+//		System.out.println(review);
 		int result = vService.writeReview(review);
 		if (result == 0)
 			return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
@@ -109,6 +112,7 @@ public class VideoController {
 	// 해당 영상의 리뷰 수정
 	@PutMapping("/video/review")
 	public ResponseEntity<?> updateReview(@RequestBody Review review) {
+		System.out.println(review);
 		int result = vService.modifyReview(review);
 		if (result == 0)
 			return new ResponseEntity<Void>(HttpStatus.NOT_MODIFIED);
