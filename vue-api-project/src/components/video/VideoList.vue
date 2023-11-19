@@ -5,16 +5,20 @@
     <h4>영상 목록</h4>
     <hr>
 
-    <!-- 파트별로 필터링할 버튼들 -->
-    <div class="mb-3 d-flex">
-      <button @click="filterVideos('전신')" class="btn btn-primary me-2">전신</button>
-      <button @click="filterVideos('하체')" class="btn btn-primary me-2">하체</button>
-      <button @click="filterVideos('상체')" class="btn btn-primary me-2">상체</button>
-      <button @click="filterVideos(null)" class="btn btn-secondary">전체</button>
-    
+
+    <div class="d-flex justify-content-between align-items-center">
+      <!-- 파트별로 필터링할 버튼들 -->
+      <div class="mb-3">
+        <button @click="filterVideos('전신')" class="btn btn-primary me-2">전신</button>
+        <button @click="filterVideos('하체')" class="btn btn-primary me-2">하체</button>
+        <button @click="filterVideos('상체')" class="btn btn-primary me-2">상체</button>
+        <button @click="filterVideos(null)" class="btn btn-secondary">전체</button>
+      </div>
       <!-- 비디오 정렬을 위한 컴포넌트 -->
-      <VideoSearchInput />
+      <VideoSearchInput style="max-width: 200px;" />
     </div>
+
+
     <hr>
 
     <!-- 비디오 목록을 표시하는 테이블 -->
@@ -33,7 +37,7 @@
         <tr v-for="video in filteredVideos" :key="video.id">
           <td>
             <!-- 비디오 제목을 클릭하면 비디오 상세 페이지로 이동 -->
-            <div @click="showVideoDetail(video.video_id)">{{ video.title }}</div>
+            <div class="clickable-text" @click="showVideoDetail(video.video_id)">{{ video.title }}</div>
           </td>
           <!-- 썸네일 이미지 표시 -->
           <td>
@@ -95,9 +99,12 @@ const showVideoDetail = function (videoId) {
 /* 필터 버튼 스타일 추가 */
 .btn-primary,
 .btn-secondary {
-  height: 2rem; /* Adjust the height as needed */
-  line-height: 1.5; /* Set to 1.5 for vertical centering */
-  width: 8rem; /* Adjust the width as needed */
+  height: 2rem;
+  /* Adjust the height as needed */
+  line-height: 1.5;
+  /* Set to 1.5 for vertical centering */
+  width: 8rem;
+  /* Adjust the width as needed */
 }
 
 .btn-primary {
@@ -118,6 +125,20 @@ const showVideoDetail = function (videoId) {
 .btn-secondary:hover {
   background-color: #545b62;
   border-color: #545b62;
+}
+
+.button-container {
+  display: inline-block;
+}
+
+.clickable-text {
+  cursor: pointer;
+  
+}
+
+.clickable-text:hover {
+  color: #414951; 
+  text-decoration: underline;
 }
 </style>
 
