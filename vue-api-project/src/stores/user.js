@@ -139,6 +139,30 @@ export const useUserStore = defineStore('user', () => {
     })
   }
 
+  //회원 정보 수정
+  const updateUser = function(user){
+    axios({
+      url: `${REST_USER_API}/mypage`,
+      method : "PUT",
+      data:{
+        user_id : user.user_id,
+        id : user.id,
+        password : user.password,
+        name : user.name,
+        email : user.email,
+        nickname : user.nickname,
+      },
+    })
+    .then(() => {
+      alert("수정 완료");
+      router.push({name :'detail'}); 
+    })
+    .catch((err)=>{
+      console.log(err);
+      alert("서버 에러");
+    })
+  }
+
   //마이페이지 추가 정보 등록
   const signupMypage = function(inputUser) {
     axios({
@@ -163,6 +187,7 @@ export const useUserStore = defineStore('user', () => {
     })
   }
 
+    //마이페이지 추가 정보 반환
     const getmyPageUser = function(userId) {
       axios.get(`${REST_USER_API}/mypage/user/${userId}`)
     .then((res) => {
@@ -174,9 +199,12 @@ export const useUserStore = defineStore('user', () => {
     })
   }
 
+  
+
 
   
 
   return { UserList, user, getUser, getUserList, createUser, setlogin, 
-    setlogout, isLoggedIn, loginUserObj, mypage, getmyPage, signupMypage, myPageUser, getmyPageUser}
+    setlogout, isLoggedIn, loginUserObj, mypage, getmyPage, signupMypage, 
+    myPageUser, getmyPageUser, updateUser}
 })

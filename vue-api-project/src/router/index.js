@@ -7,6 +7,7 @@ import UserList from '@/components/user/UserList.vue'
 import UserMyPage from '@/components/user/UserMyPage.vue'
 import UserMyPageDetail from '@/components/user/UserMyPageDetail.vue'
 import UserMyPageRegist from '@/components/user/UserMyPageRegist.vue'
+import UserMyPageUpdate from '@/components/user/UserMyPageUpdate.vue'
 
 import VideoView from '@/views/VideoView.vue'
 import VideoList from '@/components/video/VideoList.vue'
@@ -56,6 +57,11 @@ const router = createRouter({
           path: "myregist",
           name: "myregist",
           component: UserMyPageRegist,
+        },
+        {
+          path: "myupdate",
+          name: "myupdate",
+          component: UserMyPageUpdate,
         }
       ]
     },
