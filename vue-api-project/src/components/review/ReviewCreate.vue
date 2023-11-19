@@ -1,35 +1,27 @@
 <template>
-  <div>
-    <h4>리뷰 작성</h4>
-    <fieldset>
-      <legend>등록</legend>
-      <div>
-        <label for="writer">작성자 : </label>
-        <!-- 현재 로그인된 사용자가 있으면 닉네임을, 없으면 '로그인하세요'를 표시 -->
+  <div class="container mt-4">
+    <h4>댓글 작성</h4>
+    <div class="border p-3 mb-3">
+      <div class="mb-3">
+        <label for="writer" class="form-label">작성자: </label>
         <span v-if="userStore.isLoggedIn && userStore.loginUserObj.nickname">
           {{ userStore.loginUserObj.nickname }}
         </span>
-        <span v-else>로그인하세요</span>
+        <span v-else class="text-danger">로그인하세요</span>
       </div>
-      <div>
-        <label for="content">내용 : </label>
-        <textarea id="content" cols="30" rows="10" v-model="review.content"></textarea>
+      <div class="mb-3">
+        <label for="content" class="form-label">댓글 내용: </label>
+        <textarea id="content" class="form-control" cols="30" rows="5" v-model="review.content"></textarea>
       </div>
-      <div>
-        <label for="created_at">작성일 : </label>
-        <input type="date" id="created_at" readonly v-model="currentDate">
+      <div class="mb-3">
+        <button @click="createReview" class="btn btn-primary me-2">댓글 작성</button>
+        <button @click="cancelCreate" class="btn btn-secondary">취소</button>
       </div>
-      <div>
-        <button @click="createReview">등록</button>
-        <button @click="cancelCreate">취소</button>
-      </div>
-      <!-- 로그인하지 않은 경우 알림 표시 -->
       <div v-if="!userStore.isLoggedIn || !userStore.loginUserObj.nickname">
-        <p>로그인이 필요합니다.</p>
+        <p class="text-danger">로그인이 필요합니다.</p>
       </div>
-    </fieldset>
+    </div>
     <ReviewRegModal v-if="showModal" @closeModal="closeModalHandler" />
-
   </div>
 </template>
 

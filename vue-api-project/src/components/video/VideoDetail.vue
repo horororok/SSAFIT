@@ -1,31 +1,37 @@
 <template>
   <div class="container mt-4">
-    <b-card class="mt-4">
-      <b-card-body>
-        <h4>비디오 상세</h4>
-        <hr>
-        <div>{{ store.video.title }}</div>
-        <div>{{ store.video.channel_name }}</div>
-        <div>{{ store.video.view_cnt }}</div>
-        <div>{{ store.video.part }}</div>
 
-        <div>삭제 수정 버튼은 리뷰로 갈 예정</div>
+    <h4 class="mb-4">비디오 상세</h4>
+    <hr>
 
+    <div class="mb-3">
+      <strong>제목:</strong> {{ store.video.title }}
+    </div>
+    <div class="mb-3">
+      <strong>채널:</strong> {{ store.video.channel_name }}
+    </div>
+    <div class="mb-3">
+      <strong>조회수:</strong> {{ store.video.view_cnt }}
+    </div>
+    <div class="mb-3">
+      <strong>파트:</strong> {{ store.video.part }}
+    </div>
 
-        <iframe v-if="store.video.url" width="560" height="315" :src="`https://www.youtube.com/embed/${youtubeVideoId}`"
-          title="YouTube video player" frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen>
-        </iframe>
+    <div v-if="store.video.url" class="mb-4">
+      <iframe width="560" height="315" :src="`https://www.youtube.com/embed/${youtubeVideoId}`"
+        title="YouTube video player" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </div>
 
-        <ReviewList />
-        <button @click="showReviews">리뷰보기</button>
-        <button @click="goToVideoList">목록으로</button>
+    <ReviewList />
+    <button class="btn btn-primary" @click="showReviews">리뷰보기</button>
+    <button class="btn btn-secondary" @click="goToVideoList">목록으로</button>
 
-        <!-- 모달 컴포넌트 추가 -->
-        <!-- <ReviewRegModal v-if="showModal" @closeModal="closeModal" /> -->
-      </b-card-body>
-    </b-card>
+    <!-- 모달 컴포넌트 추가 -->
+    <!-- <ReviewRegModal v-if="showModal" @closeModal="closeModal" /> -->
+
   </div>
 </template>
   

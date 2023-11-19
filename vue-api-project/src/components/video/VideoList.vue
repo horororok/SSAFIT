@@ -1,44 +1,51 @@
 <template>
-  <div>
+  <div class="container mt-4">
+
     <!-- 영상 목록 제목 -->
     <h4>영상 목록</h4>
     <hr>
 
     <!-- 파트별로 필터링할 버튼들 -->
-    <button @click="filterVideos('전신')">전신</button>
-    <button @click="filterVideos('하체')">하체</button>
-    <button @click="filterVideos('상체')">상체</button>
-    <button @click="filterVideos(null)">전체</button>
+    <div class="mb-3 d-flex">
+      <button @click="filterVideos('전신')" class="btn btn-primary me-2">전신</button>
+      <button @click="filterVideos('하체')" class="btn btn-primary me-2">하체</button>
+      <button @click="filterVideos('상체')" class="btn btn-primary me-2">상체</button>
+      <button @click="filterVideos(null)" class="btn btn-secondary">전체</button>
+    
+      <!-- 비디오 정렬을 위한 컴포넌트 -->
+      <VideoSearchInput />
+    </div>
     <hr>
 
     <!-- 비디오 목록을 표시하는 테이블 -->
-    <table>
-      <tr>
-        <th>제목</th>
-        <th>썸네일</th>
-        <th>채널 이름</th>
-        <th>파트</th>
-        <th>조회수</th>
-      </tr>
-
-      <!-- 선택된 파트에 따라 필터링된 비디오를 표시 -->
-      <tr v-for="video in filteredVideos" :key="video.id">
-        <td >
-          <!-- 비디오 제목을 클릭하면 비디오 상세 페이지로 이동 -->
-          <div @click="showVideoDetail(video.video_id)">{{ video.title }}</div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">제목</th>
+          <th scope="col">썸네일</th>
+          <th scope="col">채널 이름</th>
+          <th scope="col">파트</th>
+          <th scope="col">조회수</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 선택된 파트에 따라 필터링된 비디오를 표시 -->
+        <tr v-for="video in filteredVideos" :key="video.id">
+          <td>
+            <!-- 비디오 제목을 클릭하면 비디오 상세 페이지로 이동 -->
+            <div @click="showVideoDetail(video.video_id)">{{ video.title }}</div>
           </td>
-        <!-- 썸네일 이미지 표시 -->
-        <td>
-          <img :src="video.thumbnail" alt="Thumbnail" >
-        </td>
-        <td>{{ video.channel_name }}</td>
-        <td>{{ video.part }}</td>
-        <td>{{ video.view_cnt }}</td>
-      </tr>
+          <!-- 썸네일 이미지 표시 -->
+          <td>
+            <img :src="video.thumbnail" alt="Thumbnail" class="img-thumbnail">
+          </td>
+          <td>{{ video.channel_name }}</td>
+          <td>{{ video.part }}</td>
+          <td>{{ video.view_cnt }}</td>
+        </tr>
+      </tbody>
     </table>
 
-    <!-- 비디오 정렬을 위한 컴포넌트 -->
-    <VideoSearchInput />
   </div>
 </template>
 
@@ -77,12 +84,40 @@ const filteredVideos = computed(() => {
 const showVideoDetail = function (videoId) {
   if (videoId) {
     // videoId가 유효하면 비디오 상세 페이지로 이동
-        router.push({ name: 'videoDetail', params: { videoId: videoId } });
-        //name은 라우터에서 지정한 이름, params는 라우터에서 지정한 파라미터
-    } else {
-        console.error("Invalid videoId:", videoId);
-    }
+    router.push({ name: 'videoDetail', params: { videoId: videoId } });
+  } else {
+    console.error("Invalid videoId:", videoId);
+  }
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+/* 필터 버튼 스타일 추가 */
+.btn-primary,
+.btn-secondary {
+  height: 2rem; /* Adjust the height as needed */
+  line-height: 1.5; /* Set to 1.5 for vertical centering */
+  width: 8rem; /* Adjust the width as needed */
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+  background-color: #545b62;
+  border-color: #545b62;
+}
+</style>
+
