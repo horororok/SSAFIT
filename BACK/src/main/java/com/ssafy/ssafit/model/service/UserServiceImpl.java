@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.ssafit.model.dao.UserDao;
+import com.ssafy.ssafit.model.dto.MyPage;
 import com.ssafy.ssafit.model.dto.User;
 
 @Service
@@ -36,5 +37,32 @@ public class UserServiceImpl implements UserService {
 		
 		return null; //틀리면 null 반환
 	}
+
+	@Override
+	public User searchById(String id) {
+		return userDao.selectOne(id);
+	}
+
+	@Override
+	public int modify(User user) {
+		return userDao.updateUser(user);
+	}
+
+	@Override
+	public int insertMyPage(MyPage mypage) {
+		return userDao.insertMyPage(mypage);
+	}
+
+	@Override
+	public MyPage getMyPageUser(int id) {
+		return userDao.getMyPageUser(id);
+	}
+
+	@Override
+	public User getMyUser(int id) {
+		return userDao.getMyUser(id);
+	}
+	
+	
 
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.ssafit.model.dao.ReviewDao;
 import com.ssafy.ssafit.model.dto.Review;
+import com.ssafy.ssafit.model.dto.User;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -44,6 +45,16 @@ public class ReviewServiceImpl implements ReviewService {
 	public int deleteReview(int id) {
 		return reviewDao.delete(id);
 	}
+
+
+
+//	@Override
+//	public Review getnicknameById(int id) {
+//		return reviewDao.getnicknameById(id);
+//	}
+
+
+
 
 
 

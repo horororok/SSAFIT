@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,15 +20,16 @@ import com.ssafy.ssafit.model.service.ReviewService;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api-review")
 public class ReviewController {
 	
 	@Autowired
 	private ReviewService rService;
 	
-	
-	@ApiOperation(value = "리뷰 목록 보기", notes = "전체 리뷰 반환")
-	@GetMapping("/review/list/{id}")
+	//해당 영상의 전체 리뷰 반환 (id: video_id)
+	@ApiOperation(value = "리뷰 목록 보기", notes = "전체 리뷰 반환") 
+	@GetMapping("/review/list/{id}") 
 	public ResponseEntity<?> list(@PathVariable int id){
 		List<Review> list = rService.getReviewList(id);
 		if(list == null || list.size() == 0)
@@ -35,6 +37,7 @@ public class ReviewController {
 		return new ResponseEntity<List<Review>>(list, HttpStatus.OK);
 	}
 	
+	//리뷰 한 개 상세 보기 (id :review_id)
 	@ApiOperation(value = "리뷰 상세 보기", notes="해당 리뷰 상세 보기")
 	@GetMapping("/review/{id}")
 	public ResponseEntity<?> detail(@PathVariable int id){
@@ -62,6 +65,7 @@ public class ReviewController {
 		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}
 	
+	//리뷰 삭제하기 (id : review_id)
 	@ApiOperation(value = "리뷰 삭제하기", notes = "해당 리뷰 삭제하기")
 	@DeleteMapping("/review/{id}")
 	public ResponseEntity<?> delete(@PathVariable int id){
@@ -72,7 +76,4 @@ public class ReviewController {
 		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}
 	
-	
-	
-
 }

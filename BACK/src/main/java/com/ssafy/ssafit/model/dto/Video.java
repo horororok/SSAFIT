@@ -8,11 +8,12 @@ public class Video {
 	private String channel_name;
 	private int view_cnt;
 	private String part;
+	private int liked_cnt; //좋아요 받은 개수
 	
 	public Video() {}
 
 	public Video(int video_id, String title, String url, String thumbnail, String channel_name, int view_cnt,
-			String part) {
+			String part, int liked_cnt) {
 		this.video_id = video_id;
 		this.title = title;
 		this.url = url;
@@ -20,6 +21,7 @@ public class Video {
 		this.channel_name = channel_name;
 		this.view_cnt = view_cnt;
 		this.part = part;
+		this.liked_cnt = liked_cnt;
 	}
 
 	public int getVideo_id() {
@@ -77,11 +79,21 @@ public class Video {
 	public void setPart(String part) {
 		this.part = part;
 	}
+	
+
+	public int getLiked_cnt() {
+		return liked_cnt;
+	}
+
+	public void setLiked_cnt(int liked_cnt) {
+		this.liked_cnt = liked_cnt;
+	}
 
 	@Override
 	public String toString() {
 		return "Video [video_id=" + video_id + ", title=" + title + ", url=" + url + ", thumbnail=" + thumbnail
-				+ ", channel_name=" + channel_name + ", view_cnt=" + view_cnt + ", part=" + part + "]";
+				+ ", channel_name=" + channel_name + ", view_cnt=" + view_cnt + ", part=" + part + ", liked_cnt="
+				+ liked_cnt + "]";
 	}
-	
+
 }

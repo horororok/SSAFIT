@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.ssafit.model.dao.VideoDao;
+import com.ssafy.ssafit.model.dto.Review;
 import com.ssafy.ssafit.model.dto.SearchCondition;
 import com.ssafy.ssafit.model.dto.Video;
 
@@ -24,8 +25,10 @@ public class VideoServiceImpl implements VideoService{
 		return videoDao.selectAll();
 	}
 
+	//상세보기 할 경우 조회수 증가
 	@Override
 	public Video getVideo(int id) {
+		videoDao.updateView(id);
 		return videoDao.selectOne(id);
 	}
 
@@ -48,5 +51,40 @@ public class VideoServiceImpl implements VideoService{
 	public int deleteVideo(int id) {
 		return videoDao.delete(id);
 	}
+
+	@Override
+	public int updateView(int id) {
+		return videoDao.updateView(id);
+	}
+
+	
+	//--------------리뷰
+	
+	@Override
+	public List<Review> getReviewList(int videoId) {
+		return videoDao.selectAllReview(videoId);
+	}
+
+	@Override
+	public Review getReviewOne(int reviewId) {
+		return videoDao.selectReviewOne(reviewId);
+	}
+
+	@Override
+	public int writeReview(Review review) {
+		return videoDao.insertReview(review);
+	}
+
+	@Override
+	public int modifyReview(Review review) {
+		return videoDao.updateReview(review);
+	}
+
+	@Override
+	public int deleteReview(int id) {
+		return videoDao.deleteReview(id);
+	}
+	
+	
 
 }

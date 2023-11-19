@@ -3,6 +3,7 @@ package com.ssafy.ssafit.model.service;
 import java.util.List;
 
 import com.ssafy.ssafit.model.dto.Review;
+import com.ssafy.ssafit.model.dto.User;
 
 public interface ReviewService {
 	
@@ -22,5 +23,7 @@ public interface ReviewService {
 	int deleteReview(int id);
 	
 	
+//	//리뷰에 있는 user_id(작성자)로 user 테이블이랑 join 해서 닉네임 가져오기  (Review의 user_id)
+//	public Review getnicknameById(int id); 
 	
 }

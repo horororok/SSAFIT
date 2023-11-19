@@ -5,14 +5,19 @@
 <mapper namespace="com.ssafy.ssafit.model.dao.ReviewDao">
 
 	<select id="selectAll" parameterType="int" resultType="Review">
-		SELECT * FROM review
-		WHERE video_id = #{id};
+		SELECT rv.review_id, rv.content, rv.created_at, rv.user_id, rv.video_id, us.nickname
+		FROM review AS rv
+		LEFT OUTER JOIN user AS us
+		ON us.user_id = rv.user_id
+		WHERE rv.video_id = #{id}
 	</select>
 	
 	<select id="selectOne" parameterType="int" resultType="Review">
-		SELECT * 
-		FROM review
-		WHERE review_id = #{id};
+		SELECT rv.review_id, rv.content, rv.created_at, rv.user_id, rv.video_id, us.nickname 
+		FROM review AS rv
+		LEFT OUTER JOIN user AS us
+		ON us.user_id = rv.user_id
+		WHERE rv.review_id = #{id};
 	</select>
 
 	<insert id="insert" parameterType="Review">
@@ -30,5 +35,6 @@
 		DELETE FROM review
 		WHERE review_id = #{id}
 	</delete>
+	
 
 </mapper>
