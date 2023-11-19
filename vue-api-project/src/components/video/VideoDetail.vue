@@ -32,7 +32,7 @@
           <span @click="toggleLike" class="btn-link" style="cursor: pointer; font-size: 20px;">
             {{ likeButtonIcon }}
           </span>
-          {{ store.video.like_cnt }}
+          {{ store.video.liked_cnt }}
         </div>
       </div>
     </div>
@@ -68,7 +68,12 @@ const router = useRouter();
 onMounted(() => {
   store.getVideo(route.params.videoId);
   reviewStore.getReviewList(route.params.videoId);
+
+  
+  console.log(route.params.videoId);
 });
+
+
 
 // 리뷰 생성 페이지로 이동
 const createReview = function () {
@@ -91,45 +96,47 @@ function getYouTubeVideoId(url) {
 const youtubeVideoId = computed(() => {
   return store.video.url ? getYouTubeVideoId(store.video.url) : null;
 });
-const isLiked = ref(false);
+
+
+const isLiked = ref(store.isliked.value);
+const user_id = ref(userStore.loginUserObj.user_id);
+const video_id = ref(route.params.videoId);
+
 // 좋아요 토글 함수
 const toggleLike = function () {
   // 좋아요 상태 업데이트
   isLiked.value = !isLiked.value;
-  const userId = userStore.loginUserObj.user_id;
-  const videoId = store.video.video_id;
 
-  console.log('userId:', userId);
-  console.log('videoId:', videoId);
+  const videolike = {
+    user_id : user_id.value,
+    video_id : video_id.value,
+  }
+
+  // console.log('userId:', user_id.value);
+  // console.log('videoId:', video_id.value);
 
   if (isLiked.value) {
     // 좋아요 버튼을 눌렀을 때
-    store.likeVideo(userId, videoId)
-      .then((response) => {
-        store.isliked = response.data.isliked;
-        store.like_cnt = response.data.like_cnt;
-      })
-      .catch((error) => {
-        console.error('좋아요 에러', error)
-      })
+    store.likeVideo(videolike);
+    store.getVideo(route.params.videoId);
+
   } else {
     // 좋아요 버튼을 다시 눌렀을 때 (좋아요 취소)
-    store.unlikeVideo(userId, videoId)
-      .then((response) => {
-        // 서버와 통신 후 isliked와 liked_cnt 업데이트
-        store.isliked = response.data.isliked;
-        store.liked_cnt = response.data.liked_cnt;
-      })
-      .catch((error) => {
-        console.error('좋아요 취소 에러', error)
-      })
+    store.unlikeVideo(videolike);
+    store.getVideo(route.params.videoId);
   }
+
+  //문제...좋아요 개수 반응형으로 바뀌게 해주려고 getVideo를 좋아요, 취소 할때 실행시켜주는데
+  //그러면 계속 조회수도 하나씩 올라가버림 (get할때마다 조회수 올라가게 해서.. 흠...)
 }
 
+  //좋아요 한 상태이면 해당 페이지 들어갔을 때 빨간하트 나와야 함
+  //새로고침하면 다시 하얀 하트 (onMount 설정?)
+
 // 좋아요 버튼 아이콘 계산
-const likeButtonIcon = computed(() => {
+  const likeButtonIcon = computed(() => {
   return isLiked.value ? '❤️' : '🤍';
-});
+  });
 
 </script>
 <style scoped>
