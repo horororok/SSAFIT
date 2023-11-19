@@ -1,10 +1,8 @@
 <template>
   <div class="container mt-4">
-
     <!-- 영상 목록 제목 -->
     <h4>영상 목록</h4>
     <hr>
-
 
     <div class="d-flex justify-content-between align-items-center">
       <!-- 파트별로 필터링할 버튼들 -->
@@ -18,37 +16,38 @@
       <VideoSearchInput style="max-width: 200px;" />
     </div>
 
-
     <hr>
 
-    <!-- 비디오 목록을 표시하는 테이블 -->
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">제목</th>
-          <th scope="col">썸네일</th>
-          <th scope="col">채널 이름</th>
-          <th scope="col">파트</th>
-          <th scope="col">조회수</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- 선택된 파트에 따라 필터링된 비디오를 표시 -->
-        <tr v-for="video in filteredVideos" :key="video.id">
-          <td>
-            <!-- 비디오 제목을 클릭하면 비디오 상세 페이지로 이동 -->
-            <div class="clickable-text" @click="showVideoDetail(video.video_id)">{{ video.title }}</div>
-          </td>
-          <!-- 썸네일 이미지 표시 -->
-          <td>
-            <img :src="video.thumbnail" alt="Thumbnail" class="img-thumbnail">
-          </td>
-          <td>{{ video.channel_name }}</td>
-          <td>{{ video.part }}</td>
-          <td>{{ video.view_cnt }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <!-- 카드 형식으로 비디오 목록을 표시 -->
+    <div class="row">
+      <div class="col-md-4" v-for="video in filteredVideos" :key="video.id">
+        <div class="card mb-4">
+          <img :src="video.thumbnail" class="card-img-top" alt="Thumbnail">
+          <div class="card-body">
+            <h5 class="card-title clickable-text" @click="showVideoDetail(video.video_id)">
+              <!-- 제목이 두 줄 이상이면 생략 처리 -->
+              <span style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                {{ video.title }}
+              </span>
+            </h5>
+            <p class="card-text"><strong>{{ video.channel_name }}</strong></p>
+            <p class="card-text"><strong>파트</strong> {{ video.part }} | <strong>조회수</strong> {{ video.view_cnt }}</p>
+            <!-- 좋아요 개수 표시 -->
+            <div class="d-flex align-items-center">
+              <span>{{ video.like_cnt }}</span>
+
+              <!-- isLiked에 따라 하트 아이콘을 보여줌 -->
+              <span v-if="video.isliked==1">
+                ❤️
+              </span>
+              <span v-else>
+                🤍
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
 </template>
@@ -100,11 +99,8 @@ const showVideoDetail = function (videoId) {
 .btn-primary,
 .btn-secondary {
   height: 2rem;
-  /* Adjust the height as needed */
   line-height: 1.5;
-  /* Set to 1.5 for vertical centering */
   width: 8rem;
-  /* Adjust the width as needed */
 }
 
 .btn-primary {
@@ -133,12 +129,10 @@ const showVideoDetail = function (videoId) {
 
 .clickable-text {
   cursor: pointer;
-  
 }
 
 .clickable-text:hover {
-  color: #414951; 
+  color: #414951;
   text-decoration: underline;
 }
 </style>
-
