@@ -13,6 +13,7 @@ export const useUserStore = defineStore('user', () => {
   const isLoggedIn = ref(false);
   const loginUserObj = ref({});
   const mypage = ref({});
+  const myPageUser = ref({});
 
   //유저 목록  
   const getUserList = function () {
@@ -126,17 +127,6 @@ export const useUserStore = defineStore('user', () => {
     isLoggedIn.value = true;
   }
 
-  //유저 한명 반환
-  // const getUser = function (id) {
-  //   axios.get(`${REST_USER_API}/user/${id}`)
-  //   .then((res) => {
-  //     user.value = res.data
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   })
-  // }
-
   //마이페이지 회원 정보 보기
   const getmyPage = function(userId) {
     axios.get(`${REST_USER_API}/mypage/${userId}`)
@@ -149,7 +139,44 @@ export const useUserStore = defineStore('user', () => {
     })
   }
 
+  //마이페이지 추가 정보 등록
+  const signupMypage = function(inputUser) {
+    axios({
+      url : `${REST_USER_API}/mypage/signup`,
+      method: "POST",
+      data: {
+        age : inputUser.age,
+        gender : inputUser.gender,
+        self_intro : inputUser.self_intro,
+        address : inputUser.address,
+        fav_sport : inputUser.fav_sport,
+        user_id : inputUser.user_id,
+      }
+    })
+    .then(() => {
+      alert("등록 완료");
+      router.push("/"); 
+    })
+    .catch((err)=>{
+      console.log(err);
+      alert("서버 에러");
+    })
+  }
+
+    const getmyPageUser = function(userId) {
+      axios.get(`${REST_USER_API}/mypage/user/${userId}`)
+    .then((res) => {
+      console.log("응답:", res.data);
+      myPageUser.value = res.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
 
 
-  return { UserList, user, getUser, getUserList, createUser, setlogin, setlogout, isLoggedIn, loginUserObj, mypage, getmyPage}
+  
+
+  return { UserList, user, getUser, getUserList, createUser, setlogin, 
+    setlogout, isLoggedIn, loginUserObj, mypage, getmyPage, signupMypage, myPageUser, getmyPageUser}
 })
