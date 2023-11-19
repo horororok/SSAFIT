@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h4>리뷰 수정</h4>
         <fieldset>
             <legend>등록</legend>
             <div>
@@ -20,6 +19,8 @@
             </div>
         </fieldset>
     </div>
+
+    
 </template>
 
 <script setup>
