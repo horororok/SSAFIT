@@ -91,7 +91,7 @@ function getYouTubeVideoId(url) {
 const youtubeVideoId = computed(() => {
   return store.video.url ? getYouTubeVideoId(store.video.url) : null;
 });
-
+const isLiked = ref(false);
 // 좋아요 토글 함수
 const toggleLike = function () {
   // 좋아요 상태 업데이트
