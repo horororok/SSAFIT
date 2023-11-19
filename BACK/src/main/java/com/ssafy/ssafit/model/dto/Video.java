@@ -8,7 +8,7 @@ public class Video {
 	private String channel_name;
 	private int view_cnt;
 	private String part;
-	private int liked_cnt;
+	private int liked_cnt; //좋아요 받은 개수
 	
 	public Video() {}
 

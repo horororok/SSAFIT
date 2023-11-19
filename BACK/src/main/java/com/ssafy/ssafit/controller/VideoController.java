@@ -23,7 +23,7 @@ import com.ssafy.ssafit.model.dto.Video;
 import com.ssafy.ssafit.model.service.VideoService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "*")
 @RequestMapping("/api-video")
 public class VideoController {
 
@@ -75,7 +75,6 @@ public class VideoController {
 			return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
 		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}
-
 	
 	//----------------------------리뷰 관련-------------------------------
 	

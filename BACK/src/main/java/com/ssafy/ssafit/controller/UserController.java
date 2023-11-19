@@ -21,7 +21,7 @@ import com.ssafy.ssafit.model.dto.User;
 import com.ssafy.ssafit.model.service.UserService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "*")
 @RequestMapping("/api-user")
 public class UserController {
 
@@ -83,6 +83,7 @@ public class UserController {
 	@GetMapping("/mypage/{userId}")
 	public ResponseEntity<?> selectMyUser(@PathVariable int userId) {
 		User user = uService.getMyUser(userId);
+		System.out.println(user);
 
 		if (user == null)
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
@@ -105,6 +106,7 @@ public class UserController {
 	// 마이페이지에서 사용자 추가 정보 등록
 	@PostMapping("/mypage/signup")
 	public ResponseEntity<?> mysignup(@RequestBody MyPage mypage) {
+		System.out.println(mypage);
 		int result = uService.insertMyPage(mypage);
 		if (result == 0)
 			return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);

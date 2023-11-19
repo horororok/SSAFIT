@@ -20,7 +20,7 @@ import com.ssafy.ssafit.model.service.ReviewService;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "*")
 @RequestMapping("/api-review")
 public class ReviewController {
 	
