@@ -17,7 +17,7 @@ import com.ssafy.ssafit.model.service.VideoLikeService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/vlike")
+@RequestMapping("/api-vlike")
 public class VideoLikeController {
 	
 	@Autowired
@@ -40,7 +40,7 @@ public class VideoLikeController {
 	@PostMapping
 	public ResponseEntity<?> likeVideo(@RequestBody VideoLike videolike){
 		int result = vlikeservice.likeVideo(videolike); 
-		
+		System.out.println(videolike);
 		if(result == 1)
 			return new ResponseEntity<VideoLike>(videolike, HttpStatus.OK);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
