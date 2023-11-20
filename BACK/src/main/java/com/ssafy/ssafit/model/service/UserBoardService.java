@@ -2,6 +2,7 @@ package com.ssafy.ssafit.model.service;
 
 import java.util.List;
 
+import com.ssafy.ssafit.model.dto.SearchCondition;
 import com.ssafy.ssafit.model.dto.UserBoard;
 
 public interface UserBoardService {
@@ -18,6 +19,11 @@ public interface UserBoardService {
 //	
 //	//
 	
+	List<UserBoard> getUserList();
+	
+	List<UserBoard> search(SearchCondition condition);
+	
+	UserBoard getOneUser(int id);
 	
 	
 }
