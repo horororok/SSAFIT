@@ -23,10 +23,10 @@
                 <RouterLink class="nav-link" :to="{ name: 'mypage', params: { userId: store.loginUserObj.user_id} }">마이페이지</RouterLink>
               </li>
               <li class="nav-item">
-                <RouterLink class="nav-link" :to="{ name: 'videoList' }">VideoList</RouterLink>
+                <RouterLink class="nav-link" :to="{ name: 'videoList' }">운동영상</RouterLink>
               </li>
               <li class="nav-item">
-                <RouterLink class="nav-link" :to="{ name: 'videoList' }">유저게시판</RouterLink>
+                <RouterLink class="nav-link" :to="{ name: 'userboard' }">유저게시판</RouterLink>
               </li>
             </ul>
           </div>
