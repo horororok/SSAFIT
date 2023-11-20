@@ -31,5 +31,13 @@
 		SET liked_cnt = liked_cnt - 1
 		WHERE video_id = #{video_id}
 	</update>
+	
+	<select id="getLikeList" parameterType="int" resultType="Video">
+		SELECT *
+		FROM video
+		WHERE video_id IN (SELECT video_id
+							FROM video_like
+							WHERE user_id = #{user_id})
+	</select>
 
 </mapper>

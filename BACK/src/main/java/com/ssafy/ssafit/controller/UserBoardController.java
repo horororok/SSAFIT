@@ -44,13 +44,4 @@ public class UserBoardController {
 	
 	
 	
-	
-	//팔로우, 팔로우 취소
-	
-	//
-
-	
-	
-	
-	
 }

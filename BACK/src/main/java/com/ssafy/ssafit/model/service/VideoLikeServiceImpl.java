@@ -1,9 +1,12 @@
 package com.ssafy.ssafit.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.ssafit.model.dao.VideoLikeDao;
+import com.ssafy.ssafit.model.dto.Video;
 import com.ssafy.ssafit.model.dto.VideoLike;
 
 @Service
@@ -34,6 +37,11 @@ public class VideoLikeServiceImpl implements VideoLikeService {
 
 		vlikedao.minusVideoLikeCnt(videolike);
 		return vlikedao.unlikeVideo(videolike);
+	}
+
+	@Override
+	public List<Video> getLikeList(int user_id) {
+		return vlikedao.getLikeList(user_id);
 	}
 
 }

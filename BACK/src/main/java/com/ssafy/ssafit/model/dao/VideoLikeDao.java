@@ -1,5 +1,8 @@
 package com.ssafy.ssafit.model.dao;
 
+import java.util.List;
+
+import com.ssafy.ssafit.model.dto.Video;
 import com.ssafy.ssafit.model.dto.VideoLike;
 
 public interface VideoLikeDao {
@@ -13,6 +16,8 @@ public interface VideoLikeDao {
 	int plusVideoLikeCnt(VideoLike videolike);
 	
 	int minusVideoLikeCnt(VideoLike videolike);
+
+	List<Video> getLikeList(int user_id);
 	
 	
 }
