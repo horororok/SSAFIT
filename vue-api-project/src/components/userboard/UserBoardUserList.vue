@@ -2,8 +2,8 @@
   <div>
     <h4>유저 목록</h4>
     <hr>
-    <div class="row justify-content-between">
-      <div v-for="user in UserBoardList" :key="user.id" class="col-md-4 mb-4">
+    <div class="row justify-content-center">
+      <div v-for="user in UserBoardList" :key="user.id" class="col-md-2 mb-4">
         <div class="card border">
           <!-- 임시 이미지 (이미지 주소를 실제 이미지 파일 경로로 변경해야 합니다) -->
           <img src="https://via.placeholder.com/150" alt="프로필 이미지" class="card-img-top" style="border-radius: 50%;">
@@ -14,7 +14,9 @@
             <p class="card-text">성별: {{ user.gender === 1 ? "여자" : "남자"  }}</p>
             <p class="card-text">나이: {{ user.age }}</p>
             <p class="card-text">주소: {{ user.address }}</p>
-            <button @click="showUserBoardDetail(user.id)" class="btn btn-primary">자세히 보기</button>
+            <router-link :to="{ name: 'userboarddetail', params: { userboardId: user.user_id } }" class="btn btn-primary">
+              자세히 보기
+            </router-link>
           </div>
         </div>
       </div>
@@ -38,14 +40,15 @@ onMounted(() => {
 
 
 
-const showUserBoardDetail = function(userId){
-    if(userId){
-        router.push({name : 'userboarddetail', params: {userboardId : userId}})
-    }else{
-        console.error("Invalid userId:", userId);
-    }
-}
+// const showUserBoardDetail = function(userId){
 
+//   console.log("userId:", userId);
+//     if(userId){
+//         router.push({name : 'userboarddetail', params: {userboardId : userId}})
+//     }else{
+//         console.error("Invalid userId:", userId);
+//     }
+// }
 
 
 </script>

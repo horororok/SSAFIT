@@ -63,7 +63,7 @@
   }
   
   .navbar-toggler-icon {
-    background-color: #000;
+    background-color: rgb(250, 250, 250);
   }
   
   .navbar-nav {

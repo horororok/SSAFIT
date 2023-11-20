@@ -213,7 +213,7 @@ export const useUserStore = defineStore('user', () => {
       console.log("유저게시판 전체 목록 에러: ", err);
     })
   }
-
+  
   //유저 게시판 한명 상세 보기
   const userBoard = ref({});
   const getUserBoardOne = function(user_id) {
