@@ -17,7 +17,7 @@
           </router-link>
           <hr class="mb-2 mt-2">
           <router-link :to="{ name: 'follow', params: { userId: store.loginUserObj.user_id } }" class="text-dark text-decoration-none">
-            팔로워 | 팔로잉
+            팔로우 관리
           </router-link>
         </div>
       </nav>

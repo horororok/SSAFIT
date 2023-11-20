@@ -8,6 +8,17 @@ const REST_VIDEOLIKE_API = `http://localhost:8080/api-vlike`
 
 export const useVideoStore = defineStore('video', () => {
 
+  const likedVideos = ref([]) //좋아요 한 영상 리스트
+  const getLikedVideos = function (user_id) {
+    axios.get(`${REST_VIDEOLIKE_API}/${user_id}`)
+      .then((res) => {
+        likedVideos.value = res.data
+      })
+      .catch((err) => {
+        console.log("getLikedVideoList 에러", err);
+      })
+  }
+
   const isliked = ref(false)  //0이면 좋아요 안 한 상태, 1이면 좋아요 한 상태
   
   //좋아요 했는지 안했는지 확인 (필요 없을 수도)
