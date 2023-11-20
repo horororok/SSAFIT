@@ -117,7 +117,9 @@ public class UserController {
 	// 마이페이지 추가 정보 가져오기
 	@GetMapping("/mypage/user/{userId}")
 	public ResponseEntity<?> mypageUser(@PathVariable int userId){
+		System.out.println(userId);
 		MyPage mypage = uService.getMyPageUser(userId);
+//		System.out.println("mypage다" + " " + mypage); 얘가 안온다.
 		if(mypage == null)
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		return new ResponseEntity<MyPage>(mypage, HttpStatus.OK);

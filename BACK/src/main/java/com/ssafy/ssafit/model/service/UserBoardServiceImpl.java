@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.ssafit.model.dao.UserBoardDao;
-import com.ssafy.ssafit.model.dto.SearchCondition;
 import com.ssafy.ssafit.model.dto.UserBoard;
 
 @Service
@@ -15,26 +14,24 @@ public class UserBoardServiceImpl implements UserBoardService {
 	private UserBoardDao userBoardDao;
 	
 	@Autowired
-	public void setUserBoardDao(UserBoardDao userBoardDao) {
+	public UserBoardServiceImpl(UserBoardDao userBoardDao) {
 		this.userBoardDao = userBoardDao;
 	}
 	
-	@Override
-	public List<UserBoard> getUserList(){
-		return  userBoardDao.selectAll();
-	}
-	
 	
 
 	@Override
-	public UserBoard getOneUser(int id) {
-		return  userBoardDao.selectOne(id);
+	public List<UserBoard> selectAll() {
+		return userBoardDao.selectAll();
 	}
 
 	@Override
-	public List<UserBoard> search(SearchCondition condition) {
-		return userBoardDao.search(condition);
+	public UserBoard selectOne(int user_id) {
+		return userBoardDao.selectOne(user_id);
 	}
+
+	
+	
 
 
 	
