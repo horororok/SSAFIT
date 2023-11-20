@@ -14,8 +14,6 @@ export const useUserStore = defineStore('user', () => {
   const isLoggedIn = ref(false);
   const loginUserObj = ref({});
   const mypage = ref({});
-  const userBoard = ref({});
-  
 
   //유저 목록  
   const getUserList = function () {
@@ -141,23 +139,6 @@ export const useUserStore = defineStore('user', () => {
     })
   }
 
-const getuserBoardList = function() {
-  axios({
-    method: "GET",
-    url: `${REST_USERBOARD_API}`,
-  })
-}
-
-  const getuserBoard = function(userId){
-    axios({
-      method: "GET",
-      url: `${REST_USERBOARD_API}/${userId}`,
-      params: {
-        user_id: userId,
-      },
-    })
-  }
-
   //회원 정보 수정
   const updateUser = function(user){
     axios({
@@ -220,12 +201,34 @@ const getuserBoardList = function() {
     })
   }
 
-  
+  //유저게시판 전체 목록 반환
+  const userBoardList = ref([]);
+  const getUserBoardList = function() {
+    axios.get(`${REST_USERBOARD_API}/list`)
+    .then((res) => {
+      console.log("유저게시판 전체 목록 데이터: ",res.data);
+      userBoardList.value = res.data;
+    })
+    .catch((err) => {
+      console.log("유저게시판 전체 목록 에러: ", err);
+    })
+  }
 
-
+  //유저 게시판 한명 상세 보기
+  const userBoard = ref({});
+  const getUserBoardOne = function(user_id) {
+    axios.get(`${REST_USERBOARD_API}/detail/${user_id}`)
+    .then((res) => {
+      console.log("유저게시판 한명 정보 : ", res.data);
+      userBoard.value = res.data;
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
   
 
   return { UserList, user, getUser, getUserList, createUser, setlogin, 
     setlogout, isLoggedIn, loginUserObj, mypage, getmyPage, signupMypage, 
-    myPageUser, getmyPageUser, updateUser}
+    myPageUser, getmyPageUser, updateUser, userBoard, userBoardList, getUserBoardList, getUserBoardOne}
 })
