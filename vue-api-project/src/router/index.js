@@ -8,6 +8,7 @@ import UserMyPage from '@/components/user/UserMyPage.vue'
 import UserMyPageDetail from '@/components/user/UserMyPageDetail.vue'
 import UserMyPageRegist from '@/components/user/UserMyPageRegist.vue'
 import UserMyPageUpdate from '@/components/user/UserMyPageUpdate.vue'
+import UserMyPageUserDetail from '@/components/user/UserMyPageUserDetail.vue'
 
 import VideoView from '@/views/VideoView.vue'
 import VideoList from '@/components/video/VideoList.vue'
@@ -62,6 +63,11 @@ const router = createRouter({
           path: "myupdate",
           name: "myupdate",
           component: UserMyPageUpdate,
+        },
+        {
+          path: "userdetail",
+          name: "userdetail",
+          component: UserMyPageUserDetail,
         }
       ]
     },
