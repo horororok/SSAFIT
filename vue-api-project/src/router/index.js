@@ -134,15 +134,12 @@ const router = createRouter({
       path: '/userboard',
       name: 'userboard',
       component: UserBoardView,
-      children:
-      [
-        {
-          path: ":userboardId",
-          name: "userboarddetail",
-          component: UserBoardUserDetail
-        }
-      ]
-      
+
+    }
+    ,{
+      path: "/userboard/:userboardId",
+      name: "userboarddetail",
+      component: UserBoardUserDetail
     }
   ]
 })
