@@ -14,9 +14,9 @@
             <p class="card-text">성별: {{ user.gender === 1 ? "여자" : "남자"  }}</p>
             <p class="card-text">나이: {{ user.age }}</p>
             <p class="card-text">주소: {{ user.address }}</p>
-            <router-link :to="{ name: 'userboarddetail', params: { userboardId: user.user_id } }" class="btn btn-primary">
+            <button @click="showUserBoardDetail(user.user_id)" class="btn btn-primary">
               자세히 보기
-            </router-link>
+            </button>
           </div>
         </div>
       </div>
@@ -40,15 +40,15 @@ onMounted(() => {
 
 
 
-// const showUserBoardDetail = function(userId){
+const showUserBoardDetail = function(userId){
 
-//   console.log("userId:", userId);
-//     if(userId){
-//         router.push({name : 'userboarddetail', params: {userboardId : userId}})
-//     }else{
-//         console.error("Invalid userId:", userId);
-//     }
-// }
+  console.log("userId:", userId);
+    if(userId){
+        router.push({name : 'userboarddetail', params: {userboardId : userId}})
+    }else{
+        console.error("Invalid userId:", userId);
+    }
+}
 
 
 </script>
