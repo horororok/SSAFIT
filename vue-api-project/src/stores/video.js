@@ -115,5 +115,6 @@ export const useVideoStore = defineStore('video', () => {
       })
   }
 
-  return { videoList, getVideoList, video, getVideo, searchVideoList, isliked, getLiked, likeVideo, unlikeVideo }
+  return { videoList, getVideoList, video, getVideo, searchVideoList, 
+    isliked, getLiked, likeVideo, unlikeVideo, likedVideos, getLikedVideos }
 })
