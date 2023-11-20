@@ -3,12 +3,14 @@ import HomeView from '@/views/HomeView.vue'
 
 import UserLogin from '@/components/user/UserLogin.vue'
 import UserRegist from '@/components/user/UserRegist.vue'
-import UserList from '@/components/user/UserList.vue'
-import UserMyPage from '@/components/user/UserMyPage.vue'
-import UserMyPageDetail from '@/components/user/UserMyPageDetail.vue'
-import UserMyPageRegist from '@/components/user/UserMyPageRegist.vue'
-import UserMyPageUpdate from '@/components/user/UserMyPageUpdate.vue'
-import UserMyPageUserDetail from '@/components/user/UserMyPageUserDetail.vue'
+import MyPageDetail from '@/components/mypage/MyPageDetail.vue'
+import MyPageRegist from '@/components/mypage/MyPageRegist.vue'
+import MyPageUpdate from '@/components/mypage/MyPageUpdate.vue'
+import MyPageUserDetail from '@/components/mypage/MyPageUserDetail.vue'
+import MyPageView from '@/views/MyPageView.vue'
+import MypageZZIM from '@/components/mypage/MypageZZIM.vue'
+import MypageFollow from '@/components/mypage/MypageFollow.vue'
+
 
 import VideoView from '@/views/VideoView.vue'
 import VideoList from '@/components/video/VideoList.vue'
@@ -40,34 +42,39 @@ const router = createRouter({
       component: UserRegist
     },
     {
-      path:'/userList',
-      name: 'userList',
-      component: UserList
-    },
-    {
       path : "/:userId",
       name : "mypage",
-      component: UserMyPage,
+      component: MyPageView,
       children: [
         {
           path: "detail",
           name : "detail",
-          component: UserMyPageDetail,
+          component: MyPageDetail,
         },
         {
           path: "myregist",
           name: "myregist",
-          component: UserMyPageRegist,
+          component: MyPageRegist,
         },
         {
           path: "myupdate",
           name: "myupdate",
-          component: UserMyPageUpdate,
+          component: MyPageUpdate,
         },
         {
           path: "userdetail",
           name: "userdetail",
-          component: UserMyPageUserDetail,
+          component: MyPageUserDetail,
+        },
+        {
+          path: "zzim",
+          name: "zzim",
+          component: MypageZZIM,
+        },
+        {
+          path: "follow",
+          name: "follow",
+          component: MypageFollow,
         }
       ]
     },
@@ -118,6 +125,20 @@ const router = createRouter({
         }
       ]
     },
+    {
+      path: '/userboard',
+      name: 'userboard',
+      component: UserBoardView,
+      children:
+      [
+        {
+          path: "/:userboardId",
+          name: "userboarddetail",
+          component: UserBoardUserDetail
+        }
+      ]
+      
+    }
   ]
 })
 

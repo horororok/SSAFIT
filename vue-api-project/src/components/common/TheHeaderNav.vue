@@ -25,6 +25,9 @@
               <li class="nav-item">
                 <RouterLink class="nav-link" :to="{ name: 'videoList' }">VideoList</RouterLink>
               </li>
+              <li class="nav-item">
+                <RouterLink class="nav-link" :to="{ name: 'videoList' }">유저게시판</RouterLink>
+              </li>
             </ul>
           </div>
         </nav>

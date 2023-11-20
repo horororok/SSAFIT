@@ -5,6 +5,7 @@ import axios from 'axios'
 import createPersistedState from 'pinia-plugin-persistedstate'
 
 const REST_USER_API = `http://localhost:8080/api-user`
+const REST_USERBOARD_API = `http://localhost:8080/userboard`
 
 export const useUserStore = defineStore('user', () => {
 
@@ -13,6 +14,7 @@ export const useUserStore = defineStore('user', () => {
   const isLoggedIn = ref(false);
   const loginUserObj = ref({});
   const mypage = ref({});
+  const userBoard = ref({});
   
 
   //유저 목록  
@@ -136,6 +138,23 @@ export const useUserStore = defineStore('user', () => {
     })
     .catch((err) => {
       console.log(err);
+    })
+  }
+
+const getuserBoardList = function() {
+  axios({
+    method: "GET",
+    url: `${REST_USERBOARD_API}`,
+  })
+}
+
+  const getuserBoard = function(userId){
+    axios({
+      method: "GET",
+      url: `${REST_USERBOARD_API}/${userId}`,
+      params: {
+        user_id: userId,
+      },
     })
   }
 

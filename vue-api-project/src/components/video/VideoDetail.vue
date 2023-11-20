@@ -29,7 +29,7 @@
           <strong>파트</strong> {{ store.video.part }} |
           <strong>조회수</strong> {{ store.video.view_cnt }}
           <!-- 좋아요 토글 버튼 -->
-          <span @click="toggleLike" class="btn-link" style="cursor: pointer; font-size: 20px;">
+          <span @click="toggleLike" class="btn-link" style="cursor: pointer; font-size: 20px; text-decoration: none;">
             {{ likeButtonIcon }}
           </span>
           {{ store.video.liked_cnt }}
