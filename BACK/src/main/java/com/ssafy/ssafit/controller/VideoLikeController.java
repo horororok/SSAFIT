@@ -40,9 +40,12 @@ public class VideoLikeController {
 	@PostMapping
 	public ResponseEntity<?> likeVideo(@RequestBody VideoLike videolike){
 		int result = vlikeservice.likeVideo(videolike); 
-		System.out.println(videolike);
-		if(result == 1)
-			return new ResponseEntity<VideoLike>(videolike, HttpStatus.OK);
+		
+		if(result == 1) {
+//			System.out.println("좋아요했다" + videolike);
+			return new ResponseEntity<Integer>(result, HttpStatus.OK);
+		}
+			
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 	
@@ -51,8 +54,11 @@ public class VideoLikeController {
 	public ResponseEntity<?> unlikeVideo(@RequestBody VideoLike videolike){
 		int result = vlikeservice.unlikeVideo(videolike);
 		
-		if(result == 1)
+		if(result == 1) {
+//			System.out.println("좋아요취소했다" + videolike);
 			return new ResponseEntity<Integer>(result, HttpStatus.OK);
+		}
+			
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 	
