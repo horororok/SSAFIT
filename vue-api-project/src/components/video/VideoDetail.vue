@@ -27,12 +27,11 @@
         </div>
         <div class="mb-1">
           <strong>파트</strong> {{ store.video.part }} |
-          <strong>조회수</strong> {{ store.video.view_cnt }}
           <!-- 좋아요 토글 버튼 -->
           <span @click="toggleLike" class="btn-link" style="cursor: pointer; font-size: 20px; text-decoration: none;">
             {{ likeButtonIcon }}
           </span>
-          {{ store.video.liked_cnt }}
+          {{ likedCnt }}
         </div>
       </div>
     </div>
@@ -49,7 +48,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useVideoStore } from "@/stores/video";
 import { useReviewStore } from '../../stores/review';
 import { useUserStore } from '../../stores/user';
-import { onMounted, computed } from "vue";
+import { onMounted, computed, watch } from "vue";
 import axios from 'axios'
 import ReviewList from '../review/ReviewList.vue';
 import ReviewRegModal from '../review/ReviewRegModal.vue';
@@ -68,8 +67,6 @@ const router = useRouter();
 onMounted(() => {
   store.getVideo(route.params.videoId);
   reviewStore.getReviewList(route.params.videoId);
-
-  
   console.log(route.params.videoId);
 });
 
@@ -97,8 +94,9 @@ const youtubeVideoId = computed(() => {
   return store.video.url ? getYouTubeVideoId(store.video.url) : null;
 });
 
-
-const isLiked = ref(store.isliked.value);
+// const isLiked = ref(store.isliked.value);
+//좋아요 상태 로컬스토리지에서 가져옴 (상태 유지됨)
+const isLiked = ref(localStorage.getItem('isLiked') === 'true');
 const user_id = ref(userStore.loginUserObj.user_id);
 const video_id = ref(route.params.videoId);
 
@@ -107,37 +105,38 @@ const toggleLike = function () {
   // 좋아요 상태 업데이트
   isLiked.value = !isLiked.value;
 
+  //로컬 스토리지에 좋아요 상태 저장 
+  localStorage.setItem('isLiked', isLiked.value);
+
   const videolike = {
     user_id : user_id.value,
     video_id : video_id.value,
   }
 
-  // console.log('userId:', user_id.value);
-  // console.log('videoId:', video_id.value);
-
   if (isLiked.value) {
     // 좋아요 버튼을 눌렀을 때
     store.likeVideo(videolike);
-    store.getVideo(route.params.videoId);
 
   } else {
     // 좋아요 버튼을 다시 눌렀을 때 (좋아요 취소)
     store.unlikeVideo(videolike);
-    store.getVideo(route.params.videoId);
   }
-
-  //문제...좋아요 개수 반응형으로 바뀌게 해주려고 getVideo를 좋아요, 취소 할때 실행시켜주는데
-  //그러면 계속 조회수도 하나씩 올라가버림 (get할때마다 조회수 올라가게 해서.. 흠...)
 }
 
-  //좋아요 한 상태이면 해당 페이지 들어갔을 때 빨간하트 나와야 함
-  //새로고침하면 다시 하얀 하트 (onMount 설정?)
+  const likedCnt = ref(store.video.liked_cnt);
+
+  // watch 함수를 사용하여 store.video.liked_cnt 변경 감지
+  watch(() => store.video.liked_cnt, (newValue) => {
+    console.log('liked_cnt changed:', newValue);
+    // store.video.liked_cnt 값이 변경될 때마다 likedCnt 값 업데이트
+    likedCnt.value = newValue;
+  });
+  
 
 // 좋아요 버튼 아이콘 계산
   const likeButtonIcon = computed(() => {
   return isLiked.value ? '❤️' : '🤍';
   });
-
 </script>
 <style scoped>
 </style>
