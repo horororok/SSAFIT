@@ -11,11 +11,17 @@
         >
           상세 정보
         </router-link>
-        <router-link
+        <!-- <router-link
           :to="{ name: 'myregist', params: { userId: store.loginUserObj.user_id } }"
           class="btn btn-outline-primary me-2"
         >
           추가 정보 등록
+        </router-link> -->
+        <router-link
+          :to="{ name: 'userdetail', params: { userId: store.loginUserObj.user_id } }"
+          class="btn btn-outline-primary me-2"
+        >
+          추가 정보
         </router-link>
         <!-- <router-link class="btn btn-outline-primary me-2">찜한 영상 보기</router-link>
         <router-link class="btn btn-outline-primary me-2">팔로워 / 팔로잉</router-link> -->

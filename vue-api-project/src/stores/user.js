@@ -13,7 +13,7 @@ export const useUserStore = defineStore('user', () => {
   const isLoggedIn = ref(false);
   const loginUserObj = ref({});
   const mypage = ref({});
-  const myPageUser = ref({});
+  
 
   //유저 목록  
   const getUserList = function () {
@@ -188,10 +188,12 @@ export const useUserStore = defineStore('user', () => {
   }
 
     //마이페이지 추가 정보 반환
+    const myPageUser = ref({});
+    
     const getmyPageUser = function(userId) {
       axios.get(`${REST_USER_API}/mypage/user/${userId}`)
     .then((res) => {
-      console.log("응답:", res.data);
+      console.log("마이페이지 추가 정보 응답:", res.data);
       myPageUser.value = res.data;
     })
     .catch((err) => {

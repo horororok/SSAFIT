@@ -1,24 +1,28 @@
 <template>
-     <div>
-    <h2 class="mt-3">상세 정보</h2>
-    <div class="my-3">
-      <div class="mb-2">
-        <strong>ID:</strong> {{ store.mypage.id }}
-      </div>
-      <div class="mb-2">
-        <strong>Password:</strong> {{ store.mypage.password }}
-      </div>
-      <div class="mb-2">
-        <strong>Name:</strong> {{ store.mypage.name }}
-      </div>
-      <div class="mb-2">
-        <strong>Email:</strong> {{ store.mypage.email }}
-      </div>
-      <div class="mb-4">
-        <strong>Nickname:</strong> {{ store.mypage.nickname }}
-      </div>
+    <div class="container mt-4">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="mt-3">상세 정보</h2>
+        <div class="my-3">
+          <div class="mb-2">
+            <strong>ID:</strong> {{ store.mypage.id }}
+          </div>
+          <div class="mb-2">
+            <strong>Password:</strong> {{ store.mypage.password }}
+          </div>
+          <div class="mb-2">
+            <strong>Name:</strong> {{ store.mypage.name }}
+          </div>
+          <div class="mb-2">
+            <strong>Email:</strong> {{ store.mypage.email }}
+          </div>
+          <div class="mb-4">
+            <strong>Nickname:</strong> {{ store.mypage.nickname }}
+          </div>
 
-      <button class="btn btn-primary" @click="updateUser">회원정보 수정</button>
+          <button class="btn btn-primary" @click="updateUser">회원정보 수정</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>

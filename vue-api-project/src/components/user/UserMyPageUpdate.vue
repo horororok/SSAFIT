@@ -1,79 +1,11 @@
 <template>
-    <!-- <div>
-        <h4>회원정보 수정 페이지</h4>
-        <div>
-            <label for="id">아이디 : </label>
-            <span> {{store.mypage.id}}</span>
-        </div>
-        <div v-if="!isEditing">
-            <div>
-                <label for="password">비밀번호 : </label>
-                <div>{{store.mypage.password}}</div>
-            </div>
-            <div>
-                <label for="name">이름 : </label>
-                <div>{{store.mypage.name}}</div>
-            </div>
-            <div>
-                <label for="email">이메일 : </label>
-                <div>{{store.mypage.email}}</div>
-            </div>
-            <div>
-                <label for="nickname">닉네임 : </label>
-                <div>{{store.mypage.nickname}}</div>
-            </div>
-            <button @click="startEditing">수정</button>
-        </div>
-        <div v-else>
-            <div>
-                <label for="password">비밀번호 : </label>
-                <input type="password" id="password" v-model="editedpassword">
-            </div>
-            <div>
-                <label for="name">이름 : </label>
-                <input type="text" id="name"  v-model="editedname">
-            </div>
-            <div>
-                <label for="email">이메일 : </label>
-                <input type="text" id="email"  v-model="editedemail">
-            </div>
-            <div>
-                <label for="nickname">닉네임 : </label>
-                <input type="text" id="nickname"  v-model="editednickname">
-                <button  @click="nicknameCheck">중복확인</button>
-            </div>
-            <button @click="saveChanges">저장</button>
-            <button @click="cancelUpdate">취소</button>
-        </div>
-    </div> -->
-
-
     <div class="container mt-3">
     <h4>회원정보 수정 페이지</h4>
     <div>
       <label for="id" class="fw-bold">아이디:</label>
       <span>{{ store.mypage.id }}</span>
     </div>
-    <div v-if="!isEditing" class="mt-3">
-      <div>
-        <label for="password" class="fw-bold">비밀번호:</label>
-        <div>{{ store.mypage.password }}</div>
-      </div>
-      <div>
-        <label for="name" class="fw-bold">이름:</label>
-        <div>{{ store.mypage.name }}</div>
-      </div>
-      <div>
-        <label for="email" class="fw-bold">이메일:</label>
-        <div>{{ store.mypage.email }}</div>
-      </div>
-      <div>
-        <label for="nickname" class="fw-bold">닉네임:</label>
-        <div>{{ store.mypage.nickname }}</div>
-      </div>
-      <button class="btn btn-primary mt-3" @click="startEditing">수정</button>
-    </div>
-    <div v-else class="mt-3">
+    <div class="mt-3">
       <div>
         <label for="password" class="fw-bold">비밀번호:</label>
         <input type="password" id="password" v-model="editedpassword" class="form-control">
@@ -107,7 +39,6 @@ import axios from "axios";
 
 const store = useUserStore();
 
-const isEditing = ref(false);
 const nicknameChecked = ref(false);
 
 const users = ref([]);
@@ -130,10 +61,6 @@ const getUserList = () => {
       console.log(err);
     });
 };
-
-const startEditing = function() {
-    isEditing.value = true;
-}
 
 //닉네임 중복 체크
 const nicknameCheck = () => {
