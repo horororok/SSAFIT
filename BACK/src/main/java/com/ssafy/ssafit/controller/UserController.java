@@ -37,8 +37,6 @@ public class UserController {
 		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
 	}
 
-	// id에 해당하는 사용자 정보 반환
-	// 사용 안하는 중 (나중에 필요없으면 삭제)
 	@GetMapping("user/{id}")
 	public ResponseEntity<?> selectOne(@PathVariable String id) {
 		User user = uService.searchById(id);
@@ -50,7 +48,6 @@ public class UserController {
 
 	@PostMapping("signup")
 	public ResponseEntity<?> signup(@RequestBody User user) {
-//		System.out.println(user);
 		int result = uService.signup(user);
 
 		if (result == 0)
@@ -77,7 +74,7 @@ public class UserController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
-	// --------------------마이페이지------------------
+	// --------------------마이페이지------------------ (나중에 마이페이지 컨트롤러 따로 빼서 정리 - 프론트랑 경로 한번에 바꾸기)
 
 	// 마이페이지 회원 정보 보기 (본인 기본 정보)
 	@GetMapping("/mypage/{userId}")
@@ -99,9 +96,6 @@ public class UserController {
 			return new ResponseEntity<Void>(HttpStatus.NOT_MODIFIED);
 		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}
-	// 프론트에서 수정 페이지에 user_id로 해당 유저의 기존 정보 미리 세팅해두고
-	// id 제외하고 모든 정보 수정 가능
-	
 	
 	// 마이페이지에서 사용자 추가 정보 등록
 	@PostMapping("/mypage/signup")
@@ -119,12 +113,10 @@ public class UserController {
 	public ResponseEntity<?> mypageUser(@PathVariable int userId){
 		System.out.println(userId);
 		MyPage mypage = uService.getMyPageUser(userId);
-//		System.out.println("mypage다" + " " + mypage); 얘가 안온다.
+
 		if(mypage == null)
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		return new ResponseEntity<MyPage>(mypage, HttpStatus.OK);
 	}
-	
-	// + 유저 소개 게시판에서 리스트로 가져오기, 상세 보기, 정렬 기능, 검색 기능 넣기
 
 }

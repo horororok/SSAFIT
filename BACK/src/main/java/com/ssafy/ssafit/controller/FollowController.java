@@ -27,7 +27,6 @@ public class FollowController {
 	public ResponseEntity<?> isFollowed(@RequestBody Follow follow){
 		int isfollowed = fservice.isFollowed(follow);
 		
-		
 		if(isfollowed == 0 || isfollowed == 1)
 			return new ResponseEntity<Integer>(isfollowed, HttpStatus.OK);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

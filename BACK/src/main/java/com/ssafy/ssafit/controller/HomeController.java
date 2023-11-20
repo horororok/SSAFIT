@@ -25,7 +25,7 @@ public class HomeController {
 	public ResponseEntity<?> getNews(){
 		List<News> news = hservice.getNewsList();
 		
-		if(news == null || news.size() < 0)
+		if(news == null || news.size() <= 0)
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		return new ResponseEntity<List<News>>(news, HttpStatus.OK);
 	}
