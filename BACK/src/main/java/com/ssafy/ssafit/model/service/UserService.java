@@ -33,4 +33,7 @@ public interface UserService {
 		User getMyUser(int id);
 		
 		MyPage getMyPageUser(int id);
+
+		//추가정보 등록했는지 확인
+		int isRegist(int id);
 }

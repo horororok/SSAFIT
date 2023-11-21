@@ -62,6 +62,11 @@ public class UserServiceImpl implements UserService {
 	public User getMyUser(int id) {
 		return userDao.getMyUser(id);
 	}
+
+	@Override
+	public int isRegist(int id) {
+		return userDao.isRegist(id);
+	}
 	
 	
 

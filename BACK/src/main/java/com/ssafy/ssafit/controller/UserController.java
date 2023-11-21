@@ -118,5 +118,23 @@ public class UserController {
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		return new ResponseEntity<MyPage>(mypage, HttpStatus.OK);
 	}
+	
+	
+	//내가 추가 정보 등록했는지 안했는지 확인
+	@GetMapping("/mypage/isregist/{id}")
+	public ResponseEntity<?> isMyPageRegist(@PathVariable int id){
+		
+		int result = uService.isRegist(id);
+		System.out.println("추가정보확인 id:" + id);
+		System.out.println("result: " + result);
+		
+		if(result == 1 || result == 0)
+			return new ResponseEntity<Integer>(result, HttpStatus.OK);
+		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+	}
+	
+	
+	
+	
 
 }

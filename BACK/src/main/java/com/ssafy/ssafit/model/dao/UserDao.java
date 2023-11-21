@@ -22,5 +22,7 @@ public interface UserDao {
 	MyPage getMyPageUser(int id);
 	
 	User getMyUser(int id);
+
+	int isRegist(int id);
 	
 }

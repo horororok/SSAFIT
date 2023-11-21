@@ -58,6 +58,12 @@
 		WHERE user_id = #{id}
 	</select>
 	
+	<select id="isRegist" parameterType="int" resultType="int">
+		SELECT count(*)
+		FROM mypage
+		WHERE user_id = #{id}
+	</select>
+	
 	
 	
 	
