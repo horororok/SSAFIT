@@ -29,6 +29,12 @@
           <span class="visually-hidden">Next</span>
         </button>
       </div>
+      <div>
+      <div>
+        <News />
+      </div>
+
+    </div>
     </div>
 
     <footer class="footer mt-auto py-3 bg-light">
@@ -39,7 +45,11 @@
   </div>
 </template>
   
-<script setup></script>
+<script setup>
+import News from '@/components/home/News.vue';
+
+
+</script>
   
 <style scoped>
 h1 {
