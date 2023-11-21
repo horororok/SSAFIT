@@ -42,6 +42,35 @@ const store = useUserStore();
 const route = useRoute();
 const user = ref(null);
 
+const isFollowing = computed(() => {
+    return user.value?.isFollowing;
+});
+
+const isVisible = ref(false);
+
+const openSendMessageModal = () => {
+    isVisible.value = true;
+};
+
+const closeModal = () => {
+    isVisible.value = false;
+};
+
+const sendMessage = () => {
+    // 메시지를 서버로 전송하는 로직을 추가
+    // 성공적으로 전송되면 모달을 닫기
+    closeModal();
+};
+
+const toggleFollow = async () => {
+    try {
+        await store.toggleFollow(user.value.id);
+        user.value.isFollowing = !user.value.isFollowing;
+    } catch (error) {
+        console.error('팔로우 토글 중 오류 발생:', error);
+    }
+};
+
 onMounted(async () => {
     try {
         // 현재 라우터에서 유저 아이디 가져오기

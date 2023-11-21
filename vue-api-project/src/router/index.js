@@ -11,6 +11,7 @@ import MyPageUserDetail from '@/components/mypage/MyPageUserDetail.vue'
 import MyPageView from '@/views/MyPageView.vue'
 import MypageZZIM from '@/components/mypage/MypageZZIM.vue'
 import MypageFollow from '@/components/mypage/MypageFollow.vue'
+import MyPageRegistUpdate from '@/components/mypage/MyPageRegistUpdate.vue'
 
 
 import VideoView from '@/views/VideoView.vue'
@@ -62,6 +63,16 @@ const router = createRouter({
           component: MyPageRegist,
         },
         {
+          path: "myregistupdate",
+          name: "myregistupdate",
+          component: MyPageRegistUpdate,
+        },
+        {
+          path: "mydata",
+          name: "mydata",
+          component: MyPageUserDetail
+        },
+        {
           path: "myupdate",
           name: "myupdate",
           component: MyPageUpdate,
@@ -80,7 +91,8 @@ const router = createRouter({
           path: "follow",
           name: "follow",
           component: MypageFollow,
-        }
+        },
+       
       ]
     },
     {

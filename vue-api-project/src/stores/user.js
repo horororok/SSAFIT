@@ -175,11 +175,12 @@ export const useUserStore = defineStore('user', () => {
         address : inputUser.address,
         fav_sport : inputUser.fav_sport,
         user_id : inputUser.user_id,
+        profile_image : inputUser.profile_image,
       }
     })
     .then(() => {
       alert("등록 완료");
-      router.push("/"); 
+      router.push(`/${inputUser.user_id}/userdetail`); 
     })
     .catch((err)=>{
       console.log(err);
