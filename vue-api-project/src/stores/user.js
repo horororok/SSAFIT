@@ -348,5 +348,5 @@ export const useUserStore = defineStore('user', () => {
   return { UserList, user, getUser, getUserList, createUser, setlogin, 
     setlogout, isLoggedIn, loginUserObj, mypage, getmyPage, signupMypage, 
     myPageUser, getmyPageUser, updateUser, userBoard, userBoardList, getUserBoardList, getUserBoardOne,
-    friends, getFriendList, follow, unfollow, following, follower, getFollowingList, getFollowerList}
+    friends, getFriendList, follow, unfollow, following, follower, getFollowingList, getFollowerList, updateMyPageUser}
 })
