@@ -166,7 +166,6 @@ const registMypage = () => {
   // router.push({ name: "mydata" });
 }
 
-//등록했으면 해당 정보 반환해주고 수정 버튼 나오게 하기 추가 
 
 </script>
 

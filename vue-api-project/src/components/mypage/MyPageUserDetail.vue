@@ -33,7 +33,7 @@
 
       </div>
       <!-- 조건부로 버튼 표시 -->
-      <button v-if="!store.myPageUserRegistered" @click="insertUser">추가 정보 등록</button>
+      <button v-if="!registered" @click="insertUser">추가 정보 등록</button>
       <button v-else @click="updateUser">수정</button>
     </div>
   </div>
@@ -42,17 +42,19 @@
 <script setup>
 import { useUserStore } from '@/stores/user';
 import { useRoute, useRouter } from 'vue-router';
-import { onMounted, computed } from 'vue';
+import { onMounted, computed, ref } from 'vue';
+import axios from 'axios'
 
 const store = useUserStore();
 
 const route = useRoute();
 const router = useRouter();
 
+const registered = ref(false);
 
 onMounted(() => {
-  // console.log(route.params.userId);
   store.getmyPageUser(route.params.userId);
+  isMyPageRegist(route.params.userId);
 
 });
 
@@ -66,12 +68,29 @@ const insertUser = function () {
 
 const updateUser = function () {
   //수정 버튼 클릭시 수정 페이지로 이동
-  router.push({ name: 'myresgistupdate' });
+  router.push({ name: 'myregistupdate' });
 };
 
 const profileImg = computed(() => {
   return store.myPageUser.profile_image; 
 });
+
+
+const REST_USER_API = `http://localhost:8080/api-user`
+// 등록 여부 확인 함수
+const isMyPageRegist = function(userId) {
+  axios.get(`${REST_USER_API}/mypage/isregist/${userId}`)
+    .then((res) => {
+      if (res.data === 1) {
+        console.log("추가정보등록확인: ", res.data);
+        registered.value = true;
+      }
+    })
+    .catch((err) => {
+      console.log("추가등록확인 에러", err);
+    });
+};
+
 
 </script>
 

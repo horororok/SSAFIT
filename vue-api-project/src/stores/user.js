@@ -291,10 +291,9 @@ export const useUserStore = defineStore('user', () => {
       console.log("언팔로우 실패 : 서버 에러", err);
     })
   }
-  
 
   return { UserList, user, getUser, getUserList, createUser, setlogin, 
     setlogout, isLoggedIn, loginUserObj, mypage, getmyPage, signupMypage, 
     myPageUser, getmyPageUser, updateUser, userBoard, userBoardList, getUserBoardList, getUserBoardOne,
-    friends, getFriendList, follow, unfollow}
+    friends, getFriendList, follow, unfollow,}
 })
