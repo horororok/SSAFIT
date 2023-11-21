@@ -27,7 +27,7 @@ public class UserBoardController {
 	public ResponseEntity<?> getlist(){
 		List<UserBoard> list = ubService.selectAll();
 		
-		if(list == null || list.size() < 0) 
+		if(list == null || list.size() <= 0) 
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		return new ResponseEntity<List<UserBoard>>(list, HttpStatus.OK);	
 	}
@@ -42,6 +42,14 @@ public class UserBoardController {
 		return new ResponseEntity<UserBoard>(userboard, HttpStatus.OK);
 	}
 	
-	
+	//유저게시판 전체 목록 (본인 정보 제외)
+	@GetMapping("friends/{user_id}")
+	public ResponseEntity<?> getFriendList(@PathVariable int user_id){
+		List<UserBoard> list = ubService.getFriendList(user_id);
+		
+		if(list == null || list.size() <= 0) 
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<List<UserBoard>>(list, HttpStatus.OK);	
+	}
 	
 }

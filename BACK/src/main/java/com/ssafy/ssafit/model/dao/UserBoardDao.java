@@ -9,6 +9,8 @@ public interface UserBoardDao {
 	List<UserBoard> selectAll();
 
 	UserBoard selectOne(int user_id);
+
+	List<UserBoard> selectFriendList(int user_id);
 	
 	
 }

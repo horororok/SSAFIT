@@ -20,6 +20,13 @@
 		WHERE m.user_id = #{user_id}
 	</select> 
 
+	<select id="selectFriendList" parameterType="int" resultType="UserBoard">
+		SELECT u.user_id, u.nickname, m.age, m.gender, m.self_intro, m.address, m.fav_sport
+		FROM mypage AS m
+		LEFT OUTER JOIN user AS u
+		ON m.user_id = u.user_id
+		WHERE m.user_id != #{user_id}
+	</select>
 
 
 

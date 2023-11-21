@@ -30,6 +30,13 @@ public class UserBoardServiceImpl implements UserBoardService {
 		return userBoardDao.selectOne(user_id);
 	}
 
+
+
+	@Override
+	public List<UserBoard> getFriendList(int user_id) {
+		return userBoardDao.selectFriendList(user_id);
+	}
+
 	
 	
 

@@ -31,8 +31,8 @@
 	</update>
 	
 	<insert id="insertMyPage" parameterType="MyPage">
-		INSERT INTO mypage (age, gender, self_intro, address, fav_sport, user_id)
-		VALUES (#{age}, #{gender}, #{self_intro}, #{address}, #{fav_sport}, #{user_id})
+		INSERT INTO mypage (age, gender, self_intro, address, fav_sport, user_id, profile_image)
+		VALUES (#{age}, #{gender}, #{self_intro}, #{address}, #{fav_sport}, #{user_id}, #{profile_image})
 	</insert>
 	<!-- 폼 입력받을 때 고르는 걸로 (radio?)  -->
 	

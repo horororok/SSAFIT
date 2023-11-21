@@ -6,18 +6,20 @@ public class MyPage {
 	private String self_intro;
 	private String address;
 	private String fav_sport;
+	private String profile_image;
 	private int user_id;
 	
 	public MyPage() {
 	}
 
-	public MyPage(int age, int gender, String self_intro, String address, String fav_sport,
+	public MyPage(int age, int gender, String self_intro, String address, String fav_sport, String profile_image,
 			int user_id) {
 		this.age = age;
 		this.gender = gender;
 		this.self_intro = self_intro;
 		this.address = address;
 		this.fav_sport = fav_sport;
+		this.profile_image = profile_image;
 		this.user_id = user_id;
 	}
 
@@ -67,6 +69,14 @@ public class MyPage {
 
 	public void setUser_id(int user_id) {
 		this.user_id = user_id;
+	}
+	
+	public String getProfile_image() {
+		return profile_image;
+	}
+
+	public void setProfile_image(String profile_image) {
+		this.profile_image = profile_image;
 	}
 
 	@Override
