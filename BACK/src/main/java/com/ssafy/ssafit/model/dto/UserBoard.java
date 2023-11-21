@@ -1,5 +1,7 @@
 package com.ssafy.ssafit.model.dto;
 
+import java.util.List;
+
 //유저 기본 정보와 추가 정보 합친 dto (유저게시판에서 보여줄 유저 정보 바구니)
 public class UserBoard {
 	private int user_id;
@@ -9,10 +11,10 @@ public class UserBoard {
 	private String self_intro;
 	private String address;
 	private String fav_sport;
+	private int user_follow_cnt;
 	
-	
-	public UserBoard(int user_id, String nickname, int age, int gender, String self_intro,
-			String address, String fav_sport) {
+	public UserBoard(int user_id, String nickname, int age, int gender, String self_intro, String address,
+			String fav_sport, int user_follow_cnt) {
 		super();
 		this.user_id = user_id;
 		this.nickname = nickname;
@@ -21,6 +23,7 @@ public class UserBoard {
 		this.self_intro = self_intro;
 		this.address = address;
 		this.fav_sport = fav_sport;
+		this.user_follow_cnt = user_follow_cnt;
 	}
 	public UserBoard() {
 	}
@@ -66,15 +69,19 @@ public class UserBoard {
 	public void setFav_sport(String fav_sport) {
 		this.fav_sport = fav_sport;
 	}
+
+	
+	public int getUser_follow_cnt() {
+		return user_follow_cnt;
+	}
+	public void setUser_follow_cnt(int user_follow_cnt) {
+		this.user_follow_cnt = user_follow_cnt;
+	}
 	@Override
 	public String toString() {
 		return "UserBoard [user_id=" + user_id + ", nickname=" + nickname + ", age=" + age + ", gender=" + gender
-				+ ", self_intro=" + self_intro + ", address=" + address + ", fav_sport=" + fav_sport + "]";
+				+ ", self_intro=" + self_intro + ", address=" + address + ", fav_sport=" + fav_sport
+				+ ", user_follow_cnt=" + user_follow_cnt + "]";
 	}
-	
-	
-	
-	
-	
-	
+
 }

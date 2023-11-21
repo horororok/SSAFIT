@@ -37,6 +37,7 @@ public class FollowController {
 	@PostMapping
 	public ResponseEntity<?> follow(@RequestBody Follow follow){
 		int result = fservice.follow(follow);
+		System.out.println("팔로우" + follow);
 		
 		if(result == 1)
 			return new ResponseEntity<Integer>(result, HttpStatus.OK);
@@ -48,6 +49,7 @@ public class FollowController {
 	@DeleteMapping
 	public ResponseEntity<?> unfollow(@RequestBody Follow follow){
 		int result = fservice.unfollow(follow);
+		System.out.println("언팔로우" + follow);
 		
 		if(result == 1)
 			return new ResponseEntity<Integer>(result, HttpStatus.OK);
