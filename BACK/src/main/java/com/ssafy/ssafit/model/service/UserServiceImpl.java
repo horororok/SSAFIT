@@ -67,6 +67,11 @@ public class UserServiceImpl implements UserService {
 	public int isRegist(int id) {
 		return userDao.isRegist(id);
 	}
+
+	@Override
+	public int modifyMypage(MyPage mypage) {
+		return userDao.updateMyPage(mypage);
+	}
 	
 	
 

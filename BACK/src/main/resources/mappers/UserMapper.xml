@@ -64,6 +64,12 @@
 		WHERE user_id = #{id}
 	</select>
 	
+	<update id="updateMyPage" parameterType="Mypage">
+		UPDATE mypage
+		SET age = #{age}, gender = #{gender}, self_intro = #{self_intro}, address = #{address}, fav_sport = #{fav_sport}, profile_image = #{profile_image}
+		WHERE user_id = #{user_id};
+	</update>
+	
 	
 	
 	

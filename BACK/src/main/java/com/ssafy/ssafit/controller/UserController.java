@@ -119,6 +119,16 @@ public class UserController {
 		return new ResponseEntity<MyPage>(mypage, HttpStatus.OK);
 	}
 	
+	//마이페이지 추가 정보 수정하기
+	@PutMapping("/mypage/update")
+	public ResponseEntity<?> update(@RequestBody MyPage mypage){
+		int result = uService.modifyMypage(mypage);
+		
+		if(result == 0)
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<Integer>(result, HttpStatus.OK);
+	}
+	
 	
 	//내가 추가 정보 등록했는지 안했는지 확인
 	@GetMapping("/mypage/isregist/{id}")
@@ -132,9 +142,6 @@ public class UserController {
 			return new ResponseEntity<Integer>(result, HttpStatus.OK);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
-	
-	
-	
 	
 
 }

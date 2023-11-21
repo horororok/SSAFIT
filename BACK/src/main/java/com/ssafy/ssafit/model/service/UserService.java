@@ -36,4 +36,7 @@ public interface UserService {
 
 		//추가정보 등록했는지 확인
 		int isRegist(int id);
+
+		//마이페이지 추가 정보 수정
+		int modifyMypage(MyPage mypage);
 }
