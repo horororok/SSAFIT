@@ -6,6 +6,7 @@ import createPersistedState from 'pinia-plugin-persistedstate'
 
 const REST_USER_API = `http://localhost:8080/api-user`
 const REST_USERBOARD_API = `http://localhost:8080/userboard`
+const REST_FOLLOW_API = `http://localhost:8080/follow`
 
 export const useUserStore = defineStore('user', () => {
 
@@ -14,7 +15,7 @@ export const useUserStore = defineStore('user', () => {
   const isLoggedIn = ref(false);
   const loginUserObj = ref({});
   const mypage = ref({});
-
+  
   //유저 목록  
   const getUserList = function () {
     axios.get(`${REST_USER_API}/users`)
@@ -226,9 +227,73 @@ export const useUserStore = defineStore('user', () => {
       console.log(err);
     })
   }
+
+  //본인 제외한 유저게시판 유저 목록 반환
+  const friends = ref([]);
+  const getFriendList = function(user_id){
+    axios.get(`${REST_USERBOARD_API}/friends/${user_id}`)
+    .then((res) => {
+      console.log("유저게시판 한명 정보 : ", res.data);
+      friends.value = res.data;
+    })
+    .catch((err) => {
+      console.log("유저게시판 친구 목록 에러: ", err);
+    })
+  }
+
+
+  //팔로우
+  const follow  = function(followInfo) {
+    axios({
+      url : REST_FOLLOW_API,
+      method : "POST",
+      data : {
+        user_from_id : followInfo.user_from_id,
+        user_to_id : followInfo.user_to_id,
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    .then((res) => {
+      if(res.data === 1){
+        console.log("팔로우 완료");
+      }else if(res.data === 0){
+        console.log("팔로우 실패");
+      }
+    })
+    .catch((err)=>{
+      console.log("팔로우 실패 : 서버 에러", err);
+    })
+  }
+
+
+  //언팔로우
+  const unfollow = function(followInfo){
+    axios.delete(REST_FOLLOW_API, {
+      data: {
+        user_from_id : followInfo.user_from_id,
+        user_to_id : followInfo.user_to_id,
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+    .then((res) => {
+      if(res.data === 1){
+        console.log("언팔로우 완료");
+      }else if(res.data === 0){
+        console.log("언팔로우 실패");
+      }
+    })
+    .catch((err)=>{
+      console.log("언팔로우 실패 : 서버 에러", err);
+    })
+  }
   
 
   return { UserList, user, getUser, getUserList, createUser, setlogin, 
     setlogout, isLoggedIn, loginUserObj, mypage, getmyPage, signupMypage, 
-    myPageUser, getmyPageUser, updateUser, userBoard, userBoardList, getUserBoardList, getUserBoardOne}
+    myPageUser, getmyPageUser, updateUser, userBoard, userBoardList, getUserBoardList, getUserBoardOne,
+    friends, getFriendList, follow, unfollow}
 })
