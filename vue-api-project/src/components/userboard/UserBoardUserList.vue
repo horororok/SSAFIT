@@ -14,15 +14,6 @@
             <p class="card-text">성별: {{ user.gender === 1 ? "여자" : "남자"  }}</p>
             <p class="card-text">나이: {{ user.age }}</p>
             <p class="card-text">주소: {{ user.address }}</p>
-            <!-- <button @click="showUserBoardDetail(user.user_id)" class="btn btn-primary">
-              팔로우 버튼으로 수정
-            </button> -->
-            <!-- <button>
-              팔로우
-            </button> -->
-            <!-- <span @click="follow" class="btn-link" style="cursor: pointer;">
-            {{ followbutton }}
-          </span> -->
           <span @click="follow(user.user_id)" class="btn-link" style="cursor: pointer;">
             {{ user.user_follow_cnt === 1? "언팔로우" : "팔로우" }}
           </span> 
@@ -31,6 +22,9 @@
       </div>
     </div>
   </div>
+
+
+  <!-- 팔로우 언팔로우 할 때 새로고침 한번 해야 버튼 바뀜............... -->
 </template>
 
 <script setup>
@@ -44,45 +38,39 @@ const friends = ref(store.friends);
 const userId = store.loginUserObj.user_id;
 
 onMounted(() => {
-    //페이지 로드시 유저 목록 가져옴
-    // console.log("유저아이디:" ,userId);
     store.getFriendList(userId);
 });
 
-const user_to_id = ref(store.friends.user_id); 
+
 const isfollowed = ref(store.friends.user_follow_cnt);
+
+const me = JSON.parse(sessionStorage.getItem("loginUser"));
 
 const follow = function(input_userId) {
 
   if(isfollowed.value === 0){
-    isfollowed.value === 1
+    isfollowed.value = 1
   }else{
-    isfollowed.value === 0
+    isfollowed.value = 0
   }
 
+  console.log("isfollowedvalue: " , isfollowed.value);
   const followInfo = {
-    user_from_id : userId.value,
+    user_from_id : me.user_id,
     user_to_id : input_userId,
   }
 
   console.log("나 : ", followInfo.user_from_id);
   console.log("너 : ", followInfo.user_to_id);
 
-  if(isfollowed.value === 1){
+  if(isfollowed.value === 0){
     store.follow(followInfo);
-  }else if(isfollowed.value === 0){ 
+  }else if(isfollowed.value === 1){ 
     store.unfollow(followInfo);
   }
 }
 
-// const followState = ref(false);
-// watch(() => store.friends.user_follow_cnt, (newValue) => {
-  
-// })
 
-// const followbutton = computed(() => {
-//   return isfollowed.value? "언팔로우" : "팔로우";
-// })
 
 
 </script>
