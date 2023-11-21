@@ -1,102 +1,97 @@
 <template>
-    <div class="container mt-5">
+  <div class="container mt-5">
     <h2 class="text-center">추가 정보 등록 창</h2>
     <form class="col-md-6 offset-md-3 mt-4">
       <div class="mb-3">
         <label for="age" class="form-label">나이</label>
         <div class="input-group">
-          <input
-            type="number"
-            class="form-control"
-            id="age"
-            v-model="age"
-          />
+          <input type="number" class="form-control" id="age" v-model="age" />
         </div>
       </div>
       <div class="mb-3">
         <label class="form-label">성별</label>
         <div class="form-check">
-          <input
-            type="radio"
-            class="form-check-input"
-            id="female"
-            v-model="gender"
-            value="female"
-          />
+          <input type="radio" class="form-check-input" id="female" v-model="gender" value="female" />
           <label class="form-check-label" for="female">여성</label>
         </div>
         <div class="form-check">
-          <input
-            type="radio"
-            class="form-check-input"
-            id="male"
-            v-model="gender"
-            value="male"
-          />
+          <input type="radio" class="form-check-input" id="male" v-model="gender" value="male" />
           <label class="form-check-label" for="male">남성</label>
         </div>
       </div>
       <div class="mb-3">
         <label for="self_intro" class="form-label">자기소개 한줄</label>
-        <input
-          type="textarea" 
-          class="form-control"
-          id="self_intro"
-          v-model="self_intro"
-        />
+        <input type="textarea" class="form-control" id="self_intro" v-model="self_intro" />
       </div>
       <div class="mb-3">
-        <label for="address" class="form-label">주소(빼야겠다)</label>
-        <input
-          type="text"
-          class="form-control"
-          id="address"
-          v-model="address"
-        />
+        <label for="city" class="form-label">시(도)</label>
+        <select class="form-select" id="city" v-model="address">
+          <option value="" disabled selected>시(도)를 선택하세요</option>
+          <option value="서울특별시">서울특별시</option>
+          <option value="인천광역시">인천광역시</option>
+          <option value="부산광역시">부산광역시</option>
+          <option value="대구광역시">대구광역시</option>
+          <option value="광주광역시">광주광역시</option>
+          <option value="대전광역시">대전광역시</option>
+          <option value="울산광역시">울산광역시</option>
+          <option value="세종특별자치시">세종특별자치시</option>
+          <option value="경기도">경기도</option>
+          <option value="강원도">강원도</option>
+          <option value="충청북도">충청북도</option>
+          <option value="충청남도">충청남도</option>
+          <option value="전라북도">전라북도</option>
+          <option value="전라남도">전라남도</option>
+          <option value="경상북도">경상북도</option>
+          <option value="경상남도">경상남도</option>
+          <option value="제주특별자치도">제주특별자치도</option>
+        </select>
       </div>
+
+
+
       <div class="mb-3">
         <label class="form-label">선호 스포츠 1순위</label>
         <div class="form-check">
-          <input
-            type="radio"
-            class="form-check-input"
-            id="soccer"
-            v-model="fav_sport"
-            value="soccer"
-          />
+          <input type="radio" class="form-check-input" id="soccer" v-model="fav_sport" value="soccer" />
           <label class="form-check-label" for="soccer">축구</label>
         </div>
         <div class="form-check">
-          <input
-            type="radio"
-            class="form-check-input"
-            id="baseball"
-            v-model="fav_sport"
-            value="baseball"
-          />
+          <input type="radio" class="form-check-input" id="baseball" v-model="fav_sport" value="baseball" />
           <label class="form-check-label" for="baseball">야구</label>
         </div>
         <div class="form-check">
-          <input
-            type="radio"
-            class="form-check-input"
-            id="basketball"
-            v-model="fav_sport"
-            value="basketball"
-          />
+          <input type="radio" class="form-check-input" id="basketball" v-model="fav_sport" value="basketball" />
           <label class="form-check-label" for="basketball">농구</label>
         </div>
         <div class="form-check">
-          <input
-            type="radio"
-            class="form-check-input"
-            id="volleyball"
-            v-model="fav_sport"
-            value="volleyball"
-          />
+          <input type="radio" class="form-check-input" id="volleyball" v-model="fav_sport" value="volleyball" />
           <label class="form-check-label" for="volleyball">배구</label>
         </div>
       </div>
+
+      <!-- <div class="mb-3">
+        <label for="profile_img" class="form-label">프로필 이미지</label>
+        <input type="file" class="form-control" id="profile_img" v-on="profile_img" />
+        <div id="profile_img" class="form-text">프로필 이미지를 선택해주세요</div>
+      </div> -->
+
+      <div class="mb-3">
+        <label for="profile_image" class="form-label">프로필 이미지</label>
+
+        <!-- 이미지 목록 표시 -->
+        <div class="image-list" style="display: flex;">
+          <div v-for="(image, index) in imageList" :key="index" @click="selectImage(index)">
+            <!-- 정적 이미지 파일 경로 사용 -->
+            <img :src="`/profileimg/${image.name}.jpg`" alt="프로필 이미지" :style="{ maxWidth: '30%', maxHeight: '30%' }" />
+            {{ image.name }}
+          </div>
+        </div>
+        <!-- 선택된 이미지에 대한 설명 텍스트 -->
+        <div class="form-text" v-if="selectedImage">선택된 이미지: {{ selectedImage.name }}</div>
+      </div>
+
+
+
       <button type="button" class="btn btn-primary" @click="registMypage">등록</button>
     </form>
   </div>
@@ -106,8 +101,12 @@
 import { ref } from "vue";
 import axios from "axios";
 import { useUserStore } from "@/stores/user";
+import { useRouter } from "vue-router";
 
 const store = useUserStore();
+
+
+const router = useRouter();
 
 const age = ref("");
 const gender = ref("");
@@ -115,21 +114,37 @@ const self_intro = ref("");
 const address = ref("");
 const fav_sport = ref("");
 
-const registMypage = () => {
-    const mypageUser = {
-        age : age.value,
-        gender : gender.value,
-        self_intro : self_intro.value,
-        address : address.value,
-        fav_sport : fav_sport.value,
-        user_id : store.loginUserObj.user_id, //store에서 user_id 가져오기
-    };
 
-    // 여자면 1, 남자면 0
-    mypageUser.gender = gender.value === "female" ? 1 : 0;
-    
-    //선호 스포츠 값 변환
-    switch (fav_sport.value) {
+
+
+const imageList = ref([
+  { name: 'img1', url: '/public/profileimg/img1.jpg' },
+  { name: 'img2', url: '/public/profileimg/img2.jpg' },
+  { name: 'img3', url: '/public/profileimg/img3.jpg' },
+]);
+
+const selectedImage = ref("");
+
+const selectImage = (index) => {
+  selectedImage.value = imageList.value[index];
+};
+
+const registMypage = () => {
+  const mypageUser = {
+    age: age.value,
+    gender: gender.value,
+    self_intro: self_intro.value,
+    address: address.value,
+    fav_sport: fav_sport.value,
+    user_id: store.loginUserObj.user_id, //store에서 user_id 가져오기
+    profile_image: selectedImage.value.url,
+  };
+
+  // 여자면 1, 남자면 0
+  mypageUser.gender = gender.value === "female" ? 1 : 0;
+
+  //선호 스포츠 값 변환
+  switch (fav_sport.value) {
     case "soccer":
       mypageUser.fav_sport = "축구";
       break;
@@ -144,13 +159,15 @@ const registMypage = () => {
       break;
   }
 
-    store.signupMypage(mypageUser);
+  mypageUser.profile_image = selectedImage.value.url;
+
+  store.signupMypage(mypageUser);
+
+  // router.push({ name: "mydata" });
 }
 
 //등록했으면 해당 정보 반환해주고 수정 버튼 나오게 하기 추가 
 
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
