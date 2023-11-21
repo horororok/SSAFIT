@@ -291,9 +291,37 @@ export const useUserStore = defineStore('user', () => {
       console.log("언팔로우 실패 : 서버 에러", err);
     })
   }
+ 
+  //팔로잉 목록 반환
+  const following = ref([]);
+  const getFollowingList = function(id){
+    axios.get(`${REST_FOLLOW_API}/following/${id}`)
+    .then((res) => {
+      console.log("팔로잉 목록 반환: ", res.data);
+      following.value = res.data;
+    })
+    .catch((err) => {
+      console.log("팔로잉 목록 에러", err);
+    })
+  }
+
+  //팔로워 목록 반환
+  const follower = ref([]);
+  const getFollowerList = function(id){
+    axios.get(`${REST_FOLLOW_API}/follower/${id}`)
+    .then((res) => {
+      console.log("팔로워 목록 반환: ", res.data);
+      follower.value = res.data;
+    })
+    .catch((err) => {
+      console.log("팔로워 목록 에러", err);
+    })
+  }
+
+
 
   return { UserList, user, getUser, getUserList, createUser, setlogin, 
     setlogout, isLoggedIn, loginUserObj, mypage, getmyPage, signupMypage, 
     myPageUser, getmyPageUser, updateUser, userBoard, userBoardList, getUserBoardList, getUserBoardOne,
-    friends, getFriendList, follow, unfollow,}
+    friends, getFriendList, follow, unfollow, following, follower, getFollowingList, getFollowerList}
 })

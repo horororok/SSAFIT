@@ -60,8 +60,8 @@ const follow = function(input_userId) {
     user_to_id : input_userId,
   }
 
-  console.log("나 : ", followInfo.user_from_id);
-  console.log("너 : ", followInfo.user_to_id);
+  // console.log("나 : ", followInfo.user_from_id);
+  // console.log("너 : ", followInfo.user_to_id);
 
   if(isfollowed.value === 0){
     store.follow(followInfo);
