@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 
-
 import UserLogin from '@/components/user/UserLogin.vue'
 import UserRegist from '@/components/user/UserRegist.vue'
 import MyPageDetail from '@/components/mypage/MyPageDetail.vue'
@@ -27,7 +26,19 @@ import ReviewCreate from '@/components/review/ReviewCreate.vue'
 
 import UserBoardView from '@/views/UserBoardView.vue'
 import UserBoardUserDetail from '@/components/userboard/UserBoardUserDetail.vue'
+import { computed } from 'vue'
 
+const checkLogin = (fo, from, next) => {
+  const isLoggedIn = computed(() =>
+    !!JSON.parse(sessionStorage.getItem("loginUser")));
+
+    if(!isLoggedIn.value){
+      alert("로그인 후 이용 가능합니다.")
+      next('/login');
+    }else{
+      next();
+    }
+};
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -92,7 +103,6 @@ const router = createRouter({
           name: "follow",
           component: MypageFollow,
         },
-       
       ]
     },
     {
@@ -103,7 +113,8 @@ const router = createRouter({
         {
           path: "",
           name: "videoList",
-          component: VideoList
+          component: VideoList,
+          beforeEnter: checkLogin,
         },
         {
           path: "create",
@@ -146,7 +157,7 @@ const router = createRouter({
       path: '/userboard',
       name: 'userboard',
       component: UserBoardView,
-
+      beforeEnter : checkLogin,
     }
     ,{
       path: "/userboard/:userboardId",
