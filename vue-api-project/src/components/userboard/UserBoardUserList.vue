@@ -19,6 +19,7 @@
               style="cursor: pointer; background-color: #fff; color: #bfd49e; border: 1px solid #fff; border-radius: 5px; padding: 5px 10px;">
               {{ user.user_follow_cnt === 1 ? "언팔로우" : "팔로우" }}
             </button>
+            
           </div>
         </div>
       </div>

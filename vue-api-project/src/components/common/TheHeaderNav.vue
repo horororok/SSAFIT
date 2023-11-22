@@ -20,7 +20,7 @@
               <RouterLink class="nav-link" to="/regist">회원가입</RouterLink>
             </li>
             <li class="nav-item" v-if="store.isLoggedIn">
-              <RouterLink class="nav-link" :to="{ name: 'mypage', params: { userId: store.loginUserObj.user_id} }">마이페이지</RouterLink>
+              <RouterLink class="nav-link" :to="{ name: 'detail', params: { userId: store.loginUserObj.user_id} }">마이페이지</RouterLink>
             </li>
             <li class="nav-item">
               <RouterLink class="nav-link" :to="{ name: 'videoList' }">운동영상</RouterLink>
