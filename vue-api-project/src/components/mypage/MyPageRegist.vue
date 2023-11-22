@@ -80,16 +80,24 @@
 
         <!-- 이미지 목록 표시 -->
         <div class="image-list" style="display: flex;">
-          <div v-for="(image, index) in imageList" :key="index" @click="selectImage(index)">
+          <div v-for="(image, index) in imageList" :key="index" @click="selectImage(index)" class="image-item">
             <!-- 정적 이미지 파일 경로 사용 -->
-            <img :src="`/profileimg/${image.name}.jpg`" alt="프로필 이미지" :style="{ maxWidth: '30%', maxHeight: '30%' }" />
+            <img :src="`/profileimg/${image.name}.jpg`" alt="프로필 이미지" 
+                  :style="{ cursor: 'pointer' }" class="hoverable" />
             {{ image.name }}
           </div>
         </div>
         <!-- 선택된 이미지에 대한 설명 텍스트 -->
         <div class="form-text" v-if="selectedImage">선택된 이미지: {{ selectedImage.name }}</div>
+
+        
+
+
       </div>
 
+      
+
+      
 
 
       <button type="button" class="btn btn-primary" @click="registMypage">등록</button>
@@ -114,13 +122,12 @@ const self_intro = ref("");
 const address = ref("");
 const fav_sport = ref("");
 
-
-
-
 const imageList = ref([
-  { name: 'img1', url: '/profileimg/img1.jpg' },
-  { name: 'img2', url: '/profileimg/img2.jpg' },
-  { name: 'img3', url: '/profileimg/img3.jpg' },
+  { name: 'cutecat', url: '/profileimg/cutecat.jpg' },
+  { name: 'hipcat', url: '/profileimg/hipcat.jpg' },
+  { name: 'santacat', url: '/profileimg/santacat.jpg' },
+  { name: 'sleepycat', url: '/profileimg/sleepycat.jpg' },
+  { name: 'taehuncat', url: '/profileimg/taehuncat.jpg' },
 ]);
 
 const selectedImage = ref("");
@@ -169,4 +176,35 @@ const registMypage = () => {
 
 </script>
 
-<style scoped></style>
+<style scoped>
+.image-list {
+  display: flex;
+}
+
+.image-item {
+  margin-right: 10px;
+}
+
+.image-item img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  transition: transform 0.2s, border-color 0.2s; /* 애니메이션 효과 추가 */
+}
+
+.image-item img:hover {
+  transform: scale(1.1); /* 마우스 호버 시 약간 확대 */
+  border: 2px solid rgb(0, 0, 0); /* 마우스 호버 시 테두리 추가 */
+}
+
+/* 선택된 이미지에 대한 스타일 */
+.form-text {
+  margin-top: 10px;
+}
+
+/* 선택된 이미지 표시 스타일 */
+.hoverable {
+  cursor: pointer;
+}
+
+</style>

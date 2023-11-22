@@ -1,16 +1,13 @@
 <template>
   <div class="container mt-4">
-    <h4>추가 정보 페이지</h4>
     <div v-if="!registered">
       <p>아직 추가 정보를 등록하지 않았습니다.</p>
-      <p>유저 게시판에 올라올 정보를 등록해 스포츠 취향에 맞는 사람을 찾아보세요!</p>
-      <button @click="insertUser">추가 정보 등록</button>
+      <p>유저 게시판에 올라올 정보를 등록해 스포츠 취향이 맞는 사람을 찾아보세요!</p>
+      <button @click="insertUser" class="btn btn-primary">추가 정보 등록</button>
     </div>
     <div v-else class="card">
       <div class="card-body">
-        <div>
-          프로필 이미지 선택
-        </div>
+        <h5 class="card-title">나의 프로필</h5>
         <div class="mb-2">
           <strong>나이 :</strong> {{ store.myPageUser.age }}
         </div>
@@ -26,19 +23,21 @@
         <div class="mb-2">
           <strong>선호 스포츠 :</strong> {{ store.myPageUser.fav_sport }}
         </div>
-        <div class="mb-2">
+        <div class="mb-2"  v-if="profileImg">
           <!-- 이미지를 보여줄 img 태그 -->
-          <img v-if="profileImg" :src="profileImg" alt="프로필 이미지">
-
+          <div class="profile-image-frame">
+            <img :src="profileImg" alt="프로필 이미지" class="profile-image" />
+          </div>
+        </div>
           <!-- 이미지가 없을 경우의 대체 문구 -->
-          <div v-else>
+          <div v-else class="mb-2 no-profile-image">
             프로필 이미지가 없습니다.
           </div>
         </div>
       </div>
-      <button @click="updateUser">수정</button>
+      <button @click="updateUser" class="btn btn-success">수정</button>
     </div>
-  </div>
+  <!-- </div> -->
 </template>
 
 <script setup>
@@ -96,4 +95,38 @@ const isMyPageRegist = function(userId) {
 
 </script>
 
-<style scoped></style>
+<style scoped>
+.card {
+  width: 300px;
+  margin: 0 auto;
+}
+
+.card-body {
+  text-align: center;
+}
+
+.btn {
+  margin-top: 10px;
+}
+
+.profile-image-frame {
+  padding: 10px;
+  overflow: hidden;
+}
+
+.profile-image {
+  width: 100%;
+  height: auto;
+  border-radius: 70%; 
+}
+
+.no-profile-image {
+  padding: 10px;
+  border: 2px dashed #ccc; /* 이미지 없을 때의 대체 테두리 스타일 */
+  border-radius: 50%; /* 원형 프로필 이미지를 위한 테두리 반지름 */
+  width: 100%;
+  height: auto;
+  text-align: center;
+  color: #ccc;
+}
+</style>
