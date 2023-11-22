@@ -118,9 +118,9 @@ const fav_sport = ref("");
 
 
 const imageList = ref([
-  { name: 'img1', url: '/public/profileimg/img1.jpg' },
-  { name: 'img2', url: '/public/profileimg/img2.jpg' },
-  { name: 'img3', url: '/public/profileimg/img3.jpg' },
+  { name: 'img1', url: '/profileimg/img1.jpg' },
+  { name: 'img2', url: '/profileimg/img2.jpg' },
+  { name: 'img3', url: '/profileimg/img3.jpg' },
 ]);
 
 const selectedImage = ref("");
