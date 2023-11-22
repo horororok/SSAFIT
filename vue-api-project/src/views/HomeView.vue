@@ -1,11 +1,14 @@
 <template>
   <div class="home-container">
     <!-- <img src="@/assets/img/SSAFIT.png" alt="homeImage" class="responsive-image" /> -->
-    <img src="@/assets/img/homecat.jpg" alt="homeImage" style="width:100%; z-index: -1;" />
-    <div class = "components">
-      <News />
-    </div>
-    
+    <img src="@/assets/img/homecat.jpg" alt="homeImage" style="width:100%; z-index: -1; object-fit: cover;" />
+
+    <div class="divider"></div>
+
+    <News />
+
+    <div class="divider"></div>
+
     <footer class="footer mt-auto py-3 bg-white">
       <div class="container text-center">
         <span class="text-muted">© 2023 SSAFITMATE. All rights reserved.</span>
@@ -34,9 +37,15 @@ import News from '@/components/home/News.vue';
   height: 100%;
   background: url("@/assets/img/고양이1.jpg") center center/cover no-repeat fixed;
   z-index: -1;
-  opacity: 0.5; /* 배경의 투명도 조절 */
+  opacity: 0.5;
+  /* 배경의 투명도 조절 */
 }
 
+.divider {
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  margin: 20px 0; /* 간격을 조절할 수 있습니다. */
+}
 .responsive-image {
   max-width: 600px;
   height: auto;
@@ -46,11 +55,6 @@ import News from '@/components/home/News.vue';
 
 h1 {
   text-align: center;
-}
-
-.components {
-  position: relative;
-  z-index: 100; /* 배경 이미지 위로 올리기 */
 }
 
 .wrapper {
@@ -63,6 +67,4 @@ h1 {
   line-height: 60px;
   z-index: 1;
 }
-
-
 </style>
