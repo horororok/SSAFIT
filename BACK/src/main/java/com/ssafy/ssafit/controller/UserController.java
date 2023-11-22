@@ -111,7 +111,7 @@ public class UserController {
 	// 마이페이지 추가 정보 가져오기
 	@GetMapping("/mypage/user/{userId}")
 	public ResponseEntity<?> mypageUser(@PathVariable int userId){
-		System.out.println(userId);
+//		System.out.println(userId);
 		MyPage mypage = uService.getMyPageUser(userId);
 
 		if(mypage == null)
@@ -123,7 +123,7 @@ public class UserController {
 	@PutMapping("/mypage/update")
 	public ResponseEntity<?> update(@RequestBody MyPage mypage){
 		int result = uService.modifyMypage(mypage);
-		System.out.println("마이페이지 정보 수정 : " + mypage);
+//		System.out.println("마이페이지 정보 수정 : " + mypage);
 		
 		if(result == 0)
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

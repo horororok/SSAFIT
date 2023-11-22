@@ -82,7 +82,9 @@ public class MyPage {
 	@Override
 	public String toString() {
 		return "MyPage [age=" + age + ", gender=" + gender + ", self_intro=" + self_intro + ", address=" + address
-				+ ", fav_sport=" + fav_sport + ", user_id=" + user_id + "]";
+				+ ", fav_sport=" + fav_sport + ", profile_image=" + profile_image + ", user_id=" + user_id + "]";
 	}
+
+	
 
 }
