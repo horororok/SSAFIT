@@ -1,12 +1,13 @@
 <!-- ReviewList.vue -->
 <template>
   <div class="container mt-4">
-    <h2 style="color: #3c3c3c;">리뷰 목록</h2>
+    <h4 style="color: #3c3c3c;">리뷰 목록</h4>
 
     <ReviewCreate />
 
     <table class="table mt-3">
       <tr v-for="review in store.reviewList" :key="review.id">
+        <!-- <td>{{ review.profile_image }}</td> -->
         <td>{{ review.nickname }}</td>
         <td>
           <div v-if="!review.isEditing">{{ review.content }}</div>

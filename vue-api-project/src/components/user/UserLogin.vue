@@ -14,23 +14,11 @@
         <form @submit.prevent="login" class="mt-4">
           <div class="mb-3">
             <label for="id" class="form-label">아이디</label>
-            <input
-              type="text"
-              class="form-control"
-              id="id"
-              placeholder="아이디를 입력하세요."
-              v-model="id"
-            />
+            <input type="text" class="form-control" id="id" placeholder="아이디를 입력하세요." v-model="id" />
           </div>
           <div class="mb-3">
             <label for="password" class="form-label">비밀번호</label>
-            <input
-              type="password"
-              class="form-control"
-              id="password"
-              placeholder="비밀번호를 입력하세요."
-              v-model="password"
-            />
+            <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력하세요." v-model="password" />
           </div>
           <button type="submit" class="btn btn-primary">로그인</button>
         </form>
@@ -40,51 +28,81 @@
         </div>
       </div>
     </div>
+
+    <!-- <UserLoginModal :showModal="showModal" :message="alertMessage" @closeModal="closeAlertModal" /> -->
+
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { useUserStore } from "@/stores/user";
+// import UserLoginModal from "./UserLoginModal.vue";
+
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+
+
 const store = useUserStore();
 
 const id = ref("");
 const password = ref("");
+
+const showModal = ref(false);
+const alertMessage = ref("");
+
+const openAlertModal = (message) => {
+  alertMessage.value = message;
+  showModal.value = true;
+};
+
+const closeAlertModal = () => {
+  showModal.value = false;
+};
+
 
 const login = () => {
   let user = {
     id: id.value,
     password: password.value,
   };
-  store.setlogin(user);
-};
+  store.setlogin(user)
+    // .then(() => {
+    //   openAlertModal("로그인 되었습니다.");
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    //   openAlertModal("아이디 또는 비밀번호가 올바르지 않습니다.");
+    // });
+}
 </script>
 
 <style scoped>
-  /* 스타일 추가 */
-  body {
-    background-color: #f8f9fa;
-  }
+/* 스타일 추가 */
+body {
+  background-color: #f8f9fa;
+}
 
-  /* .container {
+/* .container {
     background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   } */
 
-  form {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
+form {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-  button {
-    width: 100%;
-  }
+button {
+  width: 100%;
+}
 
-  a {
-    color: #007bff;
-  }
+a {
+  color: #007bff;
+}
 </style>

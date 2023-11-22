@@ -1,27 +1,33 @@
-<!-- Modal.vue -->
 <template>
     <div class="modal">
         <div class="modal-content">
-            <p>리뷰가 등록되었습니다.</p>
-            <button @click="closeModalHandler">확인</button>
+            <p>로그아웃 하시겠습니까?</p>
+            <button @click="logout">네</button>
+            <button @click="cancellogoutModal">취소</button>
         </div>
     </div>
 </template>
-  
-<script setup>
-import { ref, defineProps, defineEmits } from 'vue';
 
-// 부모로부터 전달된 showModal 프로퍼티와 이벤트 발행을 위한 emit 함수 가져오기
-const { showModal } = defineProps(['showModal']);
+<script setup>
+import { storeToRefs } from 'pinia';
+import {defineProps, defineEmits} from 'vue';
+import { useUserStore } from '@/stores/user';
+
+const store = useUserStore();
+
+const {showlogoutModal} = defineProps(['showlogoutModal']);
 const emit = defineEmits();
 
-// 확인 버튼 클릭 시 실행되는 함수
-const closeModalHandler = () => {
-  // 부모 컴포넌트로 closeModal 이벤트를 발행하여 모달 닫기 요청
-  emit('closeModal');
+const logout = () => {
+
+    emit('cancellogoutModal');
+    store.setlogout();
+};
+const cancellogoutModal = () => {
+    emit('cancellogoutModal');
 };
 </script>
-  
+
 <style scoped>
 /* 모달 스타일링 */
 .modal {
@@ -49,7 +55,7 @@ const closeModalHandler = () => {
     background-color: #bfd49e;
     color: white;
     border: none;
-    padding: 10px 15px;
+    padding: 8px 12px;
     border-radius: 4px;
     cursor: pointer;
 }
@@ -59,4 +65,3 @@ const closeModalHandler = () => {
     background-color: #bfd49e;
 }
 </style>
-  

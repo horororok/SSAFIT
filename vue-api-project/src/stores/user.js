@@ -112,7 +112,7 @@ export const useUserStore = defineStore('user', () => {
     })
     .then((res) => {
       console.log(res); 
-      alert("로그아웃 되었습니다.")
+      // alert("로그아웃 되었습니다.")
       isLoggedIn.value = false;
       sessionStorage.removeItem("loginUser");
       router.push("/")
@@ -122,6 +122,8 @@ export const useUserStore = defineStore('user', () => {
       alert("로그아웃 실패 : 서버 에러");
     })
   };
+
+
   const persistedUser = JSON.parse(sessionStorage.getItem('loginUser'));
   if (persistedUser) {
     loginUserObj.value = persistedUser;

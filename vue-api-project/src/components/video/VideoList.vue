@@ -39,7 +39,7 @@
           <div class="card-body">
             <h5 class="card-title clickable-text" @click="showVideoDetail(video.video_id)">
               <!-- 제목이 두 줄 이상이면 생략 처리 -->
-              <span style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-align: center; font-size: 1.5rem;">
+              <span style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-align: center; font-size: 1.5rem; ">
                 {{ video.title }}
               </span>
             </h5>

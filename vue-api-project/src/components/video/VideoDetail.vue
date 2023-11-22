@@ -1,10 +1,9 @@
 <template>
   <div class="container mt-4">
-    <h4 class="mb-4">비디오 상세</h4>
     <button class="btn btn-secondary" @click="goToVideoList">목록으로</button>
     <hr>
 
-    <div v-if="store.video.url" class="mb-4">
+    <div v-if="store.video.url" class="mb-4" style="text-align: center;">
       <iframe width="560" height="315" :src="`https://www.youtube.com/embed/${youtubeVideoId}`"
         title="YouTube video player" frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
