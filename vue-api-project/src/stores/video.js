@@ -3,10 +3,13 @@ import { defineStore } from 'pinia'
 import router from '@/router'
 import axios from 'axios'
 
+import { useUserStore } from './user'
+
 const REST_VIDEO_API = `http://localhost:8080/api-video/video`
 const REST_VIDEOLIKE_API = `http://localhost:8080/api-vlike`
 
 export const useVideoStore = defineStore('video', () => {
+  const store = useUserStore();
 
   const likedVideos = ref([]) //좋아요 한 영상 리스트
   const getLikedVideos = function (user_id) {
@@ -84,13 +87,15 @@ export const useVideoStore = defineStore('video', () => {
   }
 
 
-  const videoList = ref([])
-
   //영상 전체 
-  const getVideoList = function () {
-    axios.get(REST_VIDEO_API)
+  const videoList = ref([])
+  const getVideoList = function (userId) {
+    axios.get(`${REST_VIDEO_API}/list/${userId}`)
       .then((response) => {
-        videoList.value = response.data
+        videoList.value = response.data;
+      })
+      .catch((err)=>{
+        console.log("영상 목록 반환 실패 : 서버 에러", err);
       })
 
   }
@@ -98,20 +103,24 @@ export const useVideoStore = defineStore('video', () => {
   //영상 한개
   const video = ref({})
 
+  
   const getVideo = function (id) {
-    axios.get(`${REST_VIDEO_API}/${id}`)
+    axios.get(`${REST_VIDEO_API}/${id}?user_id=${store.loginUserObj.user_id}`)
       .then((response) => {
         video.value = response.data
       })
   }
 
   //정렬
-  const searchVideoList = function (searchCondition) {
-    axios.get(REST_VIDEO_API, {
+  const searchVideoList = function (userId, searchCondition) {
+    axios.get(`${REST_VIDEO_API}/list/${userId}`, {
       params: searchCondition
     })
       .then((res) => {
         videoList.value = res.data
+      })
+      .catch((err)=>{
+        console.log("정렬 실패 : 서버 에러", err);
       })
   }
 

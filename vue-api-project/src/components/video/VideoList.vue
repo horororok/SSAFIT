@@ -37,7 +37,7 @@
               <span>{{ video.like_cnt }}</span>
 
               <!-- isLiked에 따라 하트 아이콘을 보여줌 -->
-              <span v-if="video.isliked==1">
+              <span v-if="video.is_user_liked==1">
                 ❤️
               </span>
               <span v-else>
@@ -55,24 +55,23 @@
 import { useVideoStore } from "@/stores/video";
 import { onMounted, ref, computed } from "vue";
 import VideoSearchInput from "./VideoSearchInput.vue";
-import router from "@/router"; // Vue Router 인스턴스를 가져옴
+import router from "@/router"; 
 
 const store = useVideoStore();
 
-// 선택된 파트를 저장하는 변수
 const selectedPart = ref(null);
 
+const user = JSON.parse(sessionStorage.getItem("loginUser"));
+
 onMounted(() => {
-  // 페이지 로드시 비디오 목록을 가져옴
-  store.getVideoList();
+  store.getVideoList(user.user_id); 
 });
 
-// 파트에 따라 비디오를 필터링하는 함수
+// 파트에 따라 비디오를 필터링
 const filterVideos = (part) => {
   selectedPart.value = part;
 };
 
-// 선택된 파트에 따라 필터링된 비디오를 반환하는 계산된 속성
 const filteredVideos = computed(() => {
   if (!selectedPart.value) {
     // 선택된 파트가 없으면 전체 비디오 목록 반환
@@ -82,10 +81,8 @@ const filteredVideos = computed(() => {
   return store.videoList.filter((video) => video.part === selectedPart.value);
 });
 
-// 비디오 상세 페이지로 이동하는 함수
 const showVideoDetail = function (videoId) {
   if (videoId) {
-    // videoId가 유효하면 비디오 상세 페이지로 이동
     router.push({ name: 'videoDetail', params: { videoId: videoId } });
   } else {
     console.error("Invalid videoId:", videoId);
