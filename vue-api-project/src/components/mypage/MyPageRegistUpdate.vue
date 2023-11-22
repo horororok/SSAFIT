@@ -53,19 +53,19 @@
       <div class="mb-3">
         <label class="form-label">선호 스포츠 1순위</label>
         <div class="form-check">
-          <input type="radio" class="form-check-input" id="soccer" v-model="fav_sport" value="soccer" />
+          <input type="radio" class="form-check-input" id="soccer" v-model="fav_sport" value="축구" />
           <label class="form-check-label" for="soccer">축구</label>
         </div>
         <div class="form-check">
-          <input type="radio" class="form-check-input" id="baseball" v-model="fav_sport" value="baseball" />
+          <input type="radio" class="form-check-input" id="baseball" v-model="fav_sport" value="야구" />
           <label class="form-check-label" for="baseball">야구</label>
         </div>
         <div class="form-check">
-          <input type="radio" class="form-check-input" id="basketball" v-model="fav_sport" value="basketball" />
+          <input type="radio" class="form-check-input" id="basketball" v-model="fav_sport" value="농구" />
           <label class="form-check-label" for="basketball">농구</label>
         </div>
         <div class="form-check">
-          <input type="radio" class="form-check-input" id="volleyball" v-model="fav_sport" value="volleyball" />
+          <input type="radio" class="form-check-input" id="volleyball" v-model="fav_sport" value="배구" />
           <label class="form-check-label" for="volleyball">배구</label>
         </div>
       </div>

@@ -5,7 +5,7 @@
       <div v-for="user in friends" :key="user.user_id" class="col-md-2 mb-4">
         <div class="card border" style="background-color: #bfd49e; padding: 10px; border-radius: 10px;">
           <!-- 임시 이미지 (이미지 주소를 실제 이미지 파일 경로로 변경)-->
-          <img src="https://via.placeholder.com/150" alt="프로필 이미지" class="card-img-top" style="border-radius: 50%;">
+          <img :src="`${user.profile_image}`" alt="프로필 이미지" class="card-img-top" style="border-radius: 50%;">
           <div class="card-body text-center">
             <div>
               <h5 class="card-title" style="color: #fff;">{{ user.nickname }}</h5>
@@ -27,10 +27,14 @@
 
 <script setup>
 import { useUserStore } from "@/stores/user";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 import router from "@/router";
 
 const store = useUserStore();
+
+const profileImg = computed(() => {
+  return friends.value.profile_image;
+});
 
 const friends = ref(store.friends);
 const userId = store.loginUserObj.user_id;
@@ -65,5 +69,4 @@ const follow = function (input_userId) {
 </script>
 
 <style scoped>
-/* 스타일 수정 */
 </style>
