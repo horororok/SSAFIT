@@ -20,7 +20,41 @@
     <div class="row justify-content-center">
       <div v-for="user in filteredFriends" :key="user.user_id" class="col-md-2 mb-4">
         <!-- 카드 내용 -->
-        <div class="card border" style="background-color: #bfd49e; padding: 10px; border-radius: 10px;">
+
+      <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ user.nickname }}</h5>
+        <div class="mb-2">
+          <strong>나이 :</strong> {{ user.age }}
+        </div>
+        <div class="mb-2">
+          <strong>성별 :</strong> {{ user.gender === 1 ? "여자" : "남자" }}
+        </div>
+        <div class="mb-2">
+          <strong>자기소개 :</strong> {{ user.self_intro }}
+        </div>
+        <div class="mb-2">
+          <strong>주소 :</strong> {{ user.address }}
+        </div>
+        <div class="mb-2">
+          <strong>선호 스포츠 :</strong> {{ user.fav_sport }}
+        </div>
+        <div class="mb-2"  v-if="user.profile_image">
+          <!-- 이미지를 보여줄 img 태그 -->
+          <div class="profile-image-frame">
+            <img :src="user.profile_image" alt="프로필 이미지" class="profile-image" >
+          </div>
+        </div>
+        <button @click="follow(user.user_id)" class="btn follow-button"
+              :class="{ 'followed': user.user_follow_cnt === 1 }">
+              {{ user.user_follow_cnt === 1 ? "언팔로우" : "팔로우" }}
+            </button>
+        </div>
+      </div>
+
+
+
+        <!-- <div class="card border" style="background-color: #bfd49e; padding: 10px; border-radius: 10px;">
           <img :src="`${user.profile_image}`" alt="프로필 이미지" class="card-img-top" style="border-radius: 50%;">
           <div class="card-body text-center">
             <div>
@@ -36,7 +70,7 @@
               {{ user.user_follow_cnt === 1 ? "언팔로우" : "팔로우" }}
             </button>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -149,5 +183,39 @@ const filterUsers = function (filtering) {
 .followed {
   background-color: #bfd49e;
   color: #fff;
+}
+
+.card {
+  width: 300px;
+  margin: 0 auto;
+}
+
+.card-body {
+  text-align: center;
+}
+
+.btn {
+  margin-top: 10px;
+}
+
+.profile-image-frame {
+  padding: 10px;
+  overflow: hidden;
+}
+
+.profile-image {
+  width: 100%;
+  height: auto;
+  border-radius: 70%; 
+}
+
+.no-profile-image {
+  padding: 10px;
+  border: 2px dashed #ccc; /* 이미지 없을 때의 대체 테두리 스타일 */
+  border-radius: 50%; /* 원형 프로필 이미지를 위한 테두리 반지름 */
+  width: 100%;
+  height: auto;
+  text-align: center;
+  color: #ccc;
 }
 </style>
