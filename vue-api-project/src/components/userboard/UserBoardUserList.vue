@@ -15,7 +15,8 @@
               <p class="card-text" style="color: #fff;">{{ user.age }}세</p>
               <p class="card-text" style="color: #fff;">{{ user.address }}</p>
             </div>
-            <button @click="follow(user.user_id)" class="btn" style="cursor: pointer; background-color: #fff; color: #bfd49e; border: 1px solid #fff; border-radius: 5px; padding: 5px 10px;">
+            <button @click="follow(user.user_id)" class="btn"
+              style="cursor: pointer; background-color: #fff; color: #bfd49e; border: 1px solid #fff; border-radius: 5px; padding: 5px 10px;">
               {{ user.user_follow_cnt === 1 ? "언팔로우" : "팔로우" }}
             </button>
           </div>
@@ -28,45 +29,51 @@
 <script setup>
 import { useUserStore } from "@/stores/user";
 import { onMounted, ref, computed } from "vue";
+import { storeToRefs } from "pinia";
 import router from "@/router";
 
 const store = useUserStore();
 
-const profileImg = computed(() => {
-  return friends.value.profile_image;
-});
+// friends를 ref로 감싸기
+// const { friends } = storeToRefs(store);
+const friends = computed(()=>store.friends)
 
-const friends = ref(store.friends);
 const userId = store.loginUserObj.user_id;
 
 onMounted(() => {
+  console.log(userId);
   store.getFriendList(userId);
 });
 
-const isfollowed = ref(store.friends.user_follow_cnt);
-
 const me = JSON.parse(sessionStorage.getItem("loginUser"));
 
-const follow = function (input_userId) {
-  if (isfollowed.value === 0) {
-    isfollowed.value = 1;
-  } else {
-    isfollowed.value = 0;
-  }
+// const isfollowed = ref(store.userBoard.user_follow_cnt);
 
-  console.log("isfollowedvalue: ", isfollowed.value);
+// const isfollowed = (() => {
+//   if (store.userBoard.user_follow_cnt === 1) {
+//     return 1;
+//   } else {
+//     return 0;
+//   }
+// })
+
+
+const follow = function (input_userId) {
   const followInfo = {
     user_from_id: me.user_id,
     user_to_id: input_userId,
   };
 
-  if (isfollowed.value === 0) {
+  if (store.userBoard.user_follow_cnt === 0) {
+    store.userBoard.user_follow_cnt = 1;
     store.follow(followInfo);
-  } else if (isfollowed.value === 1) {
+  } else {
+    store.userBoard.user_follow_cnt = 0;
     store.unfollow(followInfo);
   }
+
 };
 </script>
 
-<style scoped>
-</style>
+
+<style scoped></style>

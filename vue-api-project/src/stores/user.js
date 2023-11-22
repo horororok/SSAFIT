@@ -261,13 +261,23 @@ export const useUserStore = defineStore('user', () => {
   const getFriendList = function(user_id){
     axios.get(`${REST_USERBOARD_API}/friends/${user_id}`)
     .then((res) => {
-      console.log("유저게시판 한명 정보 : ", res.data);
+      console.log("유저게시판 친구 목록 정보 : ", res.data);
       friends.value = res.data;
     })
     .catch((err) => {
       console.log("유저게시판 친구 목록 에러: ", err);
     })
   }
+  // const getFriendOne = function(user_id){
+  //   axios.get(`${REST_USERBOARD_API}/friends/${user_id}`)
+  //   .then((res) => {
+  //     console.log("유저게시판 친구 한명 정보 : ", res.data);
+  //     friends.value = res.data;
+  //   })
+  //   .catch((err) => {
+  //     console.log("유저게시판 친구 한명 에러: ", err);
+  //   })
+  // }
 
 
   //팔로우
@@ -286,6 +296,7 @@ export const useUserStore = defineStore('user', () => {
     .then((res) => {
       if(res.data === 1){
         console.log("팔로우 완료");
+        getFriendList(loginUserObj.value.user_id);
       }else if(res.data === 0){
         console.log("팔로우 실패");
       }
@@ -310,6 +321,7 @@ export const useUserStore = defineStore('user', () => {
     .then((res) => {
       if(res.data === 1){
         console.log("언팔로우 완료");
+        getFriendList(loginUserObj.value.user_id);
       }else if(res.data === 0){
         console.log("언팔로우 실패");
       }

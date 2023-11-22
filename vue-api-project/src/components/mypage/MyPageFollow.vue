@@ -3,10 +3,10 @@
         <h2>팔로잉 목록</h2>
         <hr>
         <div class="row justify-content-center">
-      <div v-for="user in store.following" :key="user.user_id" class="col-md-2 mb-4">
+      <div v-for="user in following" :key="user.user_id" class="col-md-2 mb-4">
         <div class="card border">
           <!-- 임시 이미지 (이미지 주소를 실제 이미지 파일 경로로 변경해야 합니다) -->
-          <img src="https://via.placeholder.com/150" alt="프로필 이미지" class="card-img-top" style="border-radius: 50%;">
+          <img :src="`${user.profile_image}`" alt="프로필 이미지" class="card-img-top" style="border-radius: 50%;">
           <div class="card-body">
             <h5 class="card-title">닉네임: {{ user.nickname }}</h5>
             <p class="card-text">자기소개: {{ user.self_intro }}</p>
@@ -27,10 +27,10 @@
     <h2>팔로워 목록</h2>
         <hr>
         <div class="row justify-content-center">
-      <div v-for="user in store.follower" :key="user.user_id" class="col-md-2 mb-4">
+      <div v-for="user in follower" :key="user.user_id" class="col-md-2 mb-4">
         <div class="card border">
           <!-- 임시 이미지 (이미지 주소를 실제 이미지 파일 경로로 변경해야 합니다) -->
-          <img src="https://via.placeholder.com/150" alt="프로필 이미지" class="card-img-top" style="border-radius: 50%;">
+          <img :src="`${user.profile_image}`" alt="프로필 이미지" class="card-img-top" style="border-radius: 50%;">
           <div class="card-body">
             <h5 class="card-title">닉네임: {{ user.nickname }}</h5>
             <p class="card-text">자기소개: {{ user.self_intro }}</p>
@@ -49,12 +49,38 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useUserStore } from '@/stores/user';
+import router from '@/router';
 
 const store = useUserStore();
 
+const follower = ref(store.follower);
+const following = ref(store.following);
+
+const isfollowed = ref(store.following.user_follow_cnt); 
+
+const follow = function (input_userId) {
+    const followInfo = {
+        user_from_id: store.loginUserObj.user_id,
+        user_to_id: input_userId,
+    };
+
+
+    
+
+    if (isfollowed.value === 0) {
+        isfollowed.value = 1;
+        store.follow(followInfo);
+    } else {
+        isfollowed.value = 0;
+        store.unfollow(followInfo);
+    }
+    router.go(0);
+};
+
 onMounted(() => {
+console.log("isfollowed" , isfollowed.value);
     const userId = store.loginUserObj.user_id;
 
     store.getFollowerList(userId);
