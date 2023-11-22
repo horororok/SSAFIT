@@ -7,37 +7,36 @@
     </div>
     <div v-else class="card">
       <div class="card-body">
-        <h5 class="card-title">나의 프로필</h5>
-        <div class="mb-2">
-          <strong>나이 :</strong> {{ store.myPageUser.age }}
+        <div class="profile-title mb-3">
+          <h5 class="card-title font-weight-bold" >나의 프로필</h5>
         </div>
         <div class="mb-2">
-          <strong>성별 :</strong> {{ gender }}
+          {{ store.myPageUser.age }}세
         </div>
         <div class="mb-2">
-          <strong>자기소개 :</strong> {{ store.myPageUser.self_intro }}
+          {{ gender }}
         </div>
         <div class="mb-2">
-          <strong>주소 :</strong> {{ store.myPageUser.address }}
+          {{ store.myPageUser.self_intro }}
+        </div>
+        <div class="mb-2">
+          {{ store.myPageUser.address }}
         </div>
         <div class="mb-2">
           <strong>선호 스포츠 :</strong> {{ store.myPageUser.fav_sport }}
         </div>
         <div class="mb-2"  v-if="profileImg">
-          <!-- 이미지를 보여줄 img 태그 -->
           <div class="profile-image-frame">
             <img :src="profileImg" alt="프로필 이미지" class="profile-image" />
           </div>
         </div>
-          <!-- 이미지가 없을 경우의 대체 문구 -->
           <div v-else class="mb-2 no-profile-image">
             프로필 이미지가 없습니다.
           </div>
         </div>
       </div>
-      <button @click="updateUser" class="btn btn-success">수정</button>
     </div>
-  <!-- </div> -->
+    <button @click="updateUser" class="btn btn-success d-block mx-auto mt-3">수정</button>
 </template>
 
 <script setup>
@@ -68,7 +67,6 @@ const insertUser = function () {
 };
 
 const updateUser = function () {
-  //수정 버튼 클릭시 수정 페이지로 이동
   router.push({ name: 'myregistupdate' });
 };
 
@@ -78,7 +76,8 @@ const profileImg = computed(() => {
 
 
 const REST_USER_API = `http://localhost:8080/api-user`
-// 등록 여부 확인 함수
+
+// 등록 여부 확인 
 const isMyPageRegist = function(userId) {
   axios.get(`${REST_USER_API}/mypage/isregist/${userId}`)
     .then((res) => {
@@ -95,14 +94,38 @@ const isMyPageRegist = function(userId) {
 
 </script>
 
+
 <style scoped>
 .card {
   width: 300px;
   margin: 0 auto;
+  border: 1px solid #ddd; /* 테두리 스타일 추가 */
+  border-radius: 8px; /* 테두리 둥글기 설정 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
 }
 
 .card-body {
   text-align: center;
+}
+
+.profile-title {
+  background-color: #9fbf8e;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+}
+
+.card .card-title {
+  margin: 0;
+  color: #fff; /* text color */
+}
+
+
+
+/* 다른 스타일은 그대로 두고 해당 부분에 테두리 추가 */
+.card .mb-2 {
+  padding: 10px;
+  border-bottom: 1px solid #ddd; /* 각 요소 사이에 선 추가 */
 }
 
 .btn {
@@ -122,11 +145,12 @@ const isMyPageRegist = function(userId) {
 
 .no-profile-image {
   padding: 10px;
-  border: 2px dashed #ccc; /* 이미지 없을 때의 대체 테두리 스타일 */
-  border-radius: 50%; /* 원형 프로필 이미지를 위한 테두리 반지름 */
+  border: 2px dashed #ccc;
+  border-radius: 50%;
   width: 100%;
   height: auto;
   text-align: center;
   color: #ccc;
 }
 </style>
+

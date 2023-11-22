@@ -1,10 +1,9 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <!-- 사이드바 -->
       <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
         <div class="position-sticky">
-          <router-link :to="{ name: 'detail', params: { userId: store.loginUserObj.user_id } }" class="nav-link text-light">
+          <router-link :to="{ name: 'detail', params: { userId: store.loginUserObj.user_id } }" class="nav-link text-light pt-2">
             상세 정보
           </router-link>
           <hr class="mb-2 mt-2">
@@ -22,7 +21,6 @@
         </div>
       </nav>
 
-      <!-- 주요 내용 -->
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <router-view />
       </main>
@@ -43,10 +41,11 @@ const store = useUserStore();
 
 .nav-link {
   color: #fff;
+  transition: color 0.3s, font-weight 0.3s; 
 }
 
 .nav-link:hover {
-  background-color: #6c757d;
-  color: #fff;
+  color: #9fbf8e;
+  font-weight: 900
 }
 </style>

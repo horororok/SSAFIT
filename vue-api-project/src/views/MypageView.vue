@@ -1,9 +1,10 @@
 <template>
   <div>
-    <h2 class="mt-3">{{ store.mypage.name }} 님의 마이페이지 ^__^</h2>
-    <div class="my-4">
+    <!-- <h2 class="mt-3">{{ store.mypage.name }} 님의 마이페이지 ^__^</h2> -->
+    <!-- <h2 class="mt-3"></h2> -->
+    <!-- <div class="my-4"> -->
       <MypageSideNav /> 
-    </div>
+    <!-- </div> -->
   </div>
 </template>
 

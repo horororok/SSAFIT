@@ -1,8 +1,6 @@
 <template>
   <div class="container mt-5">
-    <h2 class="text-center">추가 정보 수정 창</h2>
     <form class="col-md-6 offset-md-3 mt-4">
-      <!-- 이전에 등록한 정보를 기본값으로 설정 -->
       <div class="mb-3">
         <label for="age" class="form-label">나이</label>
         <div class="input-group">
