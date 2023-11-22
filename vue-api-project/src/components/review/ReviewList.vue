@@ -1,7 +1,7 @@
 <!-- ReviewList.vue -->
 <template>
   <div class="container mt-4">
-    <h2>리뷰 목록</h2>
+    <h2 style="color: #3c3c3c;">리뷰 목록</h2>
 
     <ReviewCreate />
 
@@ -16,12 +16,12 @@
         <td>
           <div v-if="isCurrentUser(review.user_id)" class="d-flex">
             <div v-if="!review.isEditing" class="me-2">
-              <button @click="confirmDeleteReview(review)" class="btn btn-sm btn-outline-danger">삭제</button>
-              <button @click="startEditing(review)" class="btn btn-sm btn-outline-primary">수정</button>
+              <button @click="confirmDeleteReview(review)" class="btn btn-sm btn-outline-danger" style="background-color: #bfd49e; color: #fff;">삭제</button>
+              <button @click="startEditing(review)" class="btn btn-sm btn-outline-primary" style="background-color: #bfd49e; color: #fff;">수정</button>
             </div>
             <div v-else>
-              <button @click="updateReview(review)" class="btn btn-sm btn-primary">등록</button>
-              <button @click="cancelEditing(review)" class="btn btn-sm btn-secondary">취소</button>
+              <button @click="updateReview(review)" class="btn btn-sm btn-primary" style="background-color: #bfd49e; color: #fff;">등록</button>
+              <button @click="cancelEditing(review)" class="btn btn-sm btn-secondary" style="background-color: #bfd49e; color: #fff;">취소</button>
             </div>
           </div>
         </td>
@@ -82,24 +82,25 @@ const updateReview = function (review) {
 </script>
 
 <style scoped>
-.dropdown-menu {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  background-color: #f9f9f9;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+.container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.dropdown-menu button {
-  padding: 10px;
-  text-align: left;
-  border: none;
-  background: none;
-  cursor: pointer;
+.btn-primary, .btn-secondary, .btn-outline-danger, .btn-outline-primary, .btn-outline-secondary {
+  background-color: #bfd49e;
+  border-color: #bfd49e;
+  color: #fff;
 }
 
-.dropdown-menu button:hover {
-  background-color: #ddd;
+.btn-primary:hover, .btn-secondary:hover, .btn-outline-danger:hover, .btn-outline-primary:hover, .btn-outline-secondary:hover {
+  background-color: #9fbf8e;
+  border-color: #9fbf8e;
+}
+
+.table {
+  color: #3c3c3c;
 }
 </style>

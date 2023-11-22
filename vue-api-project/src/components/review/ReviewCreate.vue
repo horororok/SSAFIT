@@ -1,10 +1,10 @@
 <template>
   <div class="container mt-4">
-    <h4>댓글 작성</h4>
+    <h4 style="color: #3c3c3c;">댓글 작성</h4>
     <div class="border p-3 mb-3">
       <div class="mb-3">
         <label for="writer" class="form-label">작성자: </label>
-        <span v-if="userStore.isLoggedIn && userStore.loginUserObj.nickname">
+        <span v-if="userStore.isLoggedIn && userStore.loginUserObj.nickname" style="color: #3c3c3c;">
           {{ userStore.loginUserObj.nickname }}
         </span>
         <span v-else class="text-danger">로그인하세요</span>
@@ -14,8 +14,8 @@
         <textarea id="content" class="form-control" cols="30" rows="5" v-model="review.content"></textarea>
       </div>
       <div class="mb-3">
-        <button @click="createReview" class="btn btn-primary me-2">댓글 작성</button>
-        <button @click="cancelCreate" class="btn btn-secondary">취소</button>
+        <button @click="createReview" class="btn btn-primary me-2" style="background-color: #bfd49e; border-color: #bfd49e;">댓글 작성</button>
+        <button @click="cancelCreate" class="btn btn-secondary" style="background-color: #fff; color: #3c3c3c;">취소</button>
       </div>
       <div v-if="!userStore.isLoggedIn || !userStore.loginUserObj.nickname">
         <p class="text-danger">로그인이 필요합니다.</p>
@@ -33,7 +33,6 @@ import router from "@/router";
 import { useRoute } from "vue-router";
 import ReviewRegModal from "./ReviewRegModal.vue";
 
-
 const store = useReviewStore();
 const userStore = useUserStore();
 const route = useRoute();
@@ -41,14 +40,11 @@ const route = useRoute();
 const showModal = ref(false);
 
 const review = ref({
-  // video_id랑 user_id를 넣어서 보내줘야한다.
   video_id: route.params.videoId,
-  //로그인 되어 있으면 user_id 보내주고 안되어 있으면 null 보내주기
   user_id: userStore.isLoggedIn ? userStore.loginUserObj.user_id : null,
   content: "",
   created_at: "",
 });
-
 
 const currentDate = ref(new Date().toISOString().substr(0, 10));
 
@@ -57,37 +53,57 @@ const cancelCreate = function () {
 };
 
 const createReview = function () {
-  console.log(review.value)
   if (!userStore.isLoggedIn || !userStore.loginUserObj.nickname) {
-    // 로그인하지 않은 경우 알림 표시
     alert("로그인이 필요합니다.");
     return;
   }
 
   review.value.created_at = currentDate.value;
 
-
-  // 리뷰 등록 후 모달 표시
-store.createReview(review.value)
-  .then(() => {
-    // 작업이 성공적으로 완료된 경우
-    showModal.value = true;
-    // 입력칸 비우기
-    review.value.content = "";
-  })
-  .catch(error => {
-    // 작업이 실패한 경우
-    console.error('Error during review creation:', error);
-  });
+  store.createReview(review.value)
+    .then(() => {
+      showModal.value = true;
+      review.value.content = "";
+    })
+    .catch(error => {
+      console.error('Error during review creation:', error);
+    });
 };
 
-const closeModalHandler =()=>{
+const closeModalHandler = () => {
   showModal.value = false;
-}
+};
 
 onMounted(() => {
   userStore.loginUserObj.nickname = userStore.loginUserObj.nickname;
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+  background-color: #bfd49e;
+  border-color: #bfd49e;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #9fbf8e;
+  border-color: #9fbf8e;
+}
+
+.btn-secondary {
+  background-color: #fff;
+  color: #3c3c3c;
+}
+
+.text-danger {
+  color: #dc3545;
+}
+</style>

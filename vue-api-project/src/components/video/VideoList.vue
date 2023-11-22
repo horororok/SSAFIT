@@ -1,24 +1,37 @@
 <template>
   <div class="container mt-4">
-    <!-- 영상 목록 제목 -->
-    <h4>영상 목록</h4>
-    <hr>
 
     <div class="d-flex justify-content-between align-items-center">
-      <!-- 파트별로 필터링할 버튼들 -->
-      <div class="mb-3" style="display: flex;">
-        <button @click="filterVideos('전신')" class="btn btn-primary me-2">전신</button>
-        <button @click="filterVideos('하체')" class="btn btn-primary me-2">하체</button>
-        <button @click="filterVideos('상체')" class="btn btn-primary me-2">상체</button>
-        <button @click="filterVideos(null)" class="btn btn-secondary">전체</button>
-      </div>
-      <!-- 비디오 정렬을 위한 컴포넌트 -->
-      <VideoSearchInput style="max-width: 200px;" />
+  <div class="mb-3 d-flex align-items-center">
+    <div class="btn-group" role="group">
+      <button @click="filterVideos('전신')" class="btn btn-primary">전신</button>
+      <button @click="filterVideos('하체')" class="btn btn-primary">하체</button>
+      <button @click="filterVideos('상체')" class="btn btn-primary">상체</button>
+      <button @click="filterVideos(null)" class="btn btn-secondary">전체</button>
+    </div>
+  </div>
+
+  <div class="d-flex flex-wrap align-items-center">
+    <div class="col-md-auto mb-3" style="margin-right: 4px;">
+      <select class="form-select" v-model="searchInfo.orderBy" style="font-size: 1.2rem; background-color: #fff;">
+        <option value="title">제목</option>
+        <option value="view_cnt">조회수</option>
+      </select>
     </div>
 
-    <hr>
+    <div class="col-md-auto mb-3" style="margin-right: 4px;">
+      <select class="form-select" v-model="searchInfo.orderByDir" style="font-size: 1.2rem; background-color: #fff;">
+        <option value="asc">오름차순</option>
+        <option value="desc">내림차순</option>
+      </select>
+    </div>
 
-    <!-- 카드 형식으로 비디오 목록을 표시 -->
+    <div class="mb-3 ml-auto">
+      <button class="btn btn-primary" @click="searchVideoList">정렬</button>
+    </div>
+  </div>
+</div>
+
     <div class="row">
       <div class="col-md-4" v-for="video in filteredVideos" :key="video.id">
         <div class="card mb-4">
@@ -32,11 +45,8 @@
             </h5>
             <p class="card-text"><strong>{{ video.channel_name }}</strong></p>
             <p class="card-text"><strong>파트</strong> {{ video.part }} | <strong>조회수</strong> {{ video.view_cnt }}</p>
-            <!-- 좋아요 개수 표시 -->
             <div class="d-flex align-items-center">
               <span>{{ video.like_cnt }}</span>
-
-              <!-- isLiked에 따라 하트 아이콘을 보여줌 -->
               <span v-if="video.is_user_liked==1">
                 ❤️
               </span>
@@ -54,7 +64,6 @@
 <script setup>
 import { useVideoStore } from "@/stores/video";
 import { onMounted, ref, computed } from "vue";
-import VideoSearchInput from "./VideoSearchInput.vue";
 import router from "@/router"; 
 
 const store = useVideoStore();
@@ -67,17 +76,14 @@ onMounted(() => {
   store.getVideoList(user.user_id); 
 });
 
-// 파트에 따라 비디오를 필터링
 const filterVideos = (part) => {
   selectedPart.value = part;
 };
 
 const filteredVideos = computed(() => {
   if (!selectedPart.value) {
-    // 선택된 파트가 없으면 전체 비디오 목록 반환
     return store.videoList;
   }
-  // 선택된 파트와 일치하는 비디오만 반환
   return store.videoList.filter((video) => video.part === selectedPart.value);
 });
 
@@ -88,10 +94,18 @@ const showVideoDetail = function (videoId) {
     console.error("Invalid videoId:", videoId);
   }
 }
+
+const searchInfo = ref({
+  orderBy: 'title',
+  orderByDir: 'asc'
+})
+
+const searchVideoList = function () {
+  store.searchVideoList(searchInfo.value)
+}
 </script>
 
 <style scoped>
-/* 필터 버튼 스타일 추가 */
 .btn-primary,
 .btn-secondary {
   height: 2.5rem;

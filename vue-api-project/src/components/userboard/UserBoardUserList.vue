@@ -35,8 +35,6 @@ import router from "@/router";
 
 const store = useUserStore();
 
-// friends를 ref로 감싸기
-// const { friends } = storeToRefs(store);
 const friends = computed(()=>store.friends)
 
 const userId = store.loginUserObj.user_id;
@@ -47,17 +45,6 @@ onMounted(() => {
 });
 
 const me = JSON.parse(sessionStorage.getItem("loginUser"));
-
-// const isfollowed = ref(store.userBoard.user_follow_cnt);
-
-// const isfollowed = (() => {
-//   if (store.userBoard.user_follow_cnt === 1) {
-//     return 1;
-//   } else {
-//     return 0;
-//   }
-// })
-
 
 const follow = function (input_userId) {
   const followInfo = {

@@ -1,6 +1,6 @@
 <template>
   <div class="home-container">
-    <img src="@/assets/img/FITMATE.png" alt="homeImage" class="responsive-image" />
+    <img src="@/assets/img/SSAFIT.png" alt="homeImage" class="responsive-image" />
     <News />
     <footer class="footer mt-auto py-3 bg-light">
       <div class="container text-center">
@@ -22,7 +22,7 @@ import News from '@/components/home/News.vue';
 }
 
 .responsive-image {
-  max-width: 400px;
+  max-width: 600px;
   height: auto;
   display: block;
   margin: 0 auto;
