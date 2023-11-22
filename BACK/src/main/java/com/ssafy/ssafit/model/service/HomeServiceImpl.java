@@ -50,9 +50,9 @@ public class HomeServiceImpl implements HomeService{
 	        	list.add(news);
 	        }
 
-	        System.out.println("responsebody: " + responseBody);
-	        System.out.println("api 실행 완료");
-	        System.out.println("news list : " + list);
+//	        System.out.println("responsebody: " + responseBody);
+//	        System.out.println("api 실행 완료");
+//	        System.out.println("news list : " + list);
 		} catch (Exception e) {
 			e.printStackTrace();  
 		}

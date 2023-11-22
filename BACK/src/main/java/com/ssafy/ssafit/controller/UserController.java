@@ -123,6 +123,7 @@ public class UserController {
 	@PutMapping("/mypage/update")
 	public ResponseEntity<?> update(@RequestBody MyPage mypage){
 		int result = uService.modifyMypage(mypage);
+		System.out.println("마이페이지 정보 수정 : " + mypage);
 		
 		if(result == 0)
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
