@@ -1,6 +1,6 @@
 <template>
   <div class="news-container">
-    <h3 class="news-title">스포츠 뉴스</h3>
+    <h3 class="news-title">오늘의 스포츠 이슈</h3>
     <div class="news-table">
       <div v-for="(item, index) in newsList" :key="index" class="news-item">
         <a :href="item.link" class="news-link" v-html="item.title"></a>
