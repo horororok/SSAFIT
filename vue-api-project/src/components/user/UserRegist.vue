@@ -1,7 +1,9 @@
 <template>
   <div class="container mt-5">
-    <h2 class="text-center">회원가입 창</h2>
-    <form class="col-md-6 offset-md-3 mt-4">
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="text-center">회원가입</h2>
+        <form class="mt-4">
       <div class="mb-3">
         <label for="id" class="form-label">아이디</label>
         <div class="input-group">
@@ -64,9 +66,15 @@
         </div>
       </div>
       <button type="button" class="btn btn-primary" @click="regist">등록</button>
-    </form>
+        </form>
+      </div>
+      <div class="col-md-6">
+        <div class="cat-background"></div>
+      </div>
+    </div>
   </div>
 </template>
+
 
 <script setup>
 import { ref } from "vue";
@@ -172,10 +180,44 @@ const regist = () => {
 getUserList();
 </script>
 
+
 <style scoped>
-  .input-group {
-    display: flex;
+.cat-background {
+  width: 100%;
+  height: auto;
+  background-image: url("@/assets/img/registercat.jpg");
+  background-size: cover;
+  border-radius: 10px;
+  min-height: 100%; /* 최소 높이를 100%로 설정 */
+}
+
+
+  .container {
+    position: relative;
   }
+
+  .position-relative {
+    position: relative;
+  }
+
+  .col-md-6 {
+    padding: 10; /* 컬럼 간격 제거 */
+  }
+
+ 
+
+  /* 스타일 추가 */
+  body {
+    background-color: #f8f9fa;
+  }
+
+  /* form {
+    background-color: rgba(255, 255, 255, 0.8); 
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  } 
+  */
 
   .btn-outline-secondary {
     border-radius: 0;

@@ -40,6 +40,8 @@ const getNews = function(){
 .news-container {
   text-align: center;
   padding: 20px;
+  z-index: 100;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .news-title {
@@ -56,7 +58,7 @@ const getNews = function(){
 }
 
 .news-item {
-  background-color: #f5f5f5;
+  background-color: rgba(255, 255, 255, 0.8);
   padding: 15px;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
