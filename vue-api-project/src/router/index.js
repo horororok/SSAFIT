@@ -15,9 +15,7 @@ import MyPageRegistUpdate from '@/components/mypage/MyPageRegistUpdate.vue'
 
 import VideoView from '@/views/VideoView.vue'
 import VideoList from '@/components/video/VideoList.vue'
-import VideoCreate from '@/components/video/VideoCreate.vue'
 import VideoDetail from '@/components/video/VideoDetail.vue'
-import VideoUpdate from '@/components/video/VideoUpdate.vue'
 
 import ReviewList from '@/components/review/ReviewList.vue'
 import ReviewDetail from '@/components/review/ReviewDetail.vue'
@@ -117,19 +115,9 @@ const router = createRouter({
           beforeEnter: checkLogin,
         },
         {
-          path: "create",
-          name: "videoCreate",
-          component: VideoCreate
-        },
-        {
           path: ":videoId",
           name: "videoDetail",
           component: VideoDetail
-        },
-        {
-          path: "review/update",
-          name: "videoUpdate",
-          component: VideoUpdate
         },
         {
           path: "review/:videoId",
