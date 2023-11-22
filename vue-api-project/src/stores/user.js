@@ -203,6 +203,31 @@ export const useUserStore = defineStore('user', () => {
     })
   }
 
+//마이페이지 추가정보 수정 등록
+  const updateMyPageUser = function(user){
+    axios({
+      url: `${REST_USER_API}/mypage/update`,
+      method : "PUT",
+      data:{
+        age: user.age,
+        gender: user.gender,
+        self_intro: user.self_intro,
+        address: user.address,
+        fav_sport: user.fav_sport,
+        user_id : user.user_id,
+        profile_image : user.profile_image,
+      }
+    })
+    .then(() => {
+      alert("수정 완료");
+      router.push(`/${user.user_id}/userdetail`); 
+    })
+    .catch((err)=>{
+      console.log(err);
+      alert("서버 에러");
+    })
+  }
+
   //유저게시판 전체 목록 반환
   const userBoardList = ref([]);
   const getUserBoardList = function() {
@@ -323,5 +348,5 @@ export const useUserStore = defineStore('user', () => {
   return { UserList, user, getUser, getUserList, createUser, setlogin, 
     setlogout, isLoggedIn, loginUserObj, mypage, getmyPage, signupMypage, 
     myPageUser, getmyPageUser, updateUser, userBoard, userBoardList, getUserBoardList, getUserBoardOne,
-    friends, getFriendList, follow, unfollow, following, follower, getFollowingList, getFollowerList}
+    friends, getFriendList, follow, unfollow, following, follower, getFollowingList, getFollowerList, updateMyPageUser}
 })
