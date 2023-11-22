@@ -21,7 +21,7 @@
 	</delete>
 	
 	<select id="getFollowingList" parameterType="int" resultType="UserBoard">
-		SELECT u.user_id, u.nickname, m.age, m.gender, m.self_intro, m.address, m.fav_sport,
+		SELECT u.user_id, u.nickname, m.age, m.gender, m.self_intro, m.address, m.fav_sport, m.profile_image,
 		(SELECT COUNT(*) FROM follow f WHERE f.user_from_id = #{user_id} AND f.user_to_id=u.user_id) AS user_follow_cnt
 		FROM mypage AS m
 		LEFT OUTER JOIN user AS u
@@ -30,7 +30,7 @@
 	</select>
 	
 	<select id="getFollowerList" parameterType="int" resultType="UserBoard">
-		SELECT u.user_id, u.nickname, m.age, m.gender, m.self_intro, m.address, m.fav_sport,
+		SELECT u.user_id, u.nickname, m.age, m.gender, m.self_intro, m.address, m.fav_sport, m.profile_image,
 		(SELECT COUNT(*) FROM follow f WHERE f.user_from_id = #{user_id} AND f.user_to_id=u.user_id) AS user_follow_cnt
 		FROM mypage AS m
 		LEFT OUTER JOIN user AS u
