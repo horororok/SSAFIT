@@ -11,10 +11,15 @@ public class UserBoard {
 	private String self_intro;
 	private String address;
 	private String fav_sport;
+	private String profile_image;
 	private int user_follow_cnt;
 	
+	
+	public UserBoard() {
+	}
+	
 	public UserBoard(int user_id, String nickname, int age, int gender, String self_intro, String address,
-			String fav_sport, int user_follow_cnt) {
+			String fav_sport, String profile_image, int user_follow_cnt) {
 		super();
 		this.user_id = user_id;
 		this.nickname = nickname;
@@ -23,10 +28,10 @@ public class UserBoard {
 		this.self_intro = self_intro;
 		this.address = address;
 		this.fav_sport = fav_sport;
+		this.profile_image = profile_image;
 		this.user_follow_cnt = user_follow_cnt;
 	}
-	public UserBoard() {
-	}
+
 	public int getUser_id() {
 		return user_id;
 	}
@@ -70,18 +75,26 @@ public class UserBoard {
 		this.fav_sport = fav_sport;
 	}
 
-	
+	public String getProfile_image() {
+		return profile_image;
+	}
+
+	public void setProfile_image(String profile_image) {
+		this.profile_image = profile_image;
+	}
+
 	public int getUser_follow_cnt() {
 		return user_follow_cnt;
 	}
 	public void setUser_follow_cnt(int user_follow_cnt) {
 		this.user_follow_cnt = user_follow_cnt;
 	}
+
 	@Override
 	public String toString() {
 		return "UserBoard [user_id=" + user_id + ", nickname=" + nickname + ", age=" + age + ", gender=" + gender
 				+ ", self_intro=" + self_intro + ", address=" + address + ", fav_sport=" + fav_sport
-				+ ", user_follow_cnt=" + user_follow_cnt + "]";
+				+ ", profile_image=" + profile_image + ", user_follow_cnt=" + user_follow_cnt + "]";
 	}
 
 }
