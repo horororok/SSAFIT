@@ -1,27 +1,12 @@
 <template>
-    <div class="container mt-4">
-    <div class="card">
-      <div class="card-body">
-        <h2 class="mt-3">상세 정보</h2>
+  <div class="container mt-4">
+    <div class="card border-0">
+      <div class="card-body" style="max-width: 50%; margin: auto;">
+        <h2 class="mt-3" style="color: black;">{{ store.mypage.name }}님의 마이페이지 🐾</h2>
         <div class="my-3">
-          <div class="mb-2">
-            <strong>ID:</strong> {{ store.mypage.id }}
-          </div>
-          <div class="mb-2">
-            <strong>Password:</strong> {{ store.mypage.password }}
-          </div>
-          <div class="mb-2">
-            <strong>Name:</strong> {{ store.mypage.name }}
-          </div>
-          <div class="mb-2">
-            <strong>Email:</strong> {{ store.mypage.email }}
-          </div>
-          <div class="mb-4">
-            <strong>Nickname:</strong> {{ store.mypage.nickname }}
-          </div>
-
-          <button class="btn btn-primary" @click="updateUser">회원정보 수정</button>
+          <img src="@/assets/img/mypagecat.jpg" alt="Cat Image" style="max-width: 100%; height: auto; border-radius: 8px; border: 2px solid #bfd49e;">
         </div>
+        <button class="btn btn-success" @click="updateUser" style="border-color: #bfd49e;">회원정보 수정</button>
       </div>
     </div>
   </div>
@@ -51,4 +36,13 @@ const updateUser = function () {
 
 <style scoped>
 
+
+.card-body {
+  text-align: center;
+  padding: 20px; /* 원하는 여백 값으로 조절 */
+}
+
+.btn-primary {
+  color: #fff;
+}
 </style>

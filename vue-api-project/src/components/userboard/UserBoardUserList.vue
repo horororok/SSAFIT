@@ -51,26 +51,6 @@
             </button>
         </div>
       </div>
-
-
-
-        <!-- <div class="card border" style="background-color: #bfd49e; padding: 10px; border-radius: 10px;">
-          <img :src="`${user.profile_image}`" alt="프로필 이미지" class="card-img-top" style="border-radius: 50%;">
-          <div class="card-body text-center">
-            <div>
-              <h5 class="card-title" style="color: #fff;">{{ user.nickname }}</h5>
-              <p class="card-text" style="color: #fff;">{{ user.self_intro }}</p>
-              <p class="card-text" style="color: #fff;">선호 스포츠: {{ user.fav_sport }}</p>
-              <p class="card-text" style="color: #fff;">{{ user.gender === 1 ? "여자" : "남자" }}</p>
-              <p class="card-text" style="color: #fff;">{{ user.age }}세</p>
-              <p class="card-text" style="color: #fff;">{{ user.address }}</p>
-            </div>
-            <button @click="follow(user.user_id)" class="btn follow-button"
-              :class="{ 'followed': user.user_follow_cnt === 1 }">
-              {{ user.user_follow_cnt === 1 ? "언팔로우" : "팔로우" }}
-            </button>
-          </div>
-        </div> -->
       </div>
     </div>
   </div>
