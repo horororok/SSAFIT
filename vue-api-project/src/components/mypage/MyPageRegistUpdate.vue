@@ -85,7 +85,7 @@
         </div>
         <!-- 선택된 이미지에 대한 설명 텍스트 -->
         <div class="form-text" v-if="selectedImage">
-          선택된 이미지: {{ selectedImage.name }}
+          선택된 이미지: {{ selectedImage.url }}
         </div>
       </div>
 
@@ -132,6 +132,7 @@ onMounted(() => {
   address.value = mypageUser.address;
   
   // 선호 스포츠 값 데이터 바인딩
+  console.log(mypageUser.fav_sport)
   fav_sport.value = mypageUser.fav_sport;
 
   console.log(mypageUser.profile_image)

@@ -50,7 +50,8 @@ const getNews = function(){
 
 .news-table {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  /* grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); */
+  grid-template-columns: repeat(5, 1fr);
   gap: 20px;
 }
 
