@@ -1,10 +1,8 @@
 <template>
   <div id="container">
     <header>
-      <nav class="navbar navbar-expand-lg navbar-light" :class="{ 'bg-transparent': isTransparent }" style="z-index:500">
-        <RouterLink class="navbar-brand" to="/" style="color: black;">SSAFITMATE
-          <!-- <img src="@/assets/img/SSAFIT.png" alt="homeImage" class="responsive-image" style="max-height: 200px;" /> -->
-        </RouterLink>
+      <nav class="navbar navbar-expand-lg navbar-light" :class="{ 'bg-transparent': isTransparent }" >
+        <RouterLink class="navbar-brand" to="/" style="color: black;">&nbsp; SSAFITMATE</RouterLink>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -37,10 +35,9 @@
   </div>
 </template>
 
-
 <script setup>
 import { useUserStore } from "@/stores/user";
-import {ref} from "vue";
+import { ref } from "vue";
 const store = useUserStore();
 
 const logout = () => {
@@ -60,8 +57,8 @@ window.addEventListener("scroll", () => {
 }
 
 .navbar {
-  padding: 1rem;
-  position: fixed;
+  padding: 1rem 0; /* 상단 padding 추가 */
+
   width: 100%;
   top: 0;
   z-index: 1000;
