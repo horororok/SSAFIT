@@ -6,7 +6,7 @@
 
     <div class="d-flex justify-content-between align-items-center">
       <!-- 파트별로 필터링할 버튼들 -->
-      <div class="mb-3">
+      <div class="mb-3" style="display: flex;">
         <button @click="filterVideos('전신')" class="btn btn-primary me-2">전신</button>
         <button @click="filterVideos('하체')" class="btn btn-primary me-2">하체</button>
         <button @click="filterVideos('상체')" class="btn btn-primary me-2">상체</button>
@@ -26,7 +26,7 @@
           <div class="card-body">
             <h5 class="card-title clickable-text" @click="showVideoDetail(video.video_id)">
               <!-- 제목이 두 줄 이상이면 생략 처리 -->
-              <span style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+              <span style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-align: center; font-size: 1.5rem;">
                 {{ video.title }}
               </span>
             </h5>
@@ -48,7 +48,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -98,19 +97,24 @@ const showVideoDetail = function (videoId) {
 /* 필터 버튼 스타일 추가 */
 .btn-primary,
 .btn-secondary {
-  height: 2rem;
+  height: 2.5rem;
   line-height: 1.5;
-  width: 8rem;
+  padding: 1rem 1.5rem;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: #bfd49e;
+  border-color: #bfd49e;
 }
 
 .btn-primary:hover {
-  background-color: #0056b3;
-  border-color: #0056b3;
+  background-color: #bfd49e;
+  border-color: #bfd49e;
 }
 
 .btn-secondary {
