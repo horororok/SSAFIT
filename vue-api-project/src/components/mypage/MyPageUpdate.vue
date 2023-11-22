@@ -62,13 +62,10 @@ const getUserList = () => {
     });
 };
 
-//닉네임 중복 체크
 const nicknameCheck = () => {
   const user = {
     nickname : editednickname.value,
   };
-
-//   console.log("users", users);
 
   if (users.value.some((u) => u.nickname === user.nickname)) {
     alert("이미 사용 중인 닉네임입니다.");
@@ -105,15 +102,11 @@ const saveChanges = function() {
   }
 
     store.updateUser(user);
-
-    isEditing.value = false;
 }
 
-const cancelUpdate = function () {
-    // 수정 모드 종료
-    isEditing.value = false;
-    router.push({ name: 'detail' });
-}
+const cancelUpdate = () => {
+  router.go(-1);
+};
 
 getUserList();
 </script>
