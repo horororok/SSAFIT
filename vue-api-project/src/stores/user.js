@@ -297,6 +297,9 @@ export const useUserStore = defineStore('user', () => {
       if(res.data === 1){
         console.log("팔로우 완료");
         getFriendList(loginUserObj.value.user_id);
+        //밑에 두개 잠깐 넣어봄 (이따 확인)
+        getFollowingList(loginUserObj.value.user_id);
+        getFollowerList(loginUserObj.value.user_id);
       }else if(res.data === 0){
         console.log("팔로우 실패");
       }

@@ -1,19 +1,19 @@
 <template>
-  <div>
-    <h4>Review Detail</h4>
+  <div class="container mt-4">
+    <h4 style="color: #3c3c3c;">Review Detail</h4>
     <hr>
+
+<!-- 삭제하기 -->
     <div><strong>작성자:</strong> {{ store.review ? store.review.nickname : '로딩 중' }}</div>
     <div><strong>내용:</strong> {{ store.review ? store.review.content : '로딩 중' }}</div>
     <div><strong>작성일:</strong> {{ store.review ? store.review.created_at : '로딩 중' }}</div>
 
-
-    <button @click="deleteReview">삭제</button>
-    <button @click="updateReview">수정</button>
-
-    <button @click="goToReviewList">목록으로</button>
+    <button @click="deleteReview" class="btn btn-danger" style="margin-top: 10px;">삭제</button>
+    <button @click="updateReview" class="btn btn-primary" style="margin-top: 10px;">수정</button>
+    <button @click="goToReviewList" class="btn btn-secondary" style="margin-top: 10px;">목록으로</button>
   </div>
 </template>
-  
+
 <script setup>
 import { useRoute } from 'vue-router';
 import { useReviewStore } from "@/stores/review";
@@ -33,6 +33,7 @@ const localReviewId = ref(null);
 
 const videoId = computed(() => videoStore.video.video_id);
 const reviewId = computed(() => store.review.review_id);
+
 onMounted(() => {
   console.log(props.reviewId);
 
@@ -58,6 +59,24 @@ const goToReviewList = function () {
   router.push({ name: 'videoDetail', params: { videoId: route.params.videoId } });
 };
 </script>
-  
-<style scoped></style>
-  
+
+<style scoped>
+.container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-danger, .btn-primary, .btn-secondary {
+  background-color: #bfd49e;
+  border-color: #bfd49e;
+  color: #fff;
+}
+
+.btn-danger:hover, .btn-primary:hover, .btn-secondary:hover {
+  background-color: #9fbf8e;
+  border-color: #9fbf8e;
+}
+
+</style>

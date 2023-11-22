@@ -112,8 +112,8 @@ export const useVideoStore = defineStore('video', () => {
   }
 
   //정렬
-  const searchVideoList = function (userId, searchCondition) {
-    axios.get(`${REST_VIDEO_API}/list/${userId}`, {
+  const searchVideoList = function (searchCondition) {
+    axios.get(`${REST_VIDEO_API}/search?user_id=${store.loginUserObj.user_id}`, {
       params: searchCondition
     })
       .then((res) => {

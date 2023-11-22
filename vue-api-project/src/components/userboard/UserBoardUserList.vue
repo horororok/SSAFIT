@@ -51,6 +51,7 @@ import { ref } from "vue";
 
 const store = useUserStore();
 
+<<<<<<< HEAD
 // 필터링에 사용될 상태
 const selectedSport = ref("");
 const selectedGender = ref("");
@@ -72,6 +73,9 @@ const filteredFriends = computed(() => {
 
   });
 });
+=======
+const friends = computed(()=>store.friends)
+>>>>>>> 7414de30ab227111c55ce67072cd8e5f96942d7a
 
 const userId = store.loginUserObj.user_id;
 
