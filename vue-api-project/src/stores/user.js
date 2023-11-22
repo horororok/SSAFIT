@@ -203,6 +203,7 @@ export const useUserStore = defineStore('user', () => {
     })
   }
 
+
 //마이페이지 추가정보 수정 등록
   const updateMyPageUser = function(user){
     axios({
@@ -218,13 +219,14 @@ export const useUserStore = defineStore('user', () => {
         profile_image : user.profile_image,
       }
     })
-    .then(() => {
+    .then((res) => {
+      console.log(res.data)
       alert("수정 완료");
       router.push(`/${user.user_id}/userdetail`); 
     })
     .catch((err)=>{
       console.log(err);
-      alert("서버 에러");
+      alert("마이페이지 추가정보 수정 중 서버 에러");
     })
   }
 

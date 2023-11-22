@@ -149,7 +149,7 @@ const updateMypage = () => {
     address: address.value,
     fav_sport: fav_sport.value,
     user_id: store.loginUserObj.user_id,
-    profile_image: selectedImage.value,
+    profile_image: selectedImage.value.url,
   };
   updatedInfo.gender = gender.value === "female" ? 1 : 0;
 

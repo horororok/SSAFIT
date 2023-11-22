@@ -1,7 +1,12 @@
 <template>
   <div class="container mt-4">
-    <h4>내 추가 정보</h4>
-    <div class="card">
+    <h4>추가 정보 페이지</h4>
+    <div v-if="!registered">
+      <p>아직 추가 정보를 등록하지 않았습니다.</p>
+      <p>유저 게시판에 올라올 정보를 등록해 스포츠 취향에 맞는 사람을 찾아보세요!</p>
+      <button @click="insertUser">추가 정보 등록</button>
+    </div>
+    <div v-else class="card">
       <div class="card-body">
         <div>
           프로필 이미지 선택
@@ -30,11 +35,8 @@
             프로필 이미지가 없습니다.
           </div>
         </div>
-
       </div>
-      <!-- 조건부로 버튼 표시 -->
-      <button v-if="!registered" @click="insertUser">추가 정보 등록</button>
-      <button v-else @click="updateUser">수정</button>
+      <button @click="updateUser">수정</button>
     </div>
   </div>
 </template>
