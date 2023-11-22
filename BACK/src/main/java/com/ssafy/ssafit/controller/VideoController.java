@@ -1,6 +1,8 @@
 package com.ssafy.ssafit.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.ssafit.model.dto.Review;
@@ -30,20 +33,36 @@ public class VideoController {
 	@Autowired
 	private VideoService vService;
 
-	// 목록 가져오기 (검색 조건에 맞는, 조건 없으면 전체 영상 가져옴)
-	@GetMapping("/video")
-	public ResponseEntity<?> list(SearchCondition condition) {
-		List<Video> list = vService.search(condition);
-
-		if (list == null || list.size() == 0)
+	@GetMapping("/video/list/{user_id}")
+	public ResponseEntity<?> getList(@PathVariable int user_id){
+		List<Video> list = vService.getList(user_id);
+		System.out.println(list);
+		
+		if(list == null || list.size() <= 0)
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		return new ResponseEntity<List<Video>>(list, HttpStatus.OK);
 	}
+	
+	
+	// 목록 가져오기 (검색 조건에 맞는, 조건 없으면 전체 영상 가져옴)
+//	@GetMapping("/video/search/{user_id}")
+//	public ResponseEntity<?> list(@PathVariable int user_id, SearchCondition condition) {
+//		List<Video> list = vService.search(user_id, condition);
+//
+//		if (list == null || list.size() == 0)
+//			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+//		return new ResponseEntity<List<Video>>(list, HttpStatus.OK);
+//	}
 
 	// 영상 상세보기
-	@GetMapping("/video/{id}")	
-	public ResponseEntity<?> detail(@PathVariable int id) {
-		Video video = vService.getVideo(id);
+	@GetMapping("/video/{video_id}")	
+	public ResponseEntity<?> detail(@PathVariable int video_id, @RequestParam int user_id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("video_id", video_id);
+		map.put("user_id", user_id);
+		
+		Video video = vService.getVideo(map);
+		
 		if (video == null)
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		return new ResponseEntity<Video>(video, HttpStatus.OK);

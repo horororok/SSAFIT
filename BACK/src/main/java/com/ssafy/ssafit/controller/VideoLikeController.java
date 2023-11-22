@@ -46,7 +46,7 @@ public class VideoLikeController {
 		int result = vlikeservice.likeVideo(videolike); 
 		
 		if(result == 1) {
-//			System.out.println("좋아요했다" + videolike);
+			System.out.println("좋아요했다" + videolike);
 			return new ResponseEntity<Integer>(result, HttpStatus.OK);
 		}
 			
@@ -59,7 +59,7 @@ public class VideoLikeController {
 		int result = vlikeservice.unlikeVideo(videolike);
 		
 		if(result == 1) {
-//			System.out.println("좋아요취소했다" + videolike);
+			System.out.println("좋아요취소했다" + videolike);
 			return new ResponseEntity<Integer>(result, HttpStatus.OK);
 		}
 			

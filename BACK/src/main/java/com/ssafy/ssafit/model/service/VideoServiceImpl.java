@@ -1,6 +1,7 @@
 package com.ssafy.ssafit.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,15 +22,15 @@ public class VideoServiceImpl implements VideoService{
 	}
 
 	@Override
-	public List<Video> getList() {
-		return videoDao.selectAll();
+	public List<Video> getList(int user_id) {
+		return videoDao.selectAll(user_id);
 	}
 
 	//상세보기 할 경우 조회수 증가
 	@Override
-	public Video getVideo(int id) {
-		videoDao.updateView(id);
-		return videoDao.selectOne(id);
+	public Video getVideo(Map<String, Object> map) {
+		videoDao.updateView((int)map.get("video_id"));
+		return videoDao.selectOne(map);
 	}
 
 	@Override

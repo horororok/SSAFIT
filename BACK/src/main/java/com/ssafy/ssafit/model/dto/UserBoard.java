@@ -1,7 +1,5 @@
 package com.ssafy.ssafit.model.dto;
 
-import java.util.List;
-
 //유저 기본 정보와 추가 정보 합친 dto (유저게시판에서 보여줄 유저 정보 바구니)
 public class UserBoard {
 	private int user_id;
@@ -12,8 +10,7 @@ public class UserBoard {
 	private String address;
 	private String fav_sport;
 	private String profile_image;
-	private int user_follow_cnt;
-	
+	private int user_follow_cnt; //팔로우 했는지 안했는지 확인 (1이면 팔로우함, 0이면 안 한 상태)
 	
 	public UserBoard() {
 	}
