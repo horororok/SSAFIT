@@ -136,8 +136,8 @@ public class UserController {
 	public ResponseEntity<?> isMyPageRegist(@PathVariable int id){
 		
 		int result = uService.isRegist(id);
-		System.out.println("추가정보확인 id:" + id);
-		System.out.println("result: " + result);
+//		System.out.println("추가정보확인 id:" + id);
+//		System.out.println("result: " + result);
 		
 		if(result == 1 || result == 0)
 			return new ResponseEntity<Integer>(result, HttpStatus.OK);
