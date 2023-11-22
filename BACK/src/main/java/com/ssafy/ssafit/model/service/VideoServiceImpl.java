@@ -34,8 +34,8 @@ public class VideoServiceImpl implements VideoService{
 	}
 
 	@Override
-	public List<Video> search(SearchCondition condition) {
-		return videoDao.search(condition);
+	public List<Video> search(Map<String, Object> map) {
+		return videoDao.search(map);
 	}
 
 	@Override

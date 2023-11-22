@@ -16,7 +16,7 @@ public interface VideoService {
 	Video getVideo(Map<String, Object> map);
 
 	//검색 조건에 맞는 비디오만 반환
-	List<Video> search(SearchCondition condition);
+	List<Video> search(Map<String, Object> map);
 
 	//영상 등록
 	int writeVideo(Video video);

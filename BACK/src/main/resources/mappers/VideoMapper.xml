@@ -17,18 +17,15 @@
 		WHERE v.video_id = #{video_id}
 	</select>
 
-	<select id="search" resultType="Video" parameterType="SearchCondition">
-		SELECT v.video_id, v.title, v.url, v.thumbnail, v.channel_name,
-		v.view_cnt, v.part, v.liked_cnt,
-		(SELECT COUNT(*) FROM video_like l WHERE l.user_id = #{user_id} AND
-		l.video_id = v.video_id) AS is_user_liked
+	<select id="search" resultType="Video" parameterType="map">
+		SELECT v.video_id, v.title, v.url, v.thumbnail, v.channel_name, v.view_cnt, v.part, v.liked_cnt,
+		(SELECT COUNT(*) FROM video_like l WHERE l.user_id = #{user_id} AND l.video_id = v.video_id) AS is_user_liked
 		FROM video v
 		<if test="condition.key != 'none'">
-			WHERE ${key} LIKE concat('%', #{word},
-			'%')
+			WHERE ${condition.key} LIKE concat('%', #{condition.word},'%')
 		</if>
 		<if test="condition.orderBy != 'none'">
-			ORDER BY ${orderBy} ${orderByDir}
+			ORDER BY ${condition.orderBy} ${condition.orderByDir}
 		</if>
 	</select>
 

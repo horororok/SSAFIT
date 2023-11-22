@@ -45,14 +45,18 @@ public class VideoController {
 	
 	
 	// 목록 가져오기 (검색 조건에 맞는, 조건 없으면 전체 영상 가져옴)
-//	@GetMapping("/video/search/{user_id}")
-//	public ResponseEntity<?> list(@PathVariable int user_id, SearchCondition condition) {
-//		List<Video> list = vService.search(user_id, condition);
-//
-//		if (list == null || list.size() == 0)
-//			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-//		return new ResponseEntity<List<Video>>(list, HttpStatus.OK);
-//	}
+	@GetMapping("/video/search")
+	public ResponseEntity<?> list(SearchCondition condition, @RequestParam int user_id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("condition", condition);
+		map.put("user_id", user_id);
+		
+		List<Video> list = vService.search(map);
+
+		if (list == null || list.size() == 0)
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<List<Video>>(list, HttpStatus.OK);
+	}
 
 	// 영상 상세보기
 	@GetMapping("/video/{video_id}")	

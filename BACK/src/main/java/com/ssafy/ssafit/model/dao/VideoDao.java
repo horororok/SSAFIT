@@ -13,7 +13,7 @@ public interface VideoDao {
 	
 	Video selectOne(Map<String, Object> map);
 
-	List<Video> search(SearchCondition condition);
+	List<Video> search(Map<String, Object> map);
 	
 	int insert(Video video);
 	
