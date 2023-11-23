@@ -25,23 +25,11 @@ public class FollowController {
 	
 	@Autowired
 	private FollowService fservice;
-	
-	//팔로우 상태 확인 (1이면 팔로우 한 상태, 0이면 팔로우 안 한 상태)
-	@GetMapping
-	public ResponseEntity<?> isFollowed(@RequestBody Follow follow){
-		int isfollowed = fservice.isFollowed(follow);
-		
-		if(isfollowed == 0 || isfollowed == 1)
-			return new ResponseEntity<Integer>(isfollowed, HttpStatus.OK);
-		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-	}
-	
 
 	//팔로우
 	@PostMapping
 	public ResponseEntity<?> follow(@RequestBody Follow follow){
 		int result = fservice.follow(follow);
-		System.out.println("팔로우" + follow);
 		
 		if(result == 1)
 			return new ResponseEntity<Integer>(result, HttpStatus.OK);
@@ -52,7 +40,6 @@ public class FollowController {
 	@DeleteMapping
 	public ResponseEntity<?> unfollow(@RequestBody Follow follow){
 		int result = fservice.unfollow(follow);
-		System.out.println("언팔로우" + follow);
 		
 		if(result == 1)
 			return new ResponseEntity<Integer>(result, HttpStatus.OK);
@@ -78,7 +65,5 @@ public class FollowController {
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		return new ResponseEntity<List<UserBoard>>(list, HttpStatus.OK);
 	}
-	
-	
 
 }

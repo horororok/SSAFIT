@@ -13,18 +13,4 @@ public interface UserDao {
 	
 	User selectOne(String id);
 	
-//	User selectById(int id);
-	
-	int updateUser(User user);
-	
-	int insertMyPage(MyPage mypage);
-	
-	MyPage getMyPageUser(int id);
-	
-	User getMyUser(int id);
-
-	int isRegist(int id);
-
-	int updateMyPage(MyPage mypage);
-	
 }

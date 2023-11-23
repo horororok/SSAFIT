@@ -19,13 +19,12 @@ import com.ssafy.ssafit.model.dto.News;
 
 @Service
 public class HomeServiceImpl implements HomeService{
+	static String clientId = "upZYLrlhyM8L1zcLdVkg";
+	static String clientSecret = "V2ZaSjGhQB"; 
 
 	@Override
 	public List<News> getNewsList() {
 		List<News> list = null;
-		
-		String clientId = "upZYLrlhyM8L1zcLdVkg"; //애플리케이션 클라이언트 아이디
-        String clientSecret = "V2ZaSjGhQB"; //애플리케이션 클라이언트 시크릿
 
         String apiURL;
 		try {
@@ -50,9 +49,6 @@ public class HomeServiceImpl implements HomeService{
 	        	list.add(news);
 	        }
 
-//	        System.out.println("responsebody: " + responseBody);
-//	        System.out.println("api 실행 완료");
-//	        System.out.println("news list : " + list);
 		} catch (Exception e) {
 			e.printStackTrace();  
 		}

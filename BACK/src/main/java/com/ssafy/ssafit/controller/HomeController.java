@@ -30,5 +30,4 @@ public class HomeController {
 		return new ResponseEntity<List<News>>(news, HttpStatus.OK);
 	}
 	
-	
 }

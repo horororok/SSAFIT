@@ -12,5 +12,4 @@ public interface UserBoardDao {
 
 	List<UserBoard> selectFriendList(int user_id);
 	
-	
 }

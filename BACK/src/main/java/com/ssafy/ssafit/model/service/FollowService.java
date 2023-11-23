@@ -7,9 +7,6 @@ import com.ssafy.ssafit.model.dto.UserBoard;
 
 public interface FollowService {
 	
-	//팔로우 했는지 안했는지
-	public int isFollowed(Follow follow);
-	
 	//팔로우
 	public int follow(Follow follow);
 	

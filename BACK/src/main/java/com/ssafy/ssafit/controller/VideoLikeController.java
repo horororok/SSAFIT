@@ -18,27 +18,13 @@ import com.ssafy.ssafit.model.dto.Video;
 import com.ssafy.ssafit.model.dto.VideoLike;
 import com.ssafy.ssafit.model.service.VideoLikeService;
 
-
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api-vlike")
+@RequestMapping("/vlike")
 public class VideoLikeController {
 	
 	@Autowired
 	private VideoLikeService vlikeservice;
-	
-	
-	//좋아요 눌렀는지 안눌렀는지 확인 (userid랑 videoid 조건으로 해서 개수 가져오기)
-	//cnt 1이면 이미 좋아유 누름, 0이면 좋아요 아직 안누름
-	@GetMapping
-	public ResponseEntity<?> isLiked(@RequestBody VideoLike videolike){
-		int isliked = vlikeservice.isLiked(videolike);
-		
-		if(isliked == 0 || isliked == 1) 
-			return new ResponseEntity<Integer>(isliked, HttpStatus.OK);
-		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-	}
-	
 	
 	//좋아요
 	@PostMapping
@@ -46,10 +32,8 @@ public class VideoLikeController {
 		int result = vlikeservice.likeVideo(videolike); 
 		
 		if(result == 1) {
-			System.out.println("좋아요했다" + videolike);
 			return new ResponseEntity<Integer>(result, HttpStatus.OK);
 		}
-			
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 	
@@ -59,10 +43,8 @@ public class VideoLikeController {
 		int result = vlikeservice.unlikeVideo(videolike);
 		
 		if(result == 1) {
-			System.out.println("좋아요취소했다" + videolike);
 			return new ResponseEntity<Integer>(result, HttpStatus.OK);
 		}
-			
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 	
@@ -76,7 +58,5 @@ public class VideoLikeController {
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		return new ResponseEntity<List<Video>>(likeList, HttpStatus.OK);
 	}
-	
-	
 	
 }

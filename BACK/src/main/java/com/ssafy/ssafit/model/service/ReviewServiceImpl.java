@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.ssafit.model.dao.ReviewDao;
 import com.ssafy.ssafit.model.dto.Review;
-import com.ssafy.ssafit.model.dto.User;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -19,45 +18,30 @@ public class ReviewServiceImpl implements ReviewService {
 		this.reviewDao = reviewDao;
 	}
 	
-	
-	
+
 	@Override
-	public List<Review> getReviewList(int id) {
-		return reviewDao.selectAll(id);
+	public List<Review> getReviewList(int videoId) {
+		return reviewDao.selectAllReview(videoId);
 	}
 
 	@Override
-	public Review getReviewOne(int id) {
-		return reviewDao.selectOne(id);
+	public Review getReviewOne(int reviewId) {
+		return reviewDao.selectReviewOne(reviewId);
 	}
-	
+
 	@Override
 	public int writeReview(Review review) {
-		return reviewDao.insert(review);
+		return reviewDao.insertReview(review);
 	}
 
 	@Override
 	public int modifyReview(Review review) {
-		return reviewDao.update(review);
+		return reviewDao.updateReview(review);
 	}
 
 	@Override
 	public int deleteReview(int id) {
-		return reviewDao.delete(id);
+		return reviewDao.deleteReview(id);
 	}
-
-
-
-//	@Override
-//	public Review getnicknameById(int id) {
-//		return reviewDao.getnicknameById(id);
-//	}
-
-
-
-
-
-
 	
-
 }

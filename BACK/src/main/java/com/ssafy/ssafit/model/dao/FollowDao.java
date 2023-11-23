@@ -7,8 +7,6 @@ import com.ssafy.ssafit.model.dto.UserBoard;
 
 public interface FollowDao {
 	
-	int isFollowed(Follow follow);
-	
 	int follow(Follow follow);
 	
 	int unfollow(Follow follow);

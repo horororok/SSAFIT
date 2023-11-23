@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.ssafit.model.dao.UserDao">
+	
 	<select id="selectAll" resultType="User">
 		SELECT * FROM user
 	</select>
@@ -17,60 +18,5 @@
 		FROM user
 		WHERE id = #{id}
 	</select>
-	
-	<select id="selectById" parameterType="int" resultType="User">
-		SELECT *
-		FROM user
-		WHERE id = #{id}
-	</select>
-	
-	<update id="updateUser" parameterType="User">
-		UPDATE user
-		SET id = #{id}, password = #{password}, name = #{name}, email = #{email}, nickname = #{nickname}
-		WHERE user_id = #{user_id};
-	</update>
-	
-	<insert id="insertMyPage" parameterType="MyPage">
-		INSERT INTO mypage (age, gender, self_intro, address, fav_sport, user_id, profile_image)
-		VALUES (#{age}, #{gender}, #{self_intro}, #{address}, #{fav_sport}, #{user_id}, #{profile_image})
-	</insert>
-	<!-- 폼 입력받을 때 고르는 걸로 (radio?)  -->
-	
-	<!-- 
-	<select id="getMyPageUser" parameterType="int" resultType="UserMyPage">
-		SELECT m.age, m.gender, m.profile_url, m.self_intro, m.dong_address, m.fav_sport, m.user_id, u.nickname
-		FROM mypage AS m
-		LEFT OUTER JOIN user AS u
-		ON m.user_id = u.user_id
-		WHERE m.user_id = #{id}
-	</select> 
-	-->
-	
-	<select id="getMyPageUser" parameterType="int" resultType="MyPage">
-		SELECT *
-		FROM mypage
-		WHERE user_id = #{id}
-	</select>
-	
-	<select id="getMyUser" parameterType="int" resultType="User">
-		SELECT *
-		FROM user
-		WHERE user_id = #{id}
-	</select>
-	
-	<select id="isRegist" parameterType="int" resultType="int">
-		SELECT count(*)
-		FROM mypage
-		WHERE user_id = #{id}
-	</select>
-	
-	<update id="updateMyPage" parameterType="Mypage">
-		UPDATE mypage
-		SET age = #{age}, gender = #{gender}, self_intro = #{self_intro}, address = #{address}, fav_sport = #{fav_sport}, profile_image = #{profile_image}
-		WHERE user_id = #{user_id};
-	</update>
-	
-	
-	
 	
 </mapper>

@@ -33,5 +33,4 @@ public class News {
 		return "News [title=" + title + ", link=" + link + "]";
 	}
 
-
 }

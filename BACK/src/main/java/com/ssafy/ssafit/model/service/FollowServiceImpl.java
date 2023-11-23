@@ -19,11 +19,6 @@ public class FollowServiceImpl implements FollowService{
 		this.followdao = followdao;
 	}
 
-	
-	@Override
-	public int isFollowed(Follow follow) {
-		return followdao.isFollowed(follow);
-	}
 
 	@Override
 	public int follow(Follow follow) {

@@ -11,7 +11,6 @@
 		ON m.user_id = u.user_id
 	</select>
 
-
 	<select id="selectOne" parameterType="int" resultType="UserBoard">
 		SELECT u.user_id, u.nickname, m.age, m.gender, m.self_intro, m.address, m.fav_sport, m.profile_image
 		FROM mypage AS m
@@ -28,8 +27,5 @@
 		ON m.user_id = u.user_id
 		WHERE m.user_id != #{user_id};
 	</select>
-
-
-
 
 </mapper>

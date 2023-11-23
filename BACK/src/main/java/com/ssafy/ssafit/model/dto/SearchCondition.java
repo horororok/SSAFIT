@@ -4,7 +4,7 @@ public class SearchCondition {
 	private String key = "none"; //검색기준
 	private String word; //검색 내용
 	private String orderBy = "none"; //정렬 기준
- 	private String orderByDir = "ASC"; //정렬방향 (오름차순 default)
+ 	private String orderByDir = "ASC"; //정렬방향
  	
  	public SearchCondition() {
 	}

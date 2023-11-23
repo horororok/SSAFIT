@@ -14,17 +14,11 @@ public class VideoLikeServiceImpl implements VideoLikeService {
 
 	private VideoLikeDao vlikedao;
 	
-	
 	@Autowired
 	public VideoLikeServiceImpl(VideoLikeDao vlikedao) {
 		this.vlikedao = vlikedao;
 	}
 	
-	@Override
-	public int isLiked(VideoLike videolike) {
-		return vlikedao.isLiked(videolike);
-	}
-
 	@Override
 	public int likeVideo(VideoLike videolike) {
 
