@@ -8,15 +8,6 @@
           <button @click="filterVideos('하체')" class="btn btn-primary">하체</button>
           <button @click="filterVideos('상체')" class="btn btn-primary">상체</button>
           <button @click="filterVideos(null)" class="btn btn-secondary">전체</button>
-
-          <!-- <button @click="filterVideos('전신')"
-            :class="{ 'btn-primary': selectedPart?.value === '전신', 'btn-secondary': selectedPart?.value !== '전신' }">전신</button>
-          <button @click="filterVideos('하체')"
-            :class="{ 'btn-primary': selectedPart?.value === '하체', 'btn-secondary': selectedPart?.value !== '하체' }">하체</button>
-          <button @click="filterVideos('상체')"
-            :class="{ 'btn-primary': selectedPart?.value === '상체', 'btn-secondary': selectedPart?.value !== '상체' }">상체</button>
-          <button @click="filterVideos(null)" :class="{ 'btn-secondary': !selectedPart?.value }">전체</button> -->
-
         </div>
       </div>
 
@@ -47,7 +38,6 @@
           <img :src="video.thumbnail" class="card-img-top" alt="Thumbnail">
           <div class="card-body">
             <h5 class="card-title clickable-text" @click="showVideoDetail(video.video_id)">
-              <!-- 제목이 두 줄 이상이면 생략 처리 -->
               <span
                 style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-align: center; font-size: 1.5rem; ">
                 {{ emojify(video.title) }}

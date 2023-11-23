@@ -68,13 +68,12 @@ const selectedGender = ref("");
 
 const friends = computed(() => store.friends);
 
-// 친구 목록을 필터링하는 computed 속성
 const filteredFriends = computed(() => {
   return friends.value.filter(user => {
-    // 필터링 조건 추가
+
     const sportFilter = !selectedSport.value || user.fav_sport === selectedSport.value;
     const genderFilter = !selectedGender.value || user.gender.toString() === selectedGender.value;
-    // 모든 필터 조건이 true이면 포함시킴
+    
     return sportFilter && genderFilter;
 
   });
@@ -106,19 +105,18 @@ const follow = function (input_userId) {
 
 const filterUsers = function (filtering) {
   console.log("Filtering:", filtering);
-  // 각 버튼에 따라 필터링에 사용될 상태 업데이트
   switch (filtering) {
     case '축구':
     case '농구':
     case '야구':
     case '배구':
       selectedSport.value = filtering;
-      selectedGender.value = ""; // 성별 옵션 초기화
+      selectedGender.value = ""; 
       break;
     case 1:
     case 0:
       selectedGender.value = filtering.toString();
-      selectedSport.value = ""; // 스포츠 옵션 초기화
+      selectedSport.value = ""; 
       console.log(selectedGender.value)
       break;
   }

@@ -2,7 +2,6 @@
   <div class="container mt-4">
     <button class="btn btn-secondary" @click="goToVideoList">목록으로</button>
     <hr>
-
     <div v-if="store.video.url" class="mb-4" style="text-align: center;">
       <iframe width="560" height="315" :src="`https://www.youtube.com/embed/${youtubeVideoId}`"
         title="YouTube video player" frameborder="0"
@@ -11,8 +10,7 @@
       </iframe>
     </div>
     <hr>
-
-    <div class="mb-1" style="font-size: 1.5em; color: #3c3c3c;"> <!-- 텍스트 색상 추가 -->
+    <div class="mb-1" style="font-size: 1.5em; color: #3c3c3c;"> 
       {{ video.title }}
     </div>
     <div class="mb-2 bg-light p-3">
@@ -22,7 +20,7 @@
         </div>
         <div class="mb-1">
           <strong>파트</strong> {{ video.part }} |
-          <span @click="toggleLike" class="btn-link" style="cursor: pointer; font-size: 20px; text-decoration: none; color: #bfd49e;"> <!-- 텍스트 색상 추가 -->
+          <span @click="toggleLike" class="btn-link" style="cursor: pointer; font-size: 20px; text-decoration: none; color: #bfd49e;">
             {{ video.is_user_liked === 1 ? "❤️" : "🤍" }}
           </span>
         </div>
@@ -37,7 +35,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useVideoStore } from "@/stores/video";
 import { useReviewStore } from '@/stores/review';
 import { useUserStore } from '@/stores/user';
-import { onMounted, computed, watch } from "vue";
+import { onMounted, computed } from "vue";
 import ReviewList from '@/components/review/ReviewList.vue';
 import { ref } from 'vue';
 
@@ -60,14 +58,12 @@ const goToVideoList = function () {
   router.push({ name: 'videoList' })
 }
 
-// YouTube 비디오 ID 추출 
 function getYouTubeVideoId(url) {
   const regExp = /^.*(?:youtu.be\/|v\/|e\/|u\/\w+\/|embed\/|v=)([^#\&\?]*).*/;
   const match = url.match(regExp);
   return (match && match[1]) ? match[1] : null;
 }
 
-// YouTube 비디오 ID 계산
 const youtubeVideoId = computed(() => {
   return store.video.url ? getYouTubeVideoId(store.video.url) : null;
 });

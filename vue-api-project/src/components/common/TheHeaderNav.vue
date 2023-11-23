@@ -45,7 +45,6 @@
 import { useUserStore } from "@/stores/user";
 import { ref } from "vue";
 import LogoutModal from "../modal/LogoutModal.vue";
-import { computed } from "vue";
 
 const store = useUserStore();
 
@@ -59,7 +58,6 @@ const cancellogoutModal = () => {
   showlogoutModal.value = false;
 };
 
-// 스크롤 이벤트에 따라 투명한 배경 설정
 const isTransparent = ref(true);
 window.addEventListener("scroll", () => {
   isTransparent.value = window.scrollY < 50;
@@ -73,15 +71,12 @@ window.addEventListener("scroll", () => {
 
 .navbar {
   padding: 1rem 0;
-  /* 상단 padding 추가 */
   width: 100%;
   top: 0;
   z-index: 1000;
   transition: background-color 0.3s ease;
-  /* 배경색 전환 효과 */
 }
 
-/* 배경이 투명할 때의 스타일 */
 .bg-transparent {
   background-color: transparent !important;
 }

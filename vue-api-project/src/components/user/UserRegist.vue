@@ -95,7 +95,7 @@ const idChecked = ref(false);
 const nicknameChecked = ref(false);
 
 const getUserList = () => {
-  const API_URL = `http://localhost:8080/api-user/users`;
+  const API_URL = `http://localhost:8080/user/users`;
   axios({
     url: API_URL,
     method: "GET",
@@ -108,12 +108,10 @@ const getUserList = () => {
     });
 };
 
-//아이디 중복 체크
 const idCheck = () => {
   const user = {
     id: id.value,
   };
-
 
   if (users.value.some((u) => u.id === user.id)) {
     alert("이미 사용 중인 아이디입니다.");
@@ -123,7 +121,6 @@ const idCheck = () => {
   }
 };
 
-//닉네임 중복 체크
 const nicknameCheck = () => {
   const user = {
     nickname : nickname.value,
@@ -138,7 +135,6 @@ const nicknameCheck = () => {
 };
 
 
-//유효성 검사
 const regist = () => {
   const user = {
     id: id.value,
@@ -180,7 +176,6 @@ const regist = () => {
 getUserList();
 </script>
 
-
 <style scoped>
 .cat-background {
   object-fit: cover;
@@ -189,9 +184,8 @@ getUserList();
   background-image: url("@/assets/img/registercat.jpg");
   background-size: cover;
   border-radius: 10px;
-  min-height: 100%; /* 최소 높이를 100%로 설정 */
+  min-height: 100%; 
 }
-
 
   .container {
     position: relative;
@@ -202,23 +196,12 @@ getUserList();
   }
 
   .col-md-6 {
-    padding: 10; /* 컬럼 간격 제거 */
+    padding: 10; 
   }
 
- 
-
-  /* 스타일 추가 */
   body {
     background-color: #f8f9fa;
   }
-
-  /* form {
-    background-color: rgba(255, 255, 255, 0.8); 
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  } 
-  */
 
   .btn-outline-secondary {
     border-radius: 0;

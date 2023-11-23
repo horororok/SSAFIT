@@ -1,8 +1,7 @@
-import { ref, computed } from 'vue'
+import { ref} from 'vue'
 import { defineStore } from 'pinia'
 import router from '@/router'
 import axios from 'axios'
-import createPersistedState from 'pinia-plugin-persistedstate'
 
 const REST_USER_API = `http://localhost:8080/user`
 const REST_USERBOARD_API = `http://localhost:8080/userboard`
@@ -78,13 +77,11 @@ export const useUserStore = defineStore('user', () => {
       const responseUser = res.data
 
       if(responseUser !== ""){
-       // 사용자 정보를 sessionStorage에 저장
        sessionStorage.setItem("loginUser", JSON.stringify({
         id: responseUser.id,
         user_id: responseUser.user_id,
         nickname: responseUser.nickname,
       }));
-       // loginUserObj 업데이트
        loginUserObj.value = {  
         id: responseUser.id,
         user_id: responseUser.user_id,
@@ -126,11 +123,6 @@ export const useUserStore = defineStore('user', () => {
     loginUserObj.value = persistedUser;
     isLoggedIn.value = true;
   }
-
-
-
-
-
 
   //마이페이지 회원 정보 보기
   const getmyPage = function(userId) {
@@ -232,11 +224,6 @@ export const useUserStore = defineStore('user', () => {
       alert("마이페이지 추가정보 수정 중 서버 에러");
     })
   }
-
-
-
-
-
   
   //유저게시판 전체 목록 반환
   const userBoardList = ref([]);
@@ -294,9 +281,6 @@ export const useUserStore = defineStore('user', () => {
       if(res.data === 1){
         console.log("팔로우 완료");
         getFriendList(loginUserObj.value.user_id);
-        //밑에 두개 잠깐 넣어봄 (이따 확인)
-        getFollowingList(loginUserObj.value.user_id);
-        getFollowerList(loginUserObj.value.user_id);
       }else if(res.data === 0){
         console.log("팔로우 실패");
       }
@@ -356,8 +340,6 @@ export const useUserStore = defineStore('user', () => {
       console.log("팔로워 목록 에러", err);
     })
   }
-
-
 
   return { UserList, user, getUser, getUserList, createUser, setlogin, 
     setlogout, isLoggedIn, loginUserObj, mypage, getmyPage, signupMypage, 
