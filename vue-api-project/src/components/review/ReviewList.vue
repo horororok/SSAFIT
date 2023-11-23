@@ -1,6 +1,5 @@
 <template>
-  <div class="container mt-4">
-    <h4 style="color: #3c3c3c;">리뷰 목록</h4>
+  <div >
     <ReviewCreate />
     <table class="table mt-3">
       <tr v-for="review in store.reviewList" :key="review.id">

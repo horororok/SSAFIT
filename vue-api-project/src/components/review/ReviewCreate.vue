@@ -8,7 +8,6 @@
       <span v-else class="text-danger">로그인하세요</span>
     </div>
     <div class="mb-3">
-      <label for="content" class="form-label">리뷰 내용 </label>
       <textarea id="content" class="form-control" cols="30" rows="5" v-model="review.content"></textarea>
     </div>
     <div class="mb-3">

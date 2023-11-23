@@ -2,7 +2,7 @@
   <div id="container">
     <header>
       <nav class="navbar navbar-expand-lg navbar-light" :class="{ 'bg-transparent': isTransparent }">
-        <RouterLink class="navbar-brand" to="/" style="color: black;">&nbsp; SSAFITMATE</RouterLink>
+        <RouterLink class="navbar-brand" to="/" style="color: black;">&nbsp; FITMATE</RouterLink>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
           aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,10 +12,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto flex-nowrap">
             <li class="nav-item" v-if="store.isLoggedIn">
-              <a href="#" class="nav-link" @click="logout">로그아웃</a>
+              <a href="#" class="nav-link" @click="logout">&nbsp;로그아웃</a>
             </li>
             <li class="nav-item" v-else>
-              <RouterLink class="nav-link" to="/login">로그인</RouterLink>
+              <RouterLink class="nav-link" to="/login">&nbsp;로그인</RouterLink>
             </li>
             <li class="nav-item" v-show="!store.isLoggedIn">
               <RouterLink class="nav-link" to="/regist">회원가입</RouterLink>
