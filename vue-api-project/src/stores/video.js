@@ -5,11 +5,45 @@ import axios from 'axios'
 
 import { useUserStore } from './user'
 
-const REST_VIDEO_API = `http://localhost:8080/api-video/video`
-const REST_VIDEOLIKE_API = `http://localhost:8080/api-vlike`
+const REST_VIDEO_API = `http://localhost:8080/video`
+const REST_VIDEOLIKE_API = `http://localhost:8080/vlike`
 
 export const useVideoStore = defineStore('video', () => {
   const store = useUserStore();
+
+  //영상 전체 
+  const videoList = ref([])
+  const getVideoList = function (userId) {
+    axios.get(`${REST_VIDEO_API}/list/${userId}`)
+      .then((response) => {
+        videoList.value = response.data;
+      })
+      .catch((err)=>{
+        console.log("영상 목록 반환 실패 : 서버 에러", err);
+      })
+  }
+
+  //영상 한개
+  const video = ref({})
+  const getVideo = function (id) {
+    axios.get(`${REST_VIDEO_API}/${id}?user_id=${store.loginUserObj.user_id}`)
+      .then((response) => {
+        video.value = response.data
+      })
+  }
+
+  //정렬
+  const searchVideoList = function (searchCondition) {
+    axios.get(`${REST_VIDEO_API}/search?user_id=${store.loginUserObj.user_id}`, {
+      params: searchCondition
+    })
+      .then((res) => {
+        videoList.value = res.data
+      })
+      .catch((err)=>{
+        console.log("정렬 실패 : 서버 에러", err);
+      })
+  }
 
   const likedVideos = ref([]) //좋아요 한 영상 리스트
   const getLikedVideos = function (user_id) {
@@ -20,26 +54,6 @@ export const useVideoStore = defineStore('video', () => {
       .catch((err) => {
         console.log("getLikedVideoList 에러", err);
       })
-  }
-
-  const isliked = ref(false)  //0이면 좋아요 안 한 상태, 1이면 좋아요 한 상태
-  
-  //좋아요 했는지 안했는지 확인 (필요 없을 수도)
-  const getLiked = function(videolike) {
-    axios.get(REST_VIDEOLIKE_API, {
-      params : videolike
-    })
-    .then((res) => {
-      if(res.data === 0){
-        isliked.value = false;
-      }else if(res.data === 1){
-        isliked.value = true;
-      }
-      // isliked.value = JSON.stringify(res.data)
-    })
-    .catch((err) => {
-      console.log("getLiked 에러", err);
-    })
   }
 
   //좋아요 
@@ -86,44 +100,6 @@ export const useVideoStore = defineStore('video', () => {
     })
   }
 
-
-  //영상 전체 
-  const videoList = ref([])
-  const getVideoList = function (userId) {
-    axios.get(`${REST_VIDEO_API}/list/${userId}`)
-      .then((response) => {
-        videoList.value = response.data;
-      })
-      .catch((err)=>{
-        console.log("영상 목록 반환 실패 : 서버 에러", err);
-      })
-
-  }
-
-  //영상 한개
-  const video = ref({})
-
-  
-  const getVideo = function (id) {
-    axios.get(`${REST_VIDEO_API}/${id}?user_id=${store.loginUserObj.user_id}`)
-      .then((response) => {
-        video.value = response.data
-      })
-  }
-
-  //정렬
-  const searchVideoList = function (searchCondition) {
-    axios.get(`${REST_VIDEO_API}/search?user_id=${store.loginUserObj.user_id}`, {
-      params: searchCondition
-    })
-      .then((res) => {
-        videoList.value = res.data
-      })
-      .catch((err)=>{
-        console.log("정렬 실패 : 서버 에러", err);
-      })
-  }
-
   return { videoList, getVideoList, video, getVideo, searchVideoList, 
-    isliked, getLiked, likeVideo, unlikeVideo, likedVideos, getLikedVideos }
+     likeVideo, unlikeVideo, likedVideos, getLikedVideos }
 })
