@@ -1,4 +1,3 @@
-<!-- Modal.vue -->
 <template>
     <div class="modal">
         <div class="modal-content">
@@ -11,19 +10,15 @@
 <script setup>
 import { ref, defineProps, defineEmits } from 'vue';
 
-// 부모로부터 전달된 showModal 프로퍼티와 이벤트 발행을 위한 emit 함수 가져오기
 const { showModal } = defineProps(['showModal']);
 const emit = defineEmits();
 
-// 확인 버튼 클릭 시 실행되는 함수
 const closeModalHandler = () => {
-  // 부모 컴포넌트로 closeModal 이벤트를 발행하여 모달 닫기 요청
   emit('closeModal');
 };
 </script>
   
 <style scoped>
-/* 모달 스타일링 */
 .modal {
     display: flex;
     align-items: center;
@@ -37,14 +32,13 @@ const closeModalHandler = () => {
 }
 
 .modal-content {
-    width: 300px; /* 너비 조절 */
+    width: 300px; 
     background-color: white;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
-/* 확인 버튼 스타일링 */
 .modal-content button {
     background-color: #bfd49e;
     color: white;
@@ -54,7 +48,6 @@ const closeModalHandler = () => {
     cursor: pointer;
 }
 
-/* 확인 버튼에 호버 효과 추가 */
 .modal-content button:hover {
     background-color: #bfd49e;
 }

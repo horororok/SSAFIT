@@ -28,7 +28,6 @@
 import { ref, onMounted } from "vue";
 import { useReviewStore } from "@/stores/review";
 import { useUserStore } from "@/stores/user";
-import router from "@/router";
 import { useRoute } from "vue-router";
 import ReviewRegModal from "../modal/ReviewRegModal.vue";
 import ReviewwarnModal from "../modal/ReviewwarnModal.vue";
@@ -52,9 +51,7 @@ const currentDate = ref(new Date().toISOString().substr(0, 10));
 
 const cancelCreate =  function () {
   review.value.content = "";
-
 };
-
 
 const createReview = function () {
   if (!userStore.isLoggedIn || !userStore.loginUserObj.nickname) {
@@ -62,7 +59,6 @@ const createReview = function () {
     return;
   }
 
-  // 리뷰 내용이 비어 있는지 확인
   if (!review.value.content.trim()) {
     showwarnModal.value = true;
     review.value.content = "";

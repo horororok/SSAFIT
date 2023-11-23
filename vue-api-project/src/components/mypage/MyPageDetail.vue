@@ -15,10 +15,9 @@
 <script setup>
 import {useRoute, useRouter} from 'vue-router'
 import {useUserStore} from '@/stores/user';
-import {ref, onMounted} from 'vue';
+import {onMounted} from 'vue';
 
 const store = useUserStore();
-const user = ref({});
 
 const route = useRoute();
 const router = useRouter();
@@ -31,18 +30,12 @@ const updateUser = function () {
   router.push({ name: 'myupdate' });
 };
 
-
 </script>
 
 <style scoped>
-
-
 .card-body {
   text-align: center;
-  padding: 20px; /* 원하는 여백 값으로 조절 */
+  padding: 20px; 
 }
 
-.btn-primary {
-  color: #fff;
-}
 </style>

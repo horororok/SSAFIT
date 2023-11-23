@@ -1,4 +1,3 @@
-<!-- DeleteModal.vue -->
 <template>
   <div v-if="showModal" class="modal">
     <div class="modal-content">
@@ -38,15 +37,15 @@ const cancelDelete = () => {
 }
 
 .modal-content {
-  width: 300px; /* 너비 조절 */
+  width: 300px; 
   background-color: white;
   padding: 20px;
   border-radius: 8px;
   text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
-/* 삭제 및 취소 버튼 스타일링 */
+
 .modal-content button {
   margin: 5px;
   padding: 10px 15px;

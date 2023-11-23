@@ -1,13 +1,9 @@
-<!-- ReviewList.vue -->
 <template>
   <div class="container mt-4">
     <h4 style="color: #3c3c3c;">리뷰 목록</h4>
-
     <ReviewCreate />
-
     <table class="table mt-3">
       <tr v-for="review in store.reviewList" :key="review.id">
-        <!-- <td>{{ review.profile_image }}</td> -->
         <td>{{ review.nickname }}</td>
         <td>
           <div v-if="!review.isEditing">{{ review.content }}</div>
@@ -28,8 +24,6 @@
         </td>
       </tr>
     </table>
-
-    <!-- 삭제 모달 컴포넌트 추가 -->
     <DeleteModal v-if="showDeleteModal" :showModal.sync="showDeleteModal" @deleteConfirmed="deleteReviewConfirmed" @cancelDelete="cancelDelete" />
   </div>
 </template>

@@ -12,13 +12,11 @@ import MypageZZIM from '@/components/mypage/MypageZZIM.vue'
 import MypageFollow from '@/components/mypage/MypageFollow.vue'
 import MyPageRegistUpdate from '@/components/mypage/MyPageRegistUpdate.vue'
 
-
 import VideoView from '@/views/VideoView.vue'
 import VideoList from '@/components/video/VideoList.vue'
 import VideoDetail from '@/components/video/VideoDetail.vue'
 
 import ReviewList from '@/components/review/ReviewList.vue'
-import ReviewDetail from '@/components/review/ReviewDetail.vue'
 import ReviewUpdate from '@/components/review/ReviewUpdate.vue'
 import ReviewCreate from '@/components/review/ReviewCreate.vue'
 
@@ -122,11 +120,6 @@ const router = createRouter({
           path: "review/:videoId",
           name: "videoReviewList",
           component: ReviewList,
-        },
-        {
-          path: ":videoId/review/detail/:reviewId",
-          name: "videoReviewDetail",
-          component: ReviewDetail
         },
         {
           path: "review/update/:reviewId",
