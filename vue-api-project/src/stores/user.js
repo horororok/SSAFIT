@@ -87,8 +87,6 @@ export const useUserStore = defineStore('user', () => {
        loginUserObj.value = {  
         id: responseUser.id,
         user_id: responseUser.user_id,
-        // email : responseUser.email,
-        // name : responseUser.name,
         nickname: responseUser.nickname,
         isLoggedIn: true,};
        isLoggedIn.value = true;
@@ -112,10 +110,9 @@ export const useUserStore = defineStore('user', () => {
     })
     .then((res) => {
       console.log(res); 
-      // alert("로그아웃 되었습니다.")
       isLoggedIn.value = false;
       sessionStorage.removeItem("loginUser");
-      router.push("/")
+      router.push('/login')
     })
     .catch((err)=>{
       console.log(err);

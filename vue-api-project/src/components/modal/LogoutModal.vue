@@ -16,13 +16,19 @@ import { useUserStore } from '@/stores/user';
 
 const store = useUserStore();
 
+
+
+const clear= ()=>{
+    store.loginUserObj = null;
+}
+
 const {showlogoutModal} = defineProps(['showlogoutModal']);
 const emit = defineEmits();
 
 const logout = () => {
-
     emit('cancellogoutModal');
     store.setlogout();
+    clear();
 };
 const cancellogoutModal = () => {
     emit('cancellogoutModal');

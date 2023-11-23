@@ -34,7 +34,7 @@
 import { useUserStore } from '@/stores/user';
 import { onMounted, ref, computed } from "vue";
 
-import MessageModal from '@/components/userboard/MessageModal.vue';
+import MessageModal from '@/components/Modal/MessageModal.vue';
 
 import { useRoute } from 'vue-router';
 

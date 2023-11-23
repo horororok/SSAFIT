@@ -39,7 +39,7 @@ import { useReviewStore } from "@/stores/review";
 import { ref } from "vue";
 import ReviewCreate from "./ReviewCreate.vue";
 import { useUserStore } from "../../stores/user";
-import DeleteModal from "./DeleteModal.vue";
+import DeleteModal from "../modal/DeleteModal.vue";
 
 const store = useReviewStore();
 const userStore = useUserStore();

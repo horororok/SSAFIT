@@ -44,38 +44,20 @@
 <script setup>
 import { useUserStore } from "@/stores/user";
 import { ref } from "vue";
-import LogoutModal from "./LogoutModal.vue";
+import LogoutModal from "../modal/LogoutModal.vue";
 import { computed } from "vue";
 
-// const checkLogin = (to, from, next) => {
-//   const isLoggedIn = computed(() =>
-//     !!JSON.parse(sessionStorage.getItem("loginUser")));
-
-//     if(!isLoggedIn.value){
-//       alert("로그인 후 이용 가능합니다.")
-//       next('/login');
-//     }else{
-//       next();
-//     }
-// };
-
 const store = useUserStore();
-
 
 const showlogoutModal = ref(false);
 
 const logout = () => {
-  showlogoutModal.value=true;
-  
-  // store.setlogout()
-    
+  showlogoutModal.value = true;
 };
 
 const cancellogoutModal = () => {
-  showlogoutModal.value=false;
+  showlogoutModal.value = false;
 };
-
-
 
 // 스크롤 이벤트에 따라 투명한 배경 설정
 const isTransparent = ref(true);
@@ -92,13 +74,10 @@ window.addEventListener("scroll", () => {
 .navbar {
   padding: 1rem 0;
   /* 상단 padding 추가 */
-
   width: 100%;
   top: 0;
   z-index: 1000;
   transition: background-color 0.3s ease;
-
- 
   /* 배경색 전환 효과 */
 }
 
@@ -127,8 +106,6 @@ window.addEventListener("scroll", () => {
   font-weight: bold;
   text-decoration: none;
   color: black;
-  /* cursor: url('../../assets/img/cursorcat.jpg'), auto; */
-
 }
 
 .nav-link.router-link-exact-active {
@@ -144,4 +121,5 @@ window.addEventListener("scroll", () => {
   .navbar-nav .nav-item {
     margin-right: 1rem;
   }
-}</style>
+}
+</style>

@@ -30,8 +30,8 @@ import { useReviewStore } from "@/stores/review";
 import { useUserStore } from "@/stores/user";
 import router from "@/router";
 import { useRoute } from "vue-router";
-import ReviewRegModal from "./ReviewRegModal.vue";
-import ReviewwarnModal from "./ReviewwarnModal.vue";
+import ReviewRegModal from "../modal/ReviewRegModal.vue";
+import ReviewwarnModal from "../modal/ReviewwarnModal.vue";
 
 const store = useReviewStore();
 const userStore = useUserStore();

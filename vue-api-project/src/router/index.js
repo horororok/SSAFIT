@@ -24,8 +24,8 @@ import ReviewCreate from '@/components/review/ReviewCreate.vue'
 
 import UserBoardView from '@/views/UserBoardView.vue'
 import UserBoardUserDetail from '@/components/userboard/UserBoardUserDetail.vue'
-import { computed } from 'vue'
 
+import { computed } from 'vue'
 const checkLogin = (to, from, next) => {
   const isLoggedIn = computed(() =>
     !!JSON.parse(sessionStorage.getItem("loginUser")));

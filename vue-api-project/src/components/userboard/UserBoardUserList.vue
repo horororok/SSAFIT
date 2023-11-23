@@ -1,54 +1,62 @@
 <template>
   <div>
-    <h4>유저 목록</h4>
+    <h4>&nbsp;등록된 유저</h4>
     <div>
       <div>
-        <button class="filter-button" @click="filterUsers('축구')">축구</button>
+        &nbsp;<button class="filter-button" @click="filterUsers('축구')">축구</button>
         <button class="filter-button" @click="filterUsers('농구')">농구</button>
         <button class="filter-button" @click="filterUsers('야구')">야구</button>
         <button class="filter-button" @click="filterUsers('배구')">배구</button>
       </div>
       <div>
-        <button class="filter-button" @click="filterUsers(1)">여자</button>
+        &nbsp;<button class="filter-button" @click="filterUsers(1)">여자</button>
         <button class="filter-button" @click="filterUsers(0)">남자</button>
       </div>
     </div>
+    <!-- 친구 목록이 비어있을 때의 화면 -->
+    <div v-if="friends.length === 0">
+      <p>등록된 유저 정보가 없습니다.</p>
+    </div>
 
-    <div class="row justify-content-center">
-      <div v-for="user in filteredFriends" :key="user.user_id" class="col-md-2 mb-4">
-      <div class="card">
-      <div class="card-body">
-        <div class="profile-title mb-3">
-          <h5 class="card-title font-weight-bold" >{{ user.nickname }}</h5>
-        </div>
-        <div class="mb-2">
-          {{ user.age }}세
-        </div>
-        <div class="mb-2">
-          {{ user.gender === 1 ? "여자" : "남자" }}
-        </div>
-        <div class="mb-2">
-          {{ user.self_intro }}
-        </div>
-        <div class="mb-2">
-          {{ user.address }}
-        </div>
-        <div class="mb-2">
-          <strong>선호 스포츠 :</strong> {{ user.fav_sport }}
-        </div>
-        <div class="mb-2"  v-if="user.profile_image">
-          <div class="profile-image-frame">
-            <img :src="user.profile_image" alt="프로필 이미지" class="profile-image" >
+    <!-- 친구 목록이 비어있지 않을 때의 화면 -->
+    <div v-else>
+      <!-- 친구 목록을 표시하는 부분 -->
+      <div class="row justify-content-center">
+        <div v-for="user in filteredFriends" :key="user.user_id" class="col-md-2 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <div class="profile-title mb-3">
+                <h5 class="card-title font-weight-bold">{{ user.nickname }}</h5>
+              </div>
+              <div class="mb-2">
+                {{ user.age }}세
+              </div>
+              <div class="mb-2">
+                {{ user.gender === 1 ? "여자" : "남자" }}
+              </div>
+              <div class="mb-2">
+                {{ user.self_intro }}
+              </div>
+              <div class="mb-2">
+                {{ user.address }}
+              </div>
+              <div class="mb-2">
+                <strong>선호 스포츠 :</strong> {{ user.fav_sport }}
+              </div>
+              <div class="mb-2" v-if="user.profile_image">
+                <div class="profile-image-frame">
+                  <img :src="user.profile_image" alt="프로필 이미지" class="profile-image">
+                </div>
+              </div>
+              <button @click="follow(user.user_id)" class="btn follow-button"
+                :class="{ 'followed': user.user_follow_cnt === 1 }">
+                {{ user.user_follow_cnt === 1 ? "언팔로우" : "팔로우" }}
+              </button>
+            </div>
+
+
           </div>
         </div>
-        <button @click="follow(user.user_id)" class="btn follow-button"
-              :class="{ 'followed': user.user_follow_cnt === 1 }">
-              {{ user.user_follow_cnt === 1 ? "언팔로우" : "팔로우" }}
-            </button>
-        </div>
-
-
-      </div>
       </div>
     </div>
   </div>
@@ -72,7 +80,7 @@ const friends = computed(() => store.friends);
 const filteredFriends = computed(() => {
   return friends.value.filter(user => {
     // 필터링 조건 추가
-    const sportFilter = !selectedSport.value || user.fav_sport === selectedSport.value;
+    const sportFilter = !selectedSport.value || user.fav_sport === selectedSport.va0lue;
     const genderFilter = !selectedGender.value || user.gender.toString() === selectedGender.value;
     // 모든 필터 조건이 true이면 포함시킴
     return sportFilter && genderFilter;
@@ -125,7 +133,7 @@ const filterUsers = function (filtering) {
       console.log(selectedGender.value)
       break;
 
-      
+
   }
 };
 
@@ -161,9 +169,9 @@ const filterUsers = function (filtering) {
 .card {
   width: 300px;
   margin: 0 auto;
-  border: 1px solid #ddd; 
-  border-radius: 8px; 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .card-body {
@@ -179,12 +187,12 @@ const filterUsers = function (filtering) {
 
 .card .card-title {
   margin: 0;
-  color: #fff; 
+  color: #fff;
 }
 
 .card .mb-2 {
   padding: 10px;
-  border-bottom: 1px solid #ddd; 
+  border-bottom: 1px solid #ddd;
 }
 
 .btn {
@@ -199,13 +207,13 @@ const filterUsers = function (filtering) {
 .profile-image {
   width: 100%;
   height: auto;
-  border-radius: 70%; 
+  border-radius: 70%;
 }
 
 .no-profile-image {
   padding: 10px;
-  border: 2px dashed #ccc; 
-  border-radius: 50%; 
+  border: 2px dashed #ccc;
+  border-radius: 50%;
   width: 100%;
   height: auto;
   text-align: center;
