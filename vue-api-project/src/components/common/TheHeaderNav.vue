@@ -45,7 +45,19 @@
 import { useUserStore } from "@/stores/user";
 import { ref } from "vue";
 import LogoutModal from "./LogoutModal.vue";
+import { computed } from "vue";
 
+// const checkLogin = (to, from, next) => {
+//   const isLoggedIn = computed(() =>
+//     !!JSON.parse(sessionStorage.getItem("loginUser")));
+
+//     if(!isLoggedIn.value){
+//       alert("로그인 후 이용 가능합니다.")
+//       next('/login');
+//     }else{
+//       next();
+//     }
+// };
 
 const store = useUserStore();
 
@@ -85,6 +97,8 @@ window.addEventListener("scroll", () => {
   top: 0;
   z-index: 1000;
   transition: background-color 0.3s ease;
+
+ 
   /* 배경색 전환 효과 */
 }
 
@@ -113,7 +127,8 @@ window.addEventListener("scroll", () => {
   font-weight: bold;
   text-decoration: none;
   color: black;
-  cursor: url('..\..\assets\img\cursorcat.jpg');
+  /* cursor: url('../../assets/img/cursorcat.jpg'), auto; */
+
 }
 
 .nav-link.router-link-exact-active {

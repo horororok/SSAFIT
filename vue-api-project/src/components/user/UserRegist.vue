@@ -65,7 +65,7 @@
           <button class="btn btn-outline-secondary" type="button" @click="nicknameCheck">중복확인</button>
         </div>
       </div>
-      <button type="button" class="btn btn-primary" @click="regist">등록</button>
+      <button type="button" class="btn btn-success" @click="regist">회원 가입</button>
         </form>
       </div>
       <div class="col-md-6">
@@ -183,6 +183,7 @@ getUserList();
 
 <style scoped>
 .cat-background {
+  object-fit: cover;
   width: 100%;
   height: auto;
   background-image: url("@/assets/img/registercat.jpg");

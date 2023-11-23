@@ -20,11 +20,11 @@
             <label for="password" class="form-label">비밀번호</label>
             <input type="password" class="form-control" id="password" placeholder="비밀번호를 입력하세요." v-model="password" />
           </div>
-          <button type="submit" class="btn btn-primary">로그인</button>
+          <button type="submit" class="btn btn-success">로그인</button>
         </form>
         <div class="mt-3 text-center">
           <p class="mb-0">계정이 없다면</p>
-          <router-link to="/regist" style="text-decoration: none; color: #007bff;">회원가입</router-link>
+          <router-link to="/regist" style="text-decoration: none; color: #bfd49e;">회원가입</router-link>
         </div>
       </div>
     </div>

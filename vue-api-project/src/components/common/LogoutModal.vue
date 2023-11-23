@@ -3,6 +3,7 @@
         <div class="modal-content">
             <p>로그아웃 하시겠습니까?</p>
             <button @click="logout">네</button>
+            <div class="margin-between"></div>
             <button @click="cancellogoutModal">취소</button>
         </div>
     </div>
@@ -63,5 +64,9 @@ const cancellogoutModal = () => {
 /* 확인 버튼에 호버 효과 추가 */
 .modal-content button:hover {
     background-color: #bfd49e;
+}
+
+.margin-between {
+    margin: 2px 0;
 }
 </style>

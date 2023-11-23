@@ -26,7 +26,7 @@ import UserBoardView from '@/views/UserBoardView.vue'
 import UserBoardUserDetail from '@/components/userboard/UserBoardUserDetail.vue'
 import { computed } from 'vue'
 
-const checkLogin = (fo, from, next) => {
+const checkLogin = (to, from, next) => {
   const isLoggedIn = computed(() =>
     !!JSON.parse(sessionStorage.getItem("loginUser")));
 
