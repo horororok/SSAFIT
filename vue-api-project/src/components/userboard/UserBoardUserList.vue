@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h4>&nbsp;등록된 유저</h4>
     <div>
       <div>
         &nbsp;<button class="filter-button" @click="filterUsers('축구')">축구</button>
@@ -13,14 +12,11 @@
         <button class="filter-button" @click="filterUsers(0)">남자</button>
       </div>
     </div>
-    <!-- 친구 목록이 비어있을 때의 화면 -->
     <div v-if="friends.length === 0">
       <p>등록된 유저 정보가 없습니다.</p>
     </div>
 
-    <!-- 친구 목록이 비어있지 않을 때의 화면 -->
     <div v-else>
-      <!-- 친구 목록을 표시하는 부분 -->
       <div class="row justify-content-center">
         <div v-for="user in filteredFriends" :key="user.user_id" class="col-md-2 mb-4">
           <div class="card">
@@ -53,8 +49,6 @@
                 {{ user.user_follow_cnt === 1 ? "언팔로우" : "팔로우" }}
               </button>
             </div>
-
-
           </div>
         </div>
       </div>
@@ -65,8 +59,6 @@
 <script setup>
 import { useUserStore } from "@/stores/user";
 import { onMounted, computed } from "vue";
-import { storeToRefs } from "pinia";
-import router from "@/router";
 import { ref } from "vue";
 
 const store = useUserStore();
@@ -80,7 +72,7 @@ const friends = computed(() => store.friends);
 const filteredFriends = computed(() => {
   return friends.value.filter(user => {
     // 필터링 조건 추가
-    const sportFilter = !selectedSport.value || user.fav_sport === selectedSport.va0lue;
+    const sportFilter = !selectedSport.value || user.fav_sport === selectedSport.value;
     const genderFilter = !selectedGender.value || user.gender.toString() === selectedGender.value;
     // 모든 필터 조건이 true이면 포함시킴
     return sportFilter && genderFilter;
@@ -98,8 +90,6 @@ onMounted(() => {
 const me = JSON.parse(sessionStorage.getItem("loginUser"));
 
 const follow = function (input_userId) {
-
-
   const followInfo = {
     user_from_id: me.user_id,
     user_to_id: input_userId,
@@ -114,7 +104,6 @@ const follow = function (input_userId) {
   }
 };
 
-// 버튼 클릭 시 필터링 적용 함수
 const filterUsers = function (filtering) {
   console.log("Filtering:", filtering);
   // 각 버튼에 따라 필터링에 사용될 상태 업데이트
@@ -132,13 +121,9 @@ const filterUsers = function (filtering) {
       selectedSport.value = ""; // 스포츠 옵션 초기화
       console.log(selectedGender.value)
       break;
-
-
   }
 };
-
 </script>
-
 
 <style scoped>
 .filter-button {
