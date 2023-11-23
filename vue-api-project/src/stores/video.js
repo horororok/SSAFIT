@@ -1,6 +1,5 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import router from '@/router'
 import axios from 'axios'
 
 import { useUserStore } from './user'
@@ -45,7 +44,8 @@ export const useVideoStore = defineStore('video', () => {
       })
   }
 
-  const likedVideos = ref([]) //좋아요 한 영상 리스트
+  //좋아요 한 영상 리스트
+  const likedVideos = ref([]) 
   const getLikedVideos = function (user_id) {
     axios.get(`${REST_VIDEOLIKE_API}/${user_id}`)
       .then((res) => {

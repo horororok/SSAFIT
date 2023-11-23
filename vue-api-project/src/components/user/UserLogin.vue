@@ -1,14 +1,12 @@
 <template>
   <div class="container mt-5">
     <div class="row">
-      <!-- 왼쪽에 고양이 사진 -->
       <div class="col-md-6">
         <div class="mb-2 text-center">
           <img src="@/assets/img/logincat.jpg" alt="Cat Image" style="max-width:70%; height:100%; ">
         </div>
       </div>
 
-      <!-- 오른쪽에 로그인 폼 -->
       <div class="col-md-6">
         <h2 class="text-center">로그인</h2>
         <form @submit.prevent="login" class="mt-4">
@@ -28,39 +26,20 @@
         </div>
       </div>
     </div>
-
-    <!-- <UserLoginModal :showModal="showModal" :message="alertMessage" @closeModal="closeAlertModal" /> -->
-
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import { useUserStore } from "@/stores/user";
-// import UserLoginModal from "./UserLoginModal.vue";
-
 import { useRoute } from "vue-router";
 
 const route = useRoute();
-
 
 const store = useUserStore();
 
 const id = ref("");
 const password = ref("");
-
-const showModal = ref(false);
-const alertMessage = ref("");
-
-const openAlertModal = (message) => {
-  alertMessage.value = message;
-  showModal.value = true;
-};
-
-const closeAlertModal = () => {
-  showModal.value = false;
-};
-
 
 const login = () => {
   let user = {
@@ -68,28 +47,13 @@ const login = () => {
     password: password.value,
   };
   store.setlogin(user)
-    // .then(() => {
-    //   openAlertModal("로그인 되었습니다.");
-    // })
-    // .catch((err) => {
-    //   console.log(err);
-    //   openAlertModal("아이디 또는 비밀번호가 올바르지 않습니다.");
-    // });
 }
 </script>
 
 <style scoped>
-/* 스타일 추가 */
 body {
   background-color: #f8f9fa;
 }
-
-/* .container {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  } */
 
 form {
   background-color: #ffffff;

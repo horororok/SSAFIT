@@ -5,8 +5,7 @@
 </template>
 
 <script setup>
-import UserBoardUserList from '../components/userboard/UserBoardUserList.vue';
-
+import UserBoardUserList from '@/components/userboard/UserBoardUserList.vue';
 
 </script>
 

@@ -23,7 +23,6 @@ import ReviewUpdate from '@/components/review/ReviewUpdate.vue'
 import ReviewCreate from '@/components/review/ReviewCreate.vue'
 
 import UserBoardView from '@/views/UserBoardView.vue'
-import UserBoardUserDetail from '@/components/userboard/UserBoardUserDetail.vue'
 
 import { computed } from 'vue'
 const checkLogin = (to, from, next) => {
@@ -146,11 +145,6 @@ const router = createRouter({
       name: 'userboard',
       component: UserBoardView,
       beforeEnter : checkLogin,
-    }
-    ,{
-      path: "/userboard/:userboardId",
-      name: "userboarddetail",
-      component: UserBoardUserDetail
     }
   ]
 })
