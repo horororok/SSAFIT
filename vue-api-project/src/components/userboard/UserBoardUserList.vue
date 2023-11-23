@@ -161,9 +161,9 @@ const filterUsers = function (filtering) {
 .card {
   width: 300px;
   margin: 0 auto;
-  border: 1px solid #ddd; /* 테두리 스타일 추가 */
-  border-radius: 8px; /* 테두리 둥글기 설정 */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+  border: 1px solid #ddd; 
+  border-radius: 8px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
 
 .card-body {
@@ -179,12 +179,12 @@ const filterUsers = function (filtering) {
 
 .card .card-title {
   margin: 0;
-  color: #fff; /* text color */
+  color: #fff; 
 }
 
 .card .mb-2 {
   padding: 10px;
-  border-bottom: 1px solid #ddd; /* 각 요소 사이에 선 추가 */
+  border-bottom: 1px solid #ddd; 
 }
 
 .btn {
@@ -204,8 +204,8 @@ const filterUsers = function (filtering) {
 
 .no-profile-image {
   padding: 10px;
-  border: 2px dashed #ccc; /* 이미지 없을 때의 대체 테두리 스타일 */
-  border-radius: 50%; /* 원형 프로필 이미지를 위한 테두리 반지름 */
+  border: 2px dashed #ccc; 
+  border-radius: 50%; 
   width: 100%;
   height: auto;
   text-align: center;

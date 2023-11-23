@@ -1,5 +1,6 @@
 <template>
   <div class="container mt-5">
+    <h5 class="text-center">추가 정보 수정 🐾</h5>
     <form class="col-md-6 offset-md-3 mt-4">
       <div class="mb-3">
         <label for="age" class="form-label">나이</label>
@@ -46,8 +47,6 @@
         </select>
       </div>
 
-
-
       <div class="mb-3">
         <label class="form-label">선호 스포츠 1순위</label>
         <div class="form-check">
@@ -67,30 +66,24 @@
           <label class="form-check-label" for="volleyball">배구</label>
         </div>
       </div>
-
-
-
       <div class="mb-3">
         <label for="profile_image" class="form-label">프로필 이미지</label>
-
-       <!-- 이미지 목록 표시 -->
         <div class="image-list" style="display: flex;">
           <div v-for="(image, index) in imageList" :key="index" @click="selectImage(index)" class="image-item">
-            <!-- 정적 이미지 파일 경로 사용 -->
             <img :src="`/profileimg/${image.name}.jpg`" alt="프로필 이미지" 
                   :style="{ cursor: 'pointer' }" class="hoverable" />
             {{ image.name }}
           </div>
         </div>
-        <!-- 선택된 이미지에 대한 설명 텍스트 -->
         <div class="form-text" v-if="selectedImage">
           선택된 이미지: {{ selectedImage.name }}
         </div>
       </div>
-
-      <button type="button" class="btn btn-primary" @click="updateMypage">수정</button>
-      <button type="button" class="btn btn-secondary" @click="cancelUpdate">취소</button>
-    </form>
+      <div>
+        <button type="button" class="btn btn-success mt-3" @click="updateMypage">수정</button>
+        <button type="button" class="btn btn-secondary mt-3 mx-1" @click="cancelUpdate">취소</button>
+      </div>
+      </form>
   </div>
 </template>
 
@@ -118,31 +111,25 @@ const imageList = ref([
 ]);
 
 const selectImage = (index) => {
-  console.log(imageList.value)
-  // 선택된 이미지의 인덱스를 저장
+  // console.log(imageList.value)
   selectedImage.value = imageList.value[index];
   
 };
 
 onMounted(() => {
-  // 기존 정보를 불러와서 데이터 바인딩
   const mypageUser = store.myPageUser;
   age.value = mypageUser.age;
   gender.value = mypageUser.gender === 1 ? "female" : "male";
   self_intro.value = mypageUser.self_intro;
   address.value = mypageUser.address;
-  
-  // 선호 스포츠 값 데이터 바인딩
-  console.log(mypageUser.fav_sport)
+  // console.log(mypageUser.fav_sport)
   fav_sport.value = mypageUser.fav_sport;
-
-  console.log(mypageUser.profile_image)
+  // console.log(mypageUser.profile_image)
   selectedImage.value = mypageUser.profile_image;
 });
 
 const updateMypage = () => {
-  // 수정된 정보를 서버에 전송
-  console.log(selectedImage.value)
+  // console.log(selectedImage.value)
   const updatedInfo = {
     age: age.value,
     gender: gender.value,
@@ -154,7 +141,6 @@ const updateMypage = () => {
   };
   updatedInfo.gender = gender.value === "female" ? 1 : 0;
 
-  // 서버에 수정된 정보 전송
   store.updateMyPageUser(updatedInfo);
 
   // 수정 후 다시 마이페이지로 이동
@@ -162,7 +148,6 @@ const updateMypage = () => {
 };
 
 const cancelUpdate = () => {
-  // 수정 취소 시 이전 페이지로 이동
   router.go(-1);
 };
 </script>
@@ -180,20 +165,18 @@ const cancelUpdate = () => {
   width: 100px;
   height: 100px;
   object-fit: cover;
-  transition: transform 0.2s, border-color 0.2s; /* 애니메이션 효과 추가 */
+  transition: transform 0.2s, border-color 0.2s;
 }
 
 .image-item img:hover {
-  transform: scale(1.1); /* 마우스 호버 시 약간 확대 */
-  border: 2px solid rgb(0, 0, 0); /* 마우스 호버 시 테두리 추가 */
+  transform: scale(1.1); 
+  border: 2px solid rgb(0, 0, 0); 
 }
 
-/* 선택된 이미지에 대한 스타일 */
 .form-text {
   margin-top: 10px;
 }
 
-/* 선택된 이미지 표시 스타일 */
 .hoverable {
   cursor: pointer;
 }
