@@ -81,7 +81,6 @@ const profileImg = computed(() => {
 
 const REST_MYPAGE_API = `http://localhost:8080/mypage`
 
-// 등록 여부 확인 
 const isMyPageRegist = function(userId) {
   axios.get(`${REST_MYPAGE_API}/isregist/${userId}`)
     .then((res) => {

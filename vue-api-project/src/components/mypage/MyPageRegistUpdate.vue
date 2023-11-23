@@ -111,7 +111,6 @@ const imageList = ref([
 ]);
 
 const selectImage = (index) => {
-  // console.log(imageList.value)
   selectedImage.value = imageList.value[index];
   
 };
@@ -122,14 +121,11 @@ onMounted(() => {
   gender.value = mypageUser.gender === 1 ? "female" : "male";
   self_intro.value = mypageUser.self_intro;
   address.value = mypageUser.address;
-  // console.log(mypageUser.fav_sport)
   fav_sport.value = mypageUser.fav_sport;
-  // console.log(mypageUser.profile_image)
   selectedImage.value = mypageUser.profile_image;
 });
 
 const updateMypage = () => {
-  // console.log(selectedImage.value)
   const updatedInfo = {
     age: age.value,
     gender: gender.value,
@@ -142,9 +138,6 @@ const updateMypage = () => {
   updatedInfo.gender = gender.value === "female" ? 1 : 0;
 
   store.updateMyPageUser(updatedInfo);
-
-  // 수정 후 다시 마이페이지로 이동
-  // router.push({ name: "mydata" });
 };
 
 const cancelUpdate = () => {

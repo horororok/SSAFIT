@@ -71,7 +71,6 @@
         <label for="profile_image" class="form-label">프로필 이미지</label>
         <div class="image-list" style="display: flex;">
           <div v-for="(image, index) in imageList" :key="index" @click="selectImage(index)" class="image-item">
-            <!-- 정적 이미지 파일 경로 사용 -->
             <img :src="`/profileimg/${image.name}.jpg`" alt="프로필 이미지" 
                   :style="{ cursor: 'pointer' }" class="hoverable" />
             {{ image.name }}
@@ -87,11 +86,8 @@
 <script setup>
 import { ref } from "vue";
 import { useUserStore } from "@/stores/user";
-// import { useRouter } from "vue-router";
 
 const store = useUserStore();
-
-// const router = useRouter();
 
 const age = ref("");
 const gender = ref("");
@@ -145,7 +141,6 @@ const registMypage = () => {
 
   store.signupMypage(mypageUser);
 }
-
 
 </script>
 

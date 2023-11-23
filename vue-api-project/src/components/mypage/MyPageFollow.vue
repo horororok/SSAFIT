@@ -43,7 +43,6 @@
       </div>
     </div>
 
-    <hr>
 
     <h5>팔로워</h5>
     <hr>
@@ -157,10 +156,6 @@ const goUserBoard = function() {
   padding: 5px 10px;
 }
 
-.followed {
-  background-color: #bfd49e;
-  color: #fff;
-}
 
 .card {
   width: 250px;
@@ -204,16 +199,6 @@ const goUserBoard = function() {
   width: 100%;
   height: auto;
   border-radius: 70%; 
-}
-
-.no-profile-image {
-  padding: 10px;
-  border: 2px dashed #ccc; 
-  border-radius: 50%; 
-  width: 100%;
-  height: auto;
-  text-align: center;
-  color: #ccc;
 }
 
 .btn-move-to-board {

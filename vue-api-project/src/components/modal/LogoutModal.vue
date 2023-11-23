@@ -10,13 +10,10 @@
 </template>
 
 <script setup>
-import { storeToRefs } from 'pinia';
 import {defineProps, defineEmits} from 'vue';
 import { useUserStore } from '@/stores/user';
 
 const store = useUserStore();
-
-
 
 const clear= ()=>{
     store.loginUserObj = null;

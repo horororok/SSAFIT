@@ -1,10 +1,6 @@
 <template>
   <div class="container mt-3 d-flex flex-column align-items-center">
     <div class="mt-3 text-center">
-      <!-- <div class="mb-3">
-        <label for="id" class="fw-bold">아이디 : </label>
-        <span>{{' ' + store.mypage.id }}</span>
-      </div> -->
       <div class="mb-3">
         <label for="password" class="fw-bold">비밀번호</label>
         <input type="password" id="password" v-model="editedpassword" class="form-control">
@@ -113,20 +109,4 @@ getUserList();
 </script>
 
 <style scoped>
-.my-input {
-  border: 1px solid #9fbf8e;
-  width: 150px;
-}
-
-.my-input-group {
-  width: 100%;
-}
-
-.my-btn {
-  margin-top: 10px;
-}
-
-.my-btn-group {
-  margin-top: 10px;
-}
 </style>

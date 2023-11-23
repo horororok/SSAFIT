@@ -19,14 +19,12 @@
             </div>
         </fieldset>
     </div>
-
-    
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import { useReviewStore } from "@/stores/review";
-import router from "../../router";
+import router from "@/router";
 
 const store = useReviewStore();
 const isEditing = ref(false);
@@ -37,14 +35,11 @@ const startEditing = function () {
 }
 
 const saveChanges = function () {
-    // 서버에 수정된 내용 전송 등의 로직 수행
     store.updateReview({ content: editedContent.value });
-    // 수정 모드 종료
     isEditing.value = false;
 }
 
 const cancelUpdate = function () {
-    // 수정 모드 종료
     isEditing.value = false;
     router.push({ name: 'videoDetail', params: { videoId: store.review.video_id } });
 }

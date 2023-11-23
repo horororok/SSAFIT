@@ -36,7 +36,6 @@ const getNews = function(){
 </script>
 
 <style scoped>
-/* 스타일 수정 */
 .news-container {
   text-align: center;
   padding: 20px;
@@ -52,7 +51,6 @@ const getNews = function(){
 
 .news-table {
   display: grid;
-  /* grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); */
   grid-template-columns: repeat(5, 1fr);
   gap: 20px;
 }
