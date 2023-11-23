@@ -4,80 +4,56 @@
       <div class="col-md-6">
         <h2 class="text-center">회원가입</h2>
         <form class="mt-4">
-      <div class="mb-3">
-        <label for="id" class="form-label">아이디</label>
-        <div class="input-group">
-          <input
-            type="text"
-            class="form-control"
-            id="id"
-            v-model="id"
-          />
-          <button class="btn btn-outline-secondary" type="button" @click="idCheck">중복확인</button>
-        </div>
-      </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">비밀번호</label>
-        <input
-          type="password"
-          class="form-control"
-          id="password"
-          v-model="password"
-        />
-      </div>
-      <div class="mb-3">
-        <label for="password2" class="form-label">비밀번호 확인</label>
-        <input
-          type="password"
-          class="form-control"
-          id="password2"
-          v-model="password2"
-        />
-      </div>
-      <div class="mb-3">
-        <label for="name" class="form-label">이름</label>
-        <input
-          type="text"
-          class="form-control"
-          id="name"
-          v-model="name"
-        />
-      </div>
-      <div class="mb-3">
-        <label for="email" class="form-label">이메일</label>
-        <input
-          type="email"
-          class="form-control"
-          placeholder="이메일을 입력해주세요."
-          id="email"
-          v-model="email"
-        />
-      </div>
-      <div class="mb-3">
-        <label for="nickname" class="form-label">닉네임</label>
-        <div class="input-group">
-          <input
-            type="text"
-            class="form-control"
-            id="nickname"
-            v-model="nickname"
-          />
-          <button class="btn btn-outline-secondary" type="button" @click="nicknameCheck">중복확인</button>
-        </div>
-      </div>
-      <button type="button" class="btn btn-success" @click="regist">회원 가입</button>
+          <div class="mb-3">
+            <label for="id" class="form-label">아이디</label>
+            <div class="input-group">
+              <input type="text" class="form-control" id="id" v-model="id" />
+              <button class="btn btn-outline-secondary" type="button" @click="idCheck">중복확인</button>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">비밀번호</label>
+            <input type="password" class="form-control" id="password" v-model="password" />
+            <p v-if="password.length < 8 || (!password.includes('#') && !password.includes('@') && !password.includes('!') && !password.includes('$'))"
+              class="error-message">비밀번호는 8자리 이상이어야 하고, 특수문자를 하나 이상 포함해야 합니다.</p>
+            <p v-else class="success-message">비밀번호가 안전합니다.</p>
+          </div>
+          <div class="mb-3">
+            <label for="password2" class="form-label">비밀번호 확인</label>
+            <input type="password" class="form-control" id="password2" v-model="password2" />
+            <p v-if="password !== password2 || password === ''" class="error-message">비밀번호가 일치하지 않습니다.</p>
+            <p v-else class="success-message">비밀번호가 일치합니다.</p>
+          </div>
+
+          <div class="mb-3">
+            <label for="name" class="form-label">이름</label>
+            <input type="text" class="form-control" id="name" v-model="name" />
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">이메일</label>
+            <input type="email" class="form-control" placeholder="이메일을 입력해주세요." id="email" v-model="email" />
+          </div>
+          <div class="mb-3">
+            <label for="nickname" class="form-label">닉네임</label>
+            <div class="input-group">
+              <input type="text" class="form-control" id="nickname" v-model="nickname" />
+              <button class="btn btn-outline-secondary" type="button" @click="nicknameCheck">중복확인</button>
+            </div>
+          </div>
+          <button type="button" class="btn btn-success" @click="regist">회원 가입</button>
         </form>
       </div>
       <div class="col-md-6">
         <div class="cat-background"></div>
       </div>
     </div>
+
   </div>
 </template>
 
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import axios from "axios";
 import { useUserStore } from "@/stores/user";
 
@@ -123,12 +99,12 @@ const idCheck = () => {
 
 const nicknameCheck = () => {
   const user = {
-    nickname : nickname.value,
+    nickname: nickname.value,
   };
 
   if (users.value.some((u) => u.nickname === user.nickname)) {
     alert("이미 사용 중인 닉네임입니다.");
-  }else{
+  } else {
     alert("사용 가능한 닉네임입니다.");
     nicknameChecked.value = true;
   }
@@ -160,12 +136,13 @@ const regist = () => {
     return;
   }
 
-  if(!idChecked.value){
+
+  if (!idChecked.value) {
     alert("아이디 중복 확인을 해주세요.");
     return;
   }
 
-  if(!nicknameChecked.value){
+  if (!nicknameChecked.value) {
     alert("닉네임 중복 확인을 해주세요.");
     return;
   }
@@ -184,26 +161,36 @@ getUserList();
   background-image: url("@/assets/img/registercat.jpg");
   background-size: cover;
   border-radius: 10px;
-  min-height: 100%; 
+  min-height: 100%;
 }
 
-  .container {
-    position: relative;
-  }
+.container {
+  position: relative;
+}
 
-  .position-relative {
-    position: relative;
-  }
+.position-relative {
+  position: relative;
+}
 
-  .col-md-6 {
-    padding: 10; 
-  }
+.col-md-6 {
+  padding: 10;
+}
 
-  body {
-    background-color: #f8f9fa;
-  }
+body {
+  background-color: #f8f9fa;
+}
 
-  .btn-outline-secondary {
-    border-radius: 0;
-  }
+.btn-outline-secondary {
+  border-radius: 0;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+}
+
+.success-message {
+  color: green;
+  font-size: 12px;
+}
 </style>

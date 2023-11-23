@@ -11,7 +11,7 @@
     </div>
     <hr>
     <div class="mb-1" style="font-size: 1.5em; color: #3c3c3c;"> 
-      {{ video.title }}
+      {{ emojify(video.title) }}
     </div>
     <div class="mb-2 bg-light p-3">
       <div class="d-flex justify-content-between">
@@ -38,6 +38,7 @@ import { useUserStore } from '@/stores/user';
 import { onMounted, computed } from "vue";
 import ReviewList from '@/components/review/ReviewList.vue';
 import { ref } from 'vue';
+import { emojify } from '@twuni/emojify';
 
 const store = useVideoStore()
 const reviewStore = useReviewStore()
