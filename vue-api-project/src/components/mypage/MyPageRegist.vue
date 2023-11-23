@@ -86,14 +86,12 @@
 
 <script setup>
 import { ref } from "vue";
-import axios from "axios";
 import { useUserStore } from "@/stores/user";
-import { useRouter } from "vue-router";
+// import { useRouter } from "vue-router";
 
 const store = useUserStore();
 
-
-const router = useRouter();
+// const router = useRouter();
 
 const age = ref("");
 const gender = ref("");
@@ -122,14 +120,12 @@ const registMypage = () => {
     self_intro: self_intro.value,
     address: address.value,
     fav_sport: fav_sport.value,
-    user_id: store.loginUserObj.user_id, //store에서 user_id 가져오기
+    user_id: store.loginUserObj.user_id, 
     profile_image: selectedImage.value.url,
   };
 
-  // 여자면 1, 남자면 0
   mypageUser.gender = gender.value === "female" ? 1 : 0;
 
-  //선호 스포츠 값 변환
   switch (fav_sport.value) {
     case "soccer":
       mypageUser.fav_sport = "축구";
@@ -148,8 +144,6 @@ const registMypage = () => {
   mypageUser.profile_image = selectedImage.value.url;
 
   store.signupMypage(mypageUser);
-
-  // router.push({ name: "mydata" });
 }
 
 
@@ -168,20 +162,18 @@ const registMypage = () => {
   width: 100px;
   height: 100px;
   object-fit: cover;
-  transition: transform 0.2s, border-color 0.2s; /* 애니메이션 효과 추가 */
+  transition: transform 0.2s, border-color 0.2s; 
 }
 
 .image-item img:hover {
-  transform: scale(1.1); /* 마우스 호버 시 약간 확대 */
-  border: 2px solid rgb(0, 0, 0); /* 마우스 호버 시 테두리 추가 */
+  transform: scale(1.1); 
+  border: 2px solid rgb(0, 0, 0); 
 }
 
-/* 선택된 이미지에 대한 스타일 */
 .form-text {
   margin-top: 10px;
 }
 
-/* 선택된 이미지 표시 스타일 */
 .hoverable {
   cursor: pointer;
 }

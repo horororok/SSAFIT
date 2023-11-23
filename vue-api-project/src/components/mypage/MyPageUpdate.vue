@@ -50,7 +50,7 @@ const editedemail = ref(store.mypage.email);
 const editednickname = ref(store.mypage.nickname);
 
 const getUserList = () => {
-  const API_URL = `http://localhost:8080/api-user/users`;
+  const API_URL = `http://localhost:8080/user/users`;
   axios({
     url: API_URL,
     method: "GET",

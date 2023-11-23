@@ -79,11 +79,11 @@ const profileImg = computed(() => {
 });
 
 
-const REST_USER_API = `http://localhost:8080/api-user`
+const REST_MYPAGE_API = `http://localhost:8080/mypage`
 
 // 등록 여부 확인 
 const isMyPageRegist = function(userId) {
-  axios.get(`${REST_USER_API}/mypage/isregist/${userId}`)
+  axios.get(`${REST_MYPAGE_API}/isregist/${userId}`)
     .then((res) => {
       if (res.data === 1) {
         console.log("추가정보등록확인: ", res.data);
@@ -94,18 +94,15 @@ const isMyPageRegist = function(userId) {
       console.log("추가등록확인 에러", err);
     });
 };
-
-
 </script>
-
 
 <style scoped>
 .card {
   width: 300px;
   margin: 0 auto;
-  border: 1px solid #ddd; /* 테두리 스타일 추가 */
-  border-radius: 8px; /* 테두리 둥글기 설정 */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+  border: 1px solid #ddd; 
+  border-radius: 8px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
 
 .card-body {
@@ -121,15 +118,12 @@ const isMyPageRegist = function(userId) {
 
 .card .card-title {
   margin: 0;
-  color: #fff; /* text color */
+  color: #fff;
 }
 
-
-
-/* 다른 스타일은 그대로 두고 해당 부분에 테두리 추가 */
 .card .mb-2 {
   padding: 10px;
-  border-bottom: 1px solid #ddd; /* 각 요소 사이에 선 추가 */
+  border-bottom: 1px solid #ddd; 
 }
 
 .btn {

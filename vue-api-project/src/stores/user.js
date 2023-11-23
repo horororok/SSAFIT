@@ -4,9 +4,10 @@ import router from '@/router'
 import axios from 'axios'
 import createPersistedState from 'pinia-plugin-persistedstate'
 
-const REST_USER_API = `http://localhost:8080/api-user`
+const REST_USER_API = `http://localhost:8080/user`
 const REST_USERBOARD_API = `http://localhost:8080/userboard`
 const REST_FOLLOW_API = `http://localhost:8080/follow`
+const REST_MYPAGE_API = `http://localhost:8080/mypage`
 
 export const useUserStore = defineStore('user', () => {
 
@@ -29,7 +30,7 @@ export const useUserStore = defineStore('user', () => {
 
   //유저 한명 반환
   const getUser = function (id) {
-    axios.get(`${REST_USER_API}/user/${id}`)
+    axios.get(`${REST_USER_API}/${id}`)
     .then((res) => {
       user.value = res.data
     })
@@ -123,16 +124,20 @@ export const useUserStore = defineStore('user', () => {
     })
   };
 
-
   const persistedUser = JSON.parse(sessionStorage.getItem('loginUser'));
   if (persistedUser) {
     loginUserObj.value = persistedUser;
     isLoggedIn.value = true;
   }
 
+
+
+
+
+
   //마이페이지 회원 정보 보기
   const getmyPage = function(userId) {
-    axios.get(`${REST_USER_API}/mypage/${userId}`)
+    axios.get(`${REST_MYPAGE_API}/${userId}`)
     .then((res) => {
       console.log("응답:", res.data);
       mypage.value = res.data;
@@ -145,7 +150,7 @@ export const useUserStore = defineStore('user', () => {
   //회원 정보 수정
   const updateUser = function(user){
     axios({
-      url: `${REST_USER_API}/mypage`,
+      url: REST_MYPAGE_API,
       method : "PUT",
       data:{
         user_id : user.user_id,
@@ -169,7 +174,7 @@ export const useUserStore = defineStore('user', () => {
   //마이페이지 추가 정보 등록
   const signupMypage = function(inputUser) {
     axios({
-      url : `${REST_USER_API}/mypage/signup`,
+      url : `${REST_MYPAGE_API}/signup`,
       method: "POST",
       data: {
         age : inputUser.age,
@@ -193,9 +198,8 @@ export const useUserStore = defineStore('user', () => {
 
     //마이페이지 추가 정보 반환
     const myPageUser = ref({});
-    
     const getmyPageUser = function(userId) {
-      axios.get(`${REST_USER_API}/mypage/user/${userId}`)
+      axios.get(`${REST_MYPAGE_API}/user/${userId}`)
     .then((res) => {
       console.log("마이페이지 추가 정보 응답:", res.data);
       myPageUser.value = res.data;
@@ -209,7 +213,7 @@ export const useUserStore = defineStore('user', () => {
 //마이페이지 추가정보 수정 등록
   const updateMyPageUser = function(user){
     axios({
-      url: `${REST_USER_API}/mypage/update`,
+      url: `${REST_MYPAGE_API}/update`,
       method : "PUT",
       data:{
         age: user.age,
@@ -232,6 +236,11 @@ export const useUserStore = defineStore('user', () => {
     })
   }
 
+
+
+
+
+  
   //유저게시판 전체 목록 반환
   const userBoardList = ref([]);
   const getUserBoardList = function() {
@@ -270,17 +279,6 @@ export const useUserStore = defineStore('user', () => {
       console.log("유저게시판 친구 목록 에러: ", err);
     })
   }
-  // const getFriendOne = function(user_id){
-  //   axios.get(`${REST_USERBOARD_API}/friends/${user_id}`)
-  //   .then((res) => {
-  //     console.log("유저게시판 친구 한명 정보 : ", res.data);
-  //     friends.value = res.data;
-  //   })
-  //   .catch((err) => {
-  //     console.log("유저게시판 친구 한명 에러: ", err);
-  //   })
-  // }
-
 
   //팔로우
   const follow  = function(followInfo) {
