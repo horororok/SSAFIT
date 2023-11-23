@@ -24,7 +24,7 @@
         </form>
         <div class="mt-3 text-center">
           <p class="mb-0">계정이 없다면</p>
-          <router-link to="/register" style="text-decoration: none; color: #007bff;">회원가입</router-link>
+          <router-link to="/regist" style="text-decoration: none; color: #007bff;">회원가입</router-link>
         </div>
       </div>
     </div>

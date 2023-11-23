@@ -50,9 +50,11 @@ const review = ref({
 
 const currentDate = ref(new Date().toISOString().substr(0, 10));
 
-const cancelCreate = function () {
-  router.push({ name: "videoDetail", params: { videoId: store.review.video_id } });
+const cancelCreate =  function () {
+  review.value.content = "";
+
 };
+
 
 const createReview = function () {
   if (!userStore.isLoggedIn || !userStore.loginUserObj.nickname) {

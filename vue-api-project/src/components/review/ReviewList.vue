@@ -17,11 +17,11 @@
         <td>
           <div v-if="isCurrentUser(review.user_id)" class="d-flex">
             <div v-if="!review.isEditing" class="me-2">
-              <button @click="confirmDeleteReview(review)" class="btn btn-sm btn-outline-danger" style="background-color: #bfd49e; color: #fff;">삭제</button>
+              <button @click="confirmDeleteReview(review)" class="btn btn-sm btn-outline-danger" style="background-color: #bfd49e; color: #fff;">삭제</button>&nbsp;
               <button @click="startEditing(review)" class="btn btn-sm btn-outline-primary" style="background-color: #bfd49e; color: #fff;">수정</button>
             </div>
             <div v-else>
-              <button @click="updateReview(review)" class="btn btn-sm btn-primary" style="background-color: #bfd49e; color: #fff;">등록</button>
+              <button @click="updateReview(review)" class="btn btn-sm btn-primary" style="background-color: #bfd49e; color: #fff;">등록</button>&nbsp;
               <button @click="cancelEditing(review)" class="btn btn-sm btn-secondary" style="background-color: #bfd49e; color: #fff;">취소</button>
             </div>
           </div>
