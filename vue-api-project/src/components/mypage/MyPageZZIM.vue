@@ -2,7 +2,8 @@
   <div>
     <div v-if="videoStore.likedVideos.length === 0" class="empty-message">
       <p>찜한 영상이 없습니다.</p>
-      <img src="../../assets/img/zzimcat.jpg" alt="No ZZIM Videos">
+      <div><img src="@/assets/img/zzimcat.jpg" alt="No ZZIM Videos"></div>
+      <button @click="goVideoBoard" class="btn btn-success btn-move-to-board">영상게시판으로 이동</button>
     </div>
     <!-- 카드 형식으로 비디오 목록을 표시 -->
     <div class="row justify-content-center">
@@ -58,6 +59,9 @@ const showVideoDetail = function (videoId) {
   }
 }
 
+const goVideoBoard = function() {
+  router.push('/video');
+}
 
 </script>
 
@@ -66,9 +70,6 @@ const showVideoDetail = function (videoId) {
   text-align: center;
   margin: 50px 0;
   padding: 20px;
-  /* background-color: #f8f8f8;
-  border: 1px solid #ddd;
-  border-radius: 8px; */
 }
 
 .empty-message p {
@@ -92,4 +93,14 @@ const showVideoDetail = function (videoId) {
   color: #414951;
   text-decoration: underline;
 }
+
+.btn-move-to-board {
+  margin-top: 15px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
 </style>

@@ -1,5 +1,11 @@
 <template>
  <div>
+    <div v-if="follower.length === 0 && following.length === 0" class="empty-message">
+      <p>아직 친구가 없습니다. </p>
+      <div><img src="@/assets/img/followcat.jpg" alt="No FOLLOW Users"></div>
+      <button @click="goUserBoard" class="btn btn-success btn-move-to-board">이용자게시판으로 이동</button>
+    </div>
+    <div v-else>
     <h5>팔로잉</h5>
     <hr>
     <div class="row justify-content-center">
@@ -76,6 +82,7 @@
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <script setup>
@@ -113,11 +120,32 @@ onMounted(() => {
   store.getFollowerList(userId);
   store.getFollowingList(userId);
 });
+
+const goUserBoard = function() {
+  router.push('/userboard');
+}
 </script>
 
 <style scoped>
+.empty-message {
+  text-align: center;
+  margin: 50px 0;
+  padding: 20px;
+}
 
+.empty-message p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 10px;
+}
 
+.empty-message img {
+  max-width: 50%;
+  height: 350px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+}
 
 
 .follow-button {
@@ -187,4 +215,15 @@ onMounted(() => {
   text-align: center;
   color: #ccc;
 }
+
+.btn-move-to-board {
+  margin-top: 15px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+
 </style>
