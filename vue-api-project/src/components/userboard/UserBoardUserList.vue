@@ -2,45 +2,41 @@
   <div>
     <h4>유저 목록</h4>
     <div>
-      <!-- 필터링 옵션 -->
       <div>
         <button class="filter-button" @click="filterUsers('축구')">축구</button>
         <button class="filter-button" @click="filterUsers('농구')">농구</button>
         <button class="filter-button" @click="filterUsers('야구')">야구</button>
         <button class="filter-button" @click="filterUsers('배구')">배구</button>
       </div>
-
       <div>
         <button class="filter-button" @click="filterUsers(1)">여자</button>
         <button class="filter-button" @click="filterUsers(0)">남자</button>
       </div>
-
     </div>
 
     <div class="row justify-content-center">
       <div v-for="user in filteredFriends" :key="user.user_id" class="col-md-2 mb-4">
-        <!-- 카드 내용 -->
-
       <div class="card">
       <div class="card-body">
-        <h5 class="card-title">{{ user.nickname }}</h5>
-        <div class="mb-2">
-          <strong>나이 :</strong> {{ user.age }}
+        <div class="profile-title mb-3">
+          <h5 class="card-title font-weight-bold" >{{ user.nickname }}</h5>
         </div>
         <div class="mb-2">
-          <strong>성별 :</strong> {{ user.gender === 1 ? "여자" : "남자" }}
+          {{ user.age }}세
         </div>
         <div class="mb-2">
-          <strong>자기소개 :</strong> {{ user.self_intro }}
+          {{ user.gender === 1 ? "여자" : "남자" }}
         </div>
         <div class="mb-2">
-          <strong>주소 :</strong> {{ user.address }}
+          {{ user.self_intro }}
+        </div>
+        <div class="mb-2">
+          {{ user.address }}
         </div>
         <div class="mb-2">
           <strong>선호 스포츠 :</strong> {{ user.fav_sport }}
         </div>
         <div class="mb-2"  v-if="user.profile_image">
-          <!-- 이미지를 보여줄 img 태그 -->
           <div class="profile-image-frame">
             <img :src="user.profile_image" alt="프로필 이미지" class="profile-image" >
           </div>
@@ -50,6 +46,8 @@
               {{ user.user_follow_cnt === 1 ? "언팔로우" : "팔로우" }}
             </button>
         </div>
+
+
       </div>
       </div>
     </div>
@@ -65,11 +63,9 @@ import { ref } from "vue";
 
 const store = useUserStore();
 
-// 필터링에 사용될 상태
 const selectedSport = ref("");
 const selectedGender = ref("");
 
-// friends를 ref로 감싸기
 const friends = computed(() => store.friends);
 
 // 친구 목록을 필터링하는 computed 속성
@@ -78,9 +74,6 @@ const filteredFriends = computed(() => {
     // 필터링 조건 추가
     const sportFilter = !selectedSport.value || user.fav_sport === selectedSport.value;
     const genderFilter = !selectedGender.value || user.gender.toString() === selectedGender.value;
-    //   console.log("selectedGender.value:", selectedGender.value);
-    // console.log("user.gender.toString():", user.gender.toString());
-    // console.log("Filter result:", sportFilter, genderFilter);
     // 모든 필터 조건이 true이면 포함시킴
     return sportFilter && genderFilter;
 
@@ -168,10 +161,30 @@ const filterUsers = function (filtering) {
 .card {
   width: 300px;
   margin: 0 auto;
+  border: 1px solid #ddd; /* 테두리 스타일 추가 */
+  border-radius: 8px; /* 테두리 둥글기 설정 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
 }
 
 .card-body {
   text-align: center;
+}
+
+.profile-title {
+  background-color: #9fbf8e;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+}
+
+.card .card-title {
+  margin: 0;
+  color: #fff; /* text color */
+}
+
+.card .mb-2 {
+  padding: 10px;
+  border-bottom: 1px solid #ddd; /* 각 요소 사이에 선 추가 */
 }
 
 .btn {

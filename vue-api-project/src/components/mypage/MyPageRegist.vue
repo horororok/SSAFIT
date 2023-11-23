@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-5">
-    <h2 class="text-center">추가 정보 등록 창</h2>
+    <h5 class="text-center">추가 정보 등록 🐾</h5>
     <form class="col-md-6 offset-md-3 mt-4">
       <div class="mb-3">
         <label for="age" class="form-label">나이</label>
@@ -47,8 +47,6 @@
         </select>
       </div>
 
-
-
       <div class="mb-3">
         <label class="form-label">선호 스포츠 1순위</label>
         <div class="form-check">
@@ -69,16 +67,8 @@
         </div>
       </div>
 
-      <!-- <div class="mb-3">
-        <label for="profile_img" class="form-label">프로필 이미지</label>
-        <input type="file" class="form-control" id="profile_img" v-on="profile_img" />
-        <div id="profile_img" class="form-text">프로필 이미지를 선택해주세요</div>
-      </div> -->
-
       <div class="mb-3">
         <label for="profile_image" class="form-label">프로필 이미지</label>
-
-        <!-- 이미지 목록 표시 -->
         <div class="image-list" style="display: flex;">
           <div v-for="(image, index) in imageList" :key="index" @click="selectImage(index)" class="image-item">
             <!-- 정적 이미지 파일 경로 사용 -->
@@ -87,20 +77,9 @@
             {{ image.name }}
           </div>
         </div>
-        <!-- 선택된 이미지에 대한 설명 텍스트 -->
         <div class="form-text" v-if="selectedImage">선택된 이미지: {{ selectedImage.name }}</div>
-
-        
-
-
       </div>
-
-      
-
-      
-
-
-      <button type="button" class="btn btn-primary" @click="registMypage">등록</button>
+      <button type="button" class="btn btn-success" @click="registMypage">등록</button>
     </form>
   </div>
 </template>

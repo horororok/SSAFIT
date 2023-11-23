@@ -2,8 +2,11 @@
   <div class="container mt-4">
     <div v-if="!registered">
       <p>아직 추가 정보를 등록하지 않았습니다.</p>
-      <p>유저 게시판에 올라올 정보를 등록해 스포츠 취향이 맞는 사람을 찾아보세요!</p>
-      <button @click="insertUser" class="btn btn-primary">추가 정보 등록</button>
+      <p>유저 게시판에 올라올 정보를 등록해 스포츠 취향이 맞는 사람을 찾아보세요 🐾</p>
+      <div>
+          <img src="@/assets/img/sofacat.jpg" alt="Cat Image" style="max-width: 30%; height: auto; border-radius: 8px;">
+      </div>
+      <button @click="insertUser" class="btn btn-success">추가 정보 등록</button>
     </div>
     <div v-else class="card">
       <div class="card-body">
@@ -33,10 +36,11 @@
           <div v-else class="mb-2 no-profile-image">
             프로필 이미지가 없습니다.
           </div>
+          <button @click="updateUser" class="btn btn-success d-block mx-auto mt-3">수정</button>
         </div>
       </div>
     </div>
-    <button @click="updateUser" class="btn btn-success d-block mx-auto mt-3">수정</button>
+    
 </template>
 
 <script setup>

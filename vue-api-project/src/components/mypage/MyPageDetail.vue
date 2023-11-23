@@ -4,9 +4,9 @@
       <div class="card-body" style="max-width: 50%; margin: auto;">
         <h2 class="mt-3" style="color: black;">{{ store.mypage.name }}님의 마이페이지 🐾</h2>
         <div class="my-3">
-          <img src="@/assets/img/mypagecat.jpg" alt="Cat Image" style="max-width: 100%; height: auto; border-radius: 8px; border: 2px solid #bfd49e;">
+          <img src="@/assets/img/mypagecat.jpg" alt="Cat Image" style="max-width: 100%; height: auto; border-radius: 8px;">
         </div>
-        <button class="btn btn-success" @click="updateUser" style="border-color: #bfd49e;">회원정보 수정</button>
+        <button class="btn btn-success" @click="updateUser">회원정보 수정</button>
       </div>
     </div>
   </div>
