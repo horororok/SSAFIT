@@ -1,72 +1,105 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import router from '@/router'
 import axios from 'axios'
 
-const REST_VIDEO_API = `http://localhost:8080/api-video/video`
+import { useUserStore } from './user'
+
+const REST_VIDEO_API = `http://localhost:8080/video`
+const REST_VIDEOLIKE_API = `http://localhost:8080/vlike`
 
 export const useVideoStore = defineStore('video', () => {
+  const store = useUserStore();
+
+  //영상 전체 
   const videoList = ref([])
-  const searchInfo = ref({
-    orderBy: 'none',
-    orderByDir: 'asc',
-  });
-  const getVideoList = function () {
-    
-    // 잠시 더미 데이터 사용
-    // axios.get(REST_VIDEO_API)
-    //   .then((response) => {
-    //   videoList.value = response.data
-    //   })
-
-    const dummyData = [
-      {
-        id: 1,
-        title: 'Video 1',
-        thumbnailUrl: 'https://example.com/thumbnail1.jpg',
-        channel_name: 'Channel A',
-        part: '전신',
-        view_cnt: 1000,
-      },
-      {
-        id: 2,
-        title: 'Video 2',
-        thumbnailUrl: 'https://example.com/thumbnail2.jpg',
-        channel_name: 'Channel B',
-        part: '하체',
-        view_cnt: 1500,
-      },
-      {
-        id: 3,
-        title: 'Video 3',
-        thumbnailUrl: 'https://example.com/thumbnail3.jpg',
-        channel_name: 'Channel C',
-        part: '상체',
-        view_cnt: 800,
-      },
-    ];
-
-    // 가상의 더미 데이터로 비디오 목록 갱신
-    videoList.value = dummyData;
+  const getVideoList = function (userId) {
+    axios.get(`${REST_VIDEO_API}/list/${userId}`)
+      .then((response) => {
+        videoList.value = response.data;
+      })
+      .catch((err)=>{
+        console.log("영상 목록 반환 실패 : 서버 에러", err);
+      })
   }
 
   //영상 한개
   const video = ref({})
   const getVideo = function (id) {
-    axios.get(`${REST_VIDEO_API}/${id}`)
+    axios.get(`${REST_VIDEO_API}/${id}?user_id=${store.loginUserObj.user_id}`)
       .then((response) => {
         video.value = response.data
+      })
+  }
+
+  //정렬
+  const searchVideoList = function (searchCondition) {
+    axios.get(`${REST_VIDEO_API}/search?user_id=${store.loginUserObj.user_id}`, {
+      params: searchCondition
+    })
+      .then((res) => {
+        videoList.value = res.data
+      })
+      .catch((err)=>{
+        console.log("정렬 실패 : 서버 에러", err);
+      })
+  }
+
+  //좋아요 한 영상 리스트
+  const likedVideos = ref([]) 
+  const getLikedVideos = function (user_id) {
+    axios.get(`${REST_VIDEOLIKE_API}/${user_id}`)
+      .then((res) => {
+        likedVideos.value = res.data
+      })
+      .catch((err) => {
+        console.log("getLikedVideoList 에러", err);
+      })
+  }
+
+  //좋아요 
+  const likeVideo = function(videoLike) {
+    axios({
+      url : REST_VIDEOLIKE_API,
+      method: "POST",
+      data :{
+        user_id : videoLike.user_id,
+        video_id : videoLike.video_id,
+      }
+    })
+    .then((res) => {
+      if(res.data === 1){
+        console.log("좋아요 완료");
+        getVideo(video.value.video_id);
+      }else if(res.data === 0){
+        console.log("좋아요 실패");
+      }
+    })
+    .catch((err)=>{
+      console.log("좋아요 실패 : 서버 에러", err);
     })
   }
 
-  // const searchVideoList = function (searchCondition) {
-  //   axios.get(REST_VIDEO_API, {
-  //     params: searchCondition
-  //   })
-  //     .then((res) => {
-  //       videoList.value = res.data
-  //   })
-  // }
+  //좋아요 취소
+  const unlikeVideo = function(videoLike) {
+    axios.delete(REST_VIDEOLIKE_API, {
+      data: {
+        user_id : videoLike.user_id,
+        video_id : videoLike.video_id
+      }
+    })
+    .then((res) => {
+      if(res.data === 1){
+        console.log("좋아요 취소 완료");
+        getVideo(video.value.video_id);
+      }else if(res.data === 0){
+        console.log("좋아요 취소 실패");
+      }
+    })
+    .catch((err)=>{
+      console.log("좋아요 취소 실패 : 서버 에러", err);
+    })
+  }
 
-  return { videoList, getVideoList, video, getVideo,  searchInfo }
+  return { videoList, getVideoList, video, getVideo, searchVideoList, 
+     likeVideo, unlikeVideo, likedVideos, getLikedVideos }
 })

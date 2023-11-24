@@ -1,78 +1,157 @@
 <template>
-  <div>
-    <!-- 영상 목록 제목 -->
-    <h4>영상 목록</h4>
-    <hr>
+  <div class="container mt-4">
 
-    <!-- 파트별로 필터링할 버튼들 -->
-    <button @click="filterVideos('전신')">전신</button>
-    <button @click="filterVideos('하체')">하체</button>
-    <button @click="filterVideos('상체')">상체</button>
-    <button @click="filterVideos(null)">전체</button>
-    <hr>
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="mb-3 d-flex align-items-center">
+        <div class="btn-group" role="group">
+          <button @click="filterVideos('전신')" class="btn btn-primary">전신</button>
+          <button @click="filterVideos('하체')" class="btn btn-primary">하체</button>
+          <button @click="filterVideos('상체')" class="btn btn-primary">상체</button>
+          <button @click="filterVideos(null)" class="btn btn-secondary">전체</button>
+        </div>
+      </div>
 
-    <!-- 비디오 목록을 표시하는 테이블 -->
-    <table>
-      <tr>
-        <th>제목</th>
-        <th>썸네일</th>
-        <th>채널 이름</th>
-        <th>파트</th>
-        <th>조회수</th>
-      </tr>
+      <div class="d-flex flex-wrap align-items-center">
+        <div class="col-md-auto mb-3" style="margin-right: 4px;">
+          <select class="form-select" v-model="searchInfo.orderBy" style="font-size: 1.2rem; background-color: #fff;">
+            <option value="title">제목</option>
+            <option value="view_cnt">조회수</option>
+          </select>
+        </div>
 
-      <!-- 선택된 파트에 따라 필터링된 비디오를 표시 -->
-      <tr v-for="video in filteredVideos" :key="video.id">
-        <td>{{ video.title }}</td>
-        <!-- 썸네일 이미지 표시 -->
-        <td>
-          <img :src="video.thumbnailUrl" alt="Thumbnail" @click="showVideoDetail(video.id)">
-        </td>
-        <td>{{ video.channel_name }}</td>
-        <td>{{ video.part }}</td>
-        <td>{{ video.view_cnt }}</td>
-      </tr>
-    </table>
+        <div class="col-md-auto mb-3" style="margin-right: 4px;">
+          <select class="form-select" v-model="searchInfo.orderByDir" style="font-size: 1.2rem; background-color: #fff;">
+            <option value="asc">오름차순</option>
+            <option value="desc">내림차순</option>
+          </select>
+        </div>
 
-    <!-- 비디오 정렬을 위한 컴포넌트 -->
-    <VideoSearchInput />
+        <div class="mb-3 ml-auto">
+          <button class="btn btn-primary" @click="searchVideoList">정렬</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4" v-for="video in filteredVideos" :key="video.id">
+        <div class="card mb-4">
+          <img :src="video.thumbnail" class="card-img-top" alt="Thumbnail">
+          <div class="card-body">
+            <h5 class="card-title clickable-text" @click="showVideoDetail(video.video_id)">
+              <span
+                style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-align: center; font-size: 1.5rem; ">
+                {{ emojify(video.title) }}
+              </span>
+            </h5>
+            <p class="card-text"><strong>{{ video.channel_name }}</strong></p>
+            <p class="card-text"><strong>파트</strong> {{ video.part }} | <strong>조회수</strong> {{ video.view_cnt }}</p>
+            <div class="d-flex align-items-center">
+              <span>{{ video.like_cnt }}</span>
+              <span v-if="video.is_user_liked == 1">
+                ❤️
+              </span>
+              <span v-else>
+                🤍
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { useVideoStore } from "@/stores/video";
 import { onMounted, ref, computed } from "vue";
-import VideoSearchInput from "./VideoSearchInput.vue";
-import router from "@/router"; // Vue Router 인스턴스를 가져옴
+import router from "@/router";
+import { emojify } from '@twuni/emojify';
+
 const store = useVideoStore();
 
-// 선택된 파트를 저장하는 변수
 const selectedPart = ref(null);
 
+const user = JSON.parse(sessionStorage.getItem("loginUser"));
+
 onMounted(() => {
-  // 페이지 로드시 비디오 목록을 가져옴
-  store.getVideoList();
+  store.getVideoList(user.user_id);
 });
 
-// 파트에 따라 비디오를 필터링하는 함수
 const filterVideos = (part) => {
   selectedPart.value = part;
 };
 
-// 선택된 파트에 따라 필터링된 비디오를 반환하는 계산된 속성
 const filteredVideos = computed(() => {
   if (!selectedPart.value) {
-    // 선택된 파트가 없으면 전체 비디오 목록 반환
     return store.videoList;
   }
-  // 선택된 파트와 일치하는 비디오만 반환
   return store.videoList.filter((video) => video.part === selectedPart.value);
 });
 
-// 비디오 상세 페이지로 이동하는 함수
-const showVideoDetail = (videoId) => {
-  router.push({ name: "videoDetail", params: { id: videoId } });
-};
+const showVideoDetail = function (videoId) {
+  if (videoId) {
+    router.push({ name: 'videoDetail', params: { videoId: videoId } });
+  } else {
+    console.error("Invalid videoId:", videoId);
+  }
+}
+
+const searchInfo = ref({
+  orderBy: 'title',
+  orderByDir: 'asc'
+})
+
+const searchVideoList = function () {
+  store.searchVideoList(searchInfo.value)
+}
 </script>
 
-<style scoped></style>
+<style scoped>
+.btn-primary,
+.btn-secondary {
+  height: 2.5rem;
+  line-height: 1.5;
+  padding: 1rem 1.5rem;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: #bfd49e;
+  border-color: #bfd49e;
+}
+
+.btn-primary:hover {
+  color : #bfd49e;
+  background-color: white;
+  border-color: #bfd49e;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+  color: #6c757d;
+  background-color: white;
+  border-color: #545b62;
+}
+
+.button-container {
+  display: inline-block;
+}
+
+.clickable-text {
+  cursor: pointer;
+}
+
+.clickable-text:hover {
+  color: #414951;
+  text-decoration: underline;
+}
+
+</style>

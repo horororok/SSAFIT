@@ -1,67 +1,117 @@
 <template>
-    <div>
-      <h4>비디오 상세</h4>
-      <hr>
-      <div>{{ store.video.title }}</div>
-      <div>{{ store.video.url }}</div>
-      <div>{{ store.video.channel_name }}</div>
-      <div>{{ store.video.view_cnt }}</div>
-      <div>{{ store.video.part }}</div>
-  
-      <div>삭제 수정 버튼은 리뷰로 갈 예정</div>
-      <button @click="deleteVideo">삭제</button>
-      <button @click="updateVideo">수정</button>
-      
-      <iframe
-        v-if="store.video.url"
-        width="560"
-        height="315"
-        :src="videoURL"
-        title="YouTube video player"
-        frameborder="0"
+  <div class="container mt-4">
+    <button class="btn btn-secondary" @click="goToVideoList">목록으로</button>
+    <hr>
+    <div v-if="store.video.url" class="mb-4" style="text-align: center;">
+      <iframe width="560" height="315" :src="`https://www.youtube.com/embed/${youtubeVideoId}`"
+        title="YouTube video player" frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen
-      ></iframe>
-      <button>리뷰보기</button>
-      <button>리뷰작성</button>
-      <button @click="goToVideoList">목록으로</button>
+        allowfullscreen>
+      </iframe>
     </div>
-  </template>
-  
-  <script setup>
-  import { useRoute, useRouter } from 'vue-router'
-  import { useVideoStore } from "@/stores/video";
-  import { onMounted , computed} from "vue";
-  import axios from 'axios'
-  
-  const store = useVideoStore()
-  
-  const route = useRoute();
-  const router = useRouter();
-  onMounted(() => {
-    store.getVideo(route.params.id)
-  })
-  
-  const deleteVideo = function () {
-    axios.delete(`http://localhost:8080/api-video/video/${route.params.id}`)
-      .then(() => {
-        router.push({ name: 'videoList' })
-      })
-  }
-  
-  const updateVideo = function () {
-    router.push({ name: 'videoUpdate' })
-  }
-  
+    <hr>
+    <div class="mb-1" style="font-size: 1.5em; color: #3c3c3c;"> 
+      {{ emojify(video.title) }}
+    </div>
+    <div class="mb-2 bg-light p-3">
+      <div class="d-flex justify-content-between">
+        <div class="mb-1">
+          <strong>채널</strong> {{ video.channel_name }}
+        </div>
+        <div class="mb-1">
+          <strong>파트</strong> {{ video.part }} |
+          <span @click="toggleLike" class="btn-link" style="cursor: pointer; font-size: 20px; text-decoration: none; color: #bfd49e;">
+            {{ video.is_user_liked === 1 ? "❤️" : "🤍" }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <ReviewList />
+  </div>
+</template>
+
+<script setup>
+import { useRoute, useRouter } from 'vue-router'
+import { useVideoStore } from "@/stores/video";
+import { useReviewStore } from '@/stores/review';
+import { useUserStore } from '@/stores/user';
+import { onMounted, computed } from "vue";
+import ReviewList from '@/components/review/ReviewList.vue';
+import { ref } from 'vue';
+import { emojify } from '@twuni/emojify';
+
+const store = useVideoStore()
+const reviewStore = useReviewStore()
+const userStore = useUserStore()
+
+const route = useRoute();
+const router = useRouter();
+
+const video = computed(() => store.video)
+
+onMounted(() => {
+  store.getVideo(route.params.videoId);
+  reviewStore.getReviewList(route.params.videoId);
+});
+
+
 const goToVideoList = function () {
-    router.push({ name: 'videoList' })
+  router.push({ name: 'videoList' })
+}
+
+function getYouTubeVideoId(url) {
+  const regExp = /^.*(?:youtu.be\/|v\/|e\/|u\/\w+\/|embed\/|v=)([^#\&\?]*).*/;
+  const match = url.match(regExp);
+  return (match && match[1]) ? match[1] : null;
+}
+
+const youtubeVideoId = computed(() => {
+  return store.video.url ? getYouTubeVideoId(store.video.url) : null;
+});
+
+const userId = ref(userStore.loginUserObj.user_id);
+const videoId = ref(route.params.videoId);
+
+
+const toggleLike = async function() {
+  const videolike = {
+    user_id: userId.value,
+    video_id: videoId.value,
+  };
+
+  try {
+    if (store.video.is_user_liked === 0) {
+      await store.likeVideo(videolike);
+      store.video.is_user_liked = 1;
+    } else {
+      await store.unlikeVideo(videolike);
+      store.video.is_user_liked = 0;
+    }
+  } catch (error) {
+    console.error('Error toggling like:', error);
   }
+};
 
-  const videoURL = computed(() => {
-    return store.video.url ? `https://www.youtube.com/embed/${store.video.url}` : '';
-  });
-  </script>
-  
+</script>
 
-  <style scoped></style>
-  
+
+<style scoped>
+.container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary {
+  background-color: #bfd49e;
+  border-color: #bfd49e;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background-color: #9fbf8e;
+  border-color: #9fbf8e;
+}
+
+</style>

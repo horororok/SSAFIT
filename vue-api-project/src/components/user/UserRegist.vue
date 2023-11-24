@@ -1,57 +1,77 @@
 <template>
-    <div>
-        <h2>회원가입창</h2>    
-        <fieldset class="text-center">
-        <label for="id">아이디</label>
-        <input type="text" id="id" v-model="id" class="view" />  
-        <button class="idCheck" @click="idCheck">중복확인</button>
-        <br>
-        <label for="password">비밀번호</label>
-        <input
-            type="password"
-            id="password"
-            v-model="password"
-            class="view"
-        /><br />
-        <label for="password2">비밀번호 확인</label>
-        <input
-            type="password"
-            id="password2"
-            v-model="password2"
-            class="view"
-        /><br />
-        <label for="name">이름</label>
-        <input type="text" id="name" v-model="name" class="view" /><br />
-        <label for="email">이메일</label>
-        <input type="email" id="email" v-model="email" class="view" /><br />
-        <label for="phone_num">전화번호</label>
-        <input type="text" id="phone_num" v-model="phone_num" class="view" /><br />
-        <label for="nickname">닉네임</label>
-        <input type="text" id="nickname" v-model="nickname" class="view" /><br />
-        <button class="btn" @click="regist">등록</button>
-    </fieldset>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="text-center">회원가입</h2>
+        <form class="mt-4">
+          <div class="mb-3">
+            <label for="id" class="form-label">아이디</label>
+            <div class="input-group">
+              <input type="text" class="form-control" id="id" v-model="id" />
+              <button class="btn btn-outline-secondary" type="button" @click="idCheck">중복확인</button>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">비밀번호</label>
+            <input type="password" class="form-control" id="password" v-model="password" />
+            <p v-if="password.length < 8 || (!password.includes('#') && !password.includes('@') && !password.includes('!') && !password.includes('$'))"
+              class="error-message">비밀번호는 8자리 이상이어야 하고, 특수문자를 하나 이상 포함해야 합니다.</p>
+            <p v-else class="success-message">비밀번호가 안전합니다.</p>
+          </div>
+          <div class="mb-3">
+            <label for="password2" class="form-label">비밀번호 확인</label>
+            <input type="password" class="form-control" id="password2" v-model="password2" />
+            <p v-if="password !== password2 || password === ''" class="error-message">비밀번호가 일치하지 않습니다.</p>
+            <p v-else class="success-message">비밀번호가 일치합니다.</p>
+          </div>
+
+          <div class="mb-3">
+            <label for="name" class="form-label">이름</label>
+            <input type="text" class="form-control" id="name" v-model="name" />
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">이메일</label>
+            <input type="email" class="form-control" placeholder="이메일을 입력해주세요." id="email" v-model="email" />
+          </div>
+          <div class="mb-3">
+            <label for="nickname" class="form-label">닉네임</label>
+            <div class="input-group">
+              <input type="text" class="form-control" id="nickname" v-model="nickname" />
+              <button class="btn btn-outline-secondary" type="button" @click="nicknameCheck">중복확인</button>
+            </div>
+          </div>
+          <button type="button" class="btn btn-success" @click="regist">회원 가입</button>
+        </form>
+      </div>
+      <div class="col-md-6">
+        <div class="cat-background"></div>
+      </div>
     </div>
+
+  </div>
 </template>
 
-<script setup>
-import {ref} from "vue";
-import axios from "axios";
-import {useUserStore} from "@/stores/user";
 
-const store = useUserStore()
+<script setup>
+import { ref, computed } from "vue";
+import axios from "axios";
+import { useUserStore } from "@/stores/user";
+
+const store = useUserStore();
 
 const id = ref("");
 const password = ref("");
 const password2 = ref("");
 const name = ref("");
 const email = ref("");
-const phone_num = ref("");
 const nickname = ref("");
-
 const users = ref([]);
 
+const idChecked = ref(false);
+const nicknameChecked = ref(false);
+
 const getUserList = () => {
-  const API_URL = `http://localhost:8080/api-user/users`;
+  const API_URL = `http://localhost:8080/user/users`;
   axios({
     url: API_URL,
     method: "GET",
@@ -64,64 +84,113 @@ const getUserList = () => {
     });
 };
 
-//아이디 중복 체크 
 const idCheck = () => {
-    const user = {
-        id: id.value
-    }
+  const user = {
+    id: id.value,
+  };
 
-    if(users.value.some((u) => u.id === user.id)){
-      alert("이미 사용 중인 아이디입니다.");
-      return;
-    }else{
-        alert("사용 가능한 아이디입니다.");
-    }
-}
+  if (users.value.some((u) => u.id === user.id)) {
+    alert("이미 사용 중인 아이디입니다.");
+  } else {
+    alert("사용 가능한 아이디입니다.");
+    idChecked.value = true;
+  }
+};
 
-//유효성 검사
-const regist =() => {
-    const user = {
-        id: id.value,
-        password : password.value,
-        name: name.value,
-        email : email.value, 
-        phone_num : phone_num.value,
-        nickname: nickname.value,
-    }
+const nicknameCheck = () => {
+  const user = {
+    nickname: nickname.value,
+  };
 
-    if(!email.value.includes('@')){
+  if (users.value.some((u) => u.nickname === user.nickname)) {
+    alert("이미 사용 중인 닉네임입니다.");
+  } else {
+    alert("사용 가능한 닉네임입니다.");
+    nicknameChecked.value = true;
+  }
+};
+
+
+const regist = () => {
+  const user = {
+    id: id.value,
+    password: password.value,
+    name: name.value,
+    email: email.value,
+    nickname: nickname.value,
+  };
+
+  if (!email.value.includes('@')) {
     alert("올바른 이메일 형식이 아닙니다.");
     return;
-    }
+  }
 
-    let reg = /^(?=.*[@$!%*#?&]).{8,}$/;
-    if(!reg.test(password.value)){ 
-      alert("비밀번호는 8자리 이상이며 특수문자를 1개 이상 포함해야 합니다.");
-      return;
-    }
+  let reg = /^(?=.*[@$!%*#?&]).{8,}$/;
+  if (!reg.test(password.value)) {
+    alert("비밀번호는 8자리 이상이며 특수문자를 1개 이상 포함해야 합니다.");
+    return;
+  }
 
-    if(password.value !== password2.value){
-      alert("비밀번호가 일치하지 않습니다.");
-      return;
-    }
+  if (password.value !== password2.value) {
+    alert("비밀번호가 일치하지 않습니다.");
+    return;
+  }
 
-    if(phone_num.value.length != 11){
-        alert("전화번호는 숫자만 입력해 주십시오.");
-        return;
-    } //수정해야함
 
-    if(users.value.some((u) => u.nickname === user.nickname)){
-      alert("이미 사용 중인 닉네임입니다.");
-      return;
-    }
+  if (!idChecked.value) {
+    alert("아이디 중복 확인을 해주세요.");
+    return;
+  }
 
-    store.createUser(user);
+  if (!nicknameChecked.value) {
+    alert("닉네임 중복 확인을 해주세요.");
+    return;
+  }
+
+  store.createUser(user);
 };
 
 getUserList();
-
 </script>
 
 <style scoped>
+.cat-background {
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+  background-image: url("@/assets/img/registercat.jpg");
+  background-size: cover;
+  border-radius: 10px;
+  min-height: 100%;
+}
 
+.container {
+  position: relative;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.col-md-6 {
+  padding: 10;
+}
+
+body {
+  background-color: #f8f9fa;
+}
+
+.btn-outline-secondary {
+  border-radius: 0;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+}
+
+.success-message {
+  color: green;
+  font-size: 12px;
+}
 </style>
