@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.ssafit.model.dao.VideoLikeDao">
+	<insert id="likeVideo" parameterType="VideoLike">
+		INSERT INTO video_like (user_id, video_id)
+		VALUES (#{user_id}, #{video_id})
+	</insert>
+	
+	<delete id="unlikeVideo" parameterType="VideoLike">
+		DELETE FROM video_like
+		WHERE user_id = #{user_id} AND video_id = #{video_id}
+	</delete>
+	
+	<update id="plusVideoLikeCnt" parameterType="VideoLike">
+		UPDATE video
+		SET liked_cnt = liked_cnt + 1
+		WHERE video_id = #{video_id}
+	</update>
+	
+	<update id="minusVideoLikeCnt" parameterType="VideoLike">
+		UPDATE video
+		SET liked_cnt = liked_cnt - 1
+		WHERE video_id = #{video_id}
+	</update>
+	
+	<select id="getLikeList" parameterType="int" resultType="Video">
+		SELECT *
+		FROM video
+		WHERE video_id IN (SELECT video_id
+							FROM video_like
+							WHERE user_id = #{user_id})
+	</select>
+</mapper>

@@ -14,10 +14,11 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 	
 	@Autowired
-	public void setUserDao(UserDao userDao) {
+	public UserServiceImpl(UserDao userDao) {
 		this.userDao = userDao;
 	}
-
+	
+	
 	@Override
 	public List<User> getUserList() {
 		return userDao.selectAll();
@@ -35,6 +36,11 @@ public class UserServiceImpl implements UserService {
 			return tmp;
 		
 		return null; //틀리면 null 반환
+	}
+
+	@Override
+	public User searchById(String id) {
+		return userDao.selectOne(id);
 	}
 
 }

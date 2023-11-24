@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.ssafy.ssafit.model.dao.BookMarkDao">
+  
+  	<insert id="insertBookMark" parameterType="Bookmark">
+  		INSERT INTO sports_board_like (board_id, user_id)
+  		VALUES (#{board_id}, #{user_id})
+  	</insert>
+  
+  	<delete id="deleteBookMark" parameterType="Bookmark">
+  		DELETE FROM sports_board_like
+  		WHERE board_id = #{board_id} AND user_id = #{user_id}
+  	</delete>
+  
+  	<select id="getBookMarkList" parameterType="int" resultType="Board">
+  		SELECT *
+  		FROM sports_board
+  		LEFT OUTER JOIN sports_board_like
+  		ON user_id = #{id}
+  	</select>
+  	
+  	<!-- sportsboard랑 like에 데이터 넣어서 찜 잘 되는지 확인하기 -->
+  
+  </mapper>

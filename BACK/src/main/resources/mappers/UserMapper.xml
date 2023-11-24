@@ -3,13 +3,14 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.ssafit.model.dao.UserDao">
+	
 	<select id="selectAll" resultType="User">
 		SELECT * FROM user
 	</select>
 	
 	<insert id="insertUser" parameterType="User">
-		INSERT INTO user (id, password, name, email, phone_num, nickname)
-		VALUES (#{id}, #{password}, #{name}, #{email}, #{phone_num}, #{nickname})
+		INSERT INTO user (id, password, name, email, nickname)
+		VALUES (#{id}, #{password}, #{name}, #{email}, #{nickname})
 	</insert>
 	
 	<select id="selectOne" parameterType="string" resultType="User">
@@ -17,4 +18,5 @@
 		FROM user
 		WHERE id = #{id}
 	</select>
+	
 </mapper>

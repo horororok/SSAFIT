@@ -8,11 +8,13 @@ public class Video {
 	private String channel_name;
 	private int view_cnt;
 	private String part;
+	private int liked_cnt; //좋아요 받은 개수 (모든 유저에게)
+	private int is_user_liked; //현재 로그인 한 유저가 이 동영상을 좋아요 했는지 안했는지 (했으면 1, 아니면 0)
 	
 	public Video() {}
 
 	public Video(int video_id, String title, String url, String thumbnail, String channel_name, int view_cnt,
-			String part) {
+			String part, int liked_cnt, int is_user_liked) {
 		this.video_id = video_id;
 		this.title = title;
 		this.url = url;
@@ -20,6 +22,8 @@ public class Video {
 		this.channel_name = channel_name;
 		this.view_cnt = view_cnt;
 		this.part = part;
+		this.liked_cnt = liked_cnt;
+		this.is_user_liked = is_user_liked;
 	}
 
 	public int getVideo_id() {
@@ -77,11 +81,29 @@ public class Video {
 	public void setPart(String part) {
 		this.part = part;
 	}
+	
+
+	public int getLiked_cnt() {
+		return liked_cnt;
+	}
+
+	public void setLiked_cnt(int liked_cnt) {
+		this.liked_cnt = liked_cnt;
+	}
+
+	public int getIs_user_liked() {
+		return is_user_liked;
+	}
+
+	public void setIs_user_liked(int is_user_liked) {
+		this.is_user_liked = is_user_liked;
+	}
 
 	@Override
 	public String toString() {
 		return "Video [video_id=" + video_id + ", title=" + title + ", url=" + url + ", thumbnail=" + thumbnail
-				+ ", channel_name=" + channel_name + ", view_cnt=" + view_cnt + ", part=" + part + "]";
+				+ ", channel_name=" + channel_name + ", view_cnt=" + view_cnt + ", part=" + part + ", liked_cnt="
+				+ liked_cnt + ", is_user_liked=" + is_user_liked + "]";
 	}
-	
+
 }

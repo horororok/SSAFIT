@@ -2,46 +2,38 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="com.ssafy.ssafit.model.dao.VideoDao">
-  
-  	<select id="selectAll" resultType="Video">
-  		SELECT * 
-  		FROM video
-  	</select>
-  
-  	<select id="selectOne" parameterType="int" resultType="Video">
-  		SELECT *
-  		FROM video
-  		WHERE video_id = #{id}
-  	</select>
-  	
-  	<select id="search" resultType="Video" parameterType="SearchCondition">
-		SELECT *
-		FROM video
-		<if test="key != 'none'">
-			WHERE ${key} LIKE concat('%', #{word}, '%')
+<mapper namespace="com.ssafy.ssafit.model.dao.VideoDao">
+
+	<select id="selectAll" parameterType="int" resultType="Video">
+		SELECT v.video_id, v.title, v.url, v.thumbnail, v.channel_name, v.view_cnt, v.part, v.liked_cnt,
+		(SELECT COUNT(*) FROM video_like l WHERE l.user_id = #{user_id} AND l.video_id = v.video_id) AS is_user_liked
+		FROM video v
+	</select>
+
+	<select id="selectOne" parameterType="map" resultType="Video">
+		SELECT v.video_id, v.title, v.url, v.thumbnail, v.channel_name, v.view_cnt, v.part, v.liked_cnt,
+		(SELECT COUNT(*) FROM video_like l WHERE l.user_id = #{user_id} AND l.video_id = v.video_id) AS is_user_liked
+		FROM video v
+		WHERE v.video_id = #{video_id}
+	</select>
+
+	<select id="search" resultType="Video" parameterType="map">
+		SELECT v.video_id, v.title, v.url, v.thumbnail, v.channel_name, v.view_cnt, v.part, v.liked_cnt,
+		(SELECT COUNT(*) FROM video_like l WHERE l.user_id = #{user_id} AND l.video_id = v.video_id) AS is_user_liked
+		FROM video v
+		<if test="condition.key != 'none'">
+			WHERE ${condition.key} LIKE concat('%', #{condition.word},'%')
 		</if>
-		<if test="orderBy != 'none'">
-			ORDER BY ${orderBy} ${orderByDir}
+		<if test="condition.orderBy != 'none'">
+			ORDER BY ${condition.orderBy} ${condition.orderByDir}
 		</if>
 	</select>
-	
-	<insert id="insert" parameterType="Video">
-  		INSERT INTO video (title, url, thumbnail, channel_name, part)
-  		VALUES (#{title}, #{url}, #{thumbnail}, #{channel_name}, #{part})
-  	</insert>
-  
-  
-  	<update id="update" parameterType="Video">
-  		UPDATE video
-  		SET title= #{title}, url = #{url}, thumbnail = #{thumbnail}, channel_name = #{channel_name}, part = #{part}
-  		WHERE video_id = #{video_id};
-  	</update>
-  
-  
-	<delete id="delete" parameterType="int">
-		DELETE FROM video
+
+	<update id="updateView" parameterType="int">
+		UPDATE video
+		SET view_cnt =
+		view_cnt + 1
 		WHERE video_id = #{id};
-	</delete>
-  	
-  </mapper>
+	</update>
+
+</mapper>

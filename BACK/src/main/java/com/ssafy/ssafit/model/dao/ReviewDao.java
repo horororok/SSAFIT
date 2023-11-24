@@ -6,14 +6,15 @@ import com.ssafy.ssafit.model.dto.Review;
 
 public interface ReviewDao {
 
-	List<Review> selectAll(int id);
+	List<Review> selectAllReview(int id);
 	
-	Review selectOne(int id);
+	Review selectReviewOne(int id);
 	
-	int insert(Review review);
+	int insertReview(Review review);
 	
-	int update(Review review);
+	int updateReview(Review review);
 	
-	int delete(int id);
+	int deleteReview(int id);
+	
 	
 }

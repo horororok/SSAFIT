@@ -64,9 +64,14 @@
 			<artifactId>springfox-boot-starter</artifactId>
 			<version>3.0.0</version>
 		</dependency>
-		
-		
-		
+		<!-- jsonparser -->
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version> <!-- 버전은 최신 버전으로 변경 가능 -->
+		</dependency>
+
+
 	</dependencies>
 
 	<build>

@@ -27,21 +27,63 @@
 	</select>
 	
 	<insert id="insert" parameterType="Video">
-  		INSERT INTO video (title, url, channel_name, part)
-  		VALUES (#{title}, #{url}, #{channel_name}, #{part})
+  		INSERT INTO video (title, url, thumbnail, channel_name, part)
+  		VALUES (#{title}, #{url}, #{thumbnail}, #{channel_name}, #{part})
   	</insert>
   
   
   	<update id="update" parameterType="Video">
   		UPDATE video
-  		SET title= #{title}, url = #{url}, channel_name = #{channel_name}, part = #{part}
-  		WHERE video_seq = #{video_seq};
+  		SET title= #{title}, url = #{url}, thumbnail = #{thumbnail}, channel_name = #{channel_name}, part = #{part}
+  		WHERE video_id = #{video_id};
   	</update>
   
   
 	<delete id="delete" parameterType="int">
 		DELETE FROM video
-		WHERE video_seq = #{id};
+		WHERE video_id = #{id};
 	</delete>
+	
+	<update id="updateView" parameterType="int">
+		UPDATE video
+		SET view_cnt = view_cnt + 1
+		WHERE video_id = #{id};
+	</update>
+	
+	
+	<!-- 리뷰 관련  -->
+	
+	<select id="selectAllReview" parameterType="int" resultType="Review">
+		SELECT rv.review_id, rv.content, rv.created_at, rv.user_id, rv.video_id, us.nickname
+		FROM review AS rv
+		LEFT OUTER JOIN user AS us
+		ON us.user_id = rv.user_id
+		WHERE rv.video_id = #{id}
+	</select>
+	
+	<select id="selectReviewOne" parameterType="int" resultType="Review">
+		SELECT rv.review_id, rv.content, rv.created_at, rv.user_id, rv.video_id, us.nickname 
+		FROM review AS rv
+		LEFT OUTER JOIN user AS us
+		ON us.user_id = rv.user_id
+		WHERE rv.review_id = #{id};
+	</select>
+	
+	<insert id="insertReview" parameterType="Review">
+		INSERT INTO review (content, user_id, video_id)
+		VALUES (#{content}, #{user_id}, #{video_id})
+	</insert>
+	
+	<update id="updateReview" parameterType="Review">
+		UPDATE review
+		SET content = #{content}
+		WHERE review_id = #{review_id}
+	</update>
+	
+	<delete id="deleteReview" parameterType="int">
+		DELETE FROM review
+		WHERE review_id = #{id}
+	</delete>
+	
   	
   </mapper>
